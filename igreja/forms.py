@@ -1,5 +1,5 @@
 from django import forms
-from .models import Usuario
+from .models import Usuario, Igreja
 
 
 class UsuarioCreateForm(forms.ModelForm):
@@ -63,3 +63,29 @@ class UsuarioCreateForm(forms.ModelForm):
             usuario.save()
 
         return usuario
+    
+    
+class IgrejaCreateForm(forms.ModelForm):
+    class Meta:
+        model = Igreja
+        fields = [
+            "nome",
+            "endereco",
+            "bairro",
+            "cidade",
+            "paroquia",
+            "capela",
+            "aberta_ao_publico",
+            "latitude",
+            "longitude",
+            "sacerdotes",
+            "telefone",
+            "imagem",
+            "email",
+            "site",
+            "facebook",
+            "instagram",
+            "youtube",
+            "maps",
+            "contato_whatsapp",
+        ]

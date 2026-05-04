@@ -9,7 +9,7 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.cache import never_cache
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
-
+from .forms import IgrejaCreateForm
 from .models import Contato, Igreja, TipoCelebracao
 from .utils import (
     calcular_distancia,
@@ -110,6 +110,98 @@ def listar_contatos(request):
 
     return render(request, "admin/contatos.html", context)
 
+@login_required(login_url="login_superusuario")
+@user_passes_test(somente_superusuario, login_url="login_superusuario")
+def listar_igrejas(request):
+    busca = request.GET.get("q", "").strip()
+    filtro_bairro = request.GET.get("bairro", "").strip()
+    filtro_cidade = request.GET.get("cidade", "").strip()
+
+    igrejas = Igreja.objects.all().order_by("nome")
+
+    if busca:
+        igrejas = igrejas.filter(
+            Q(nome__icontains=busca) |
+            Q(bairro__icontains=busca) |
+            Q(cidade__icontains=busca)
+        )
+
+    if filtro_bairro:
+        igrejas = igrejas.filter(bairro__icontains=filtro_bairro)
+
+    if filtro_cidade:
+        igrejas = igrejas.filter(cidade__icontains=filtro_cidade)
+
+    paginator = Paginator(igrejas, 10)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        "page_obj": page_obj,
+        "busca": busca,
+        "filtro_bairro": filtro_bairro,
+        "filtro_cidade": filtro_cidade,
+    }
+
+    return render(request, "admin/listar_igrejas.html", context)
+
+
+@login_required(login_url="login_superusuario")
+@user_passes_test(somente_superusuario, login_url="login_superusuario")
+def cadastrar_igreja(request):
+    if request.method == "POST":
+        form = IgrejaCreateForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Igreja cadastrada com sucesso!")
+            return redirect("igrejas_dashboard")  
+        else:
+            messages.error(request, "Erro ao cadastrar a igreja. Verifique os dados.")
+
+    else:
+        form = IgrejaCreateForm()
+
+    return render(request, "admin/cadastrar_igreja.html", {"form": form})
+
+
+@login_required(login_url="login_superusuario")
+@user_passes_test(somente_superusuario, login_url="login_superusuario")
+def excluir_igreja(request, slug):
+    igreja = get_object_or_404(Igreja, slug=slug)
+
+    if request.method == "POST":
+        # Confirmação de exclusão
+        igreja.delete()
+        messages.success(request, f"Igreja {igreja.nome} excluída com sucesso.")
+        return redirect("igrejas_dashboard")
+
+    context = {
+        "igreja": igreja,
+    }
+
+    return render(request, "admin/excluir_igreja.html", context)
+
+
+@login_required(login_url="login_superusuario")
+@user_passes_test(somente_superusuario, login_url="login_superusuario")
+def editar_igreja(request, slug):
+    igreja = get_object_or_404(Igreja, slug=slug)
+
+    if request.method == "POST":
+        form = IgrejaCreateForm(request.POST, request.FILES, instance=igreja)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"Igreja {igreja.nome} atualizada com sucesso!")
+            return redirect("igrejas_dashboard")
+        else:
+            messages.error(request, "Erro ao atualizar a igreja. Verifique os dados.")
+
+    else:
+        form = IgrejaCreateForm(instance=igreja)
+
+    return render(request, "admin/editar_igreja.html", {"form": form, "igreja": igreja})
 
 
 ## VIEWS PÚBLICAS

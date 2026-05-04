@@ -1,0 +1,114 @@
+.ci-header {
+    margin-bottom: 30px;
+}
+
+.ci-btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #4D7FB8;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.ci-header h1 {
+    font-family: 'Playfair Display', serif;
+    color: #1E3A5F;
+    font-size: 2rem;
+}
+
+.ci-card {
+    background: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.ci-form__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.ci-form__group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ci-form__group--full {
+    grid-column: span 2;
+}
+
+.ci-form__group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #1E3A5F;
+}
+
+.ci-form__group input,
+.ci-form__group select,
+.ci-form__group textarea {
+    padding: 12px;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    outline: none;
+    transition: 0.3s;
+    font-family: inherit;
+}
+
+.ci-form__group input:focus {
+    border-color: #D4A72C;
+    box-shadow: 0 0 0 3px rgba(212, 167, 44, 0.1);
+}
+
+.ci-form__error {
+    color: #C0392B;
+    font-size: 0.75rem;
+    margin-top: 2px;
+}
+
+.ci-form__actions {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #F3F4F6;
+    display: flex;
+    gap: 15px;
+}
+
+.ci-btn-save {
+    background: #27AE60;
+    color: #fff;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.ci-btn-save:hover {
+    background: #219150;
+    transform: translateY(-2px);
+}
+
+.ci-btn-cancel {
+    background: #F3F4F6;
+    color: #6B7280;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+@media (max-width: 768px) {
+    .ci-form__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ci-form__group--full {
+        grid-column: span 1;
+    }
+}

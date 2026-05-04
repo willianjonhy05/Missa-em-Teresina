@@ -1,0 +1,77 @@
+{% extends 'admin/base_admin.html' %}
+
+{% load static %}
+
+{% block title %}Editar Igreja{% endblock %}
+
+
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'css/admin/editar_igreja.css' %}">
+{% endblock %}
+
+
+
+{% block breadcrumb %}Editar: {{ igreja.nome }}{% endblock %}
+
+
+{% block page_title %}Editar: {{ igreja.nome }}{% endblock %}
+
+
+
+{% block content %}
+
+
+
+<div class="admin-page ei-page">
+    <div class="ei-header">
+        <a href="{% url 'listar_igrejas' %}" class="ei-btn-back"><i class="fas fa-arrow-left"></i> Voltar</a>
+        <h1>Editar: {{ igreja.nome }}</h1>
+    </div>
+
+    <div class="ei-card">
+        <form method="POST" enctype="multipart/form-data" class="ei-form">
+            {% csrf_token %}
+            
+            <div class="ei-form__grid">
+                <!-- Preview da imagem atual -->
+                {% if igreja.imagem %}
+                <div class="ei-form__group ei-form__group--full">
+                    <label>Imagem Atual</label>
+                    <div class="ei-image-preview">
+                        <img src="{{ igreja.imagem.url }}" alt="{{ igreja.nome }}">
+                    </div>
+                </div>
+                {% endif %}
+
+                {% for field in form %}
+                <div class="ei-form__group {% if field.name == 'endereco' or field.name == 'descricao' %}ei-form__group--full{% endif %}">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <span class="ei-form__error">{{ field.errors|striptags }}</span>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="ei-form__actions">
+                <button type="submit" class="ei-btn-save">Atualizar Dados</button>
+                <a href="{% url 'listar_igrejas' %}" class="ei-btn-cancel">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+
+
+{% block js %}
+
+
+
+
+{% endblock %}

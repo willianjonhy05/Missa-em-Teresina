@@ -1,0 +1,66 @@
+{% extends 'admin/base_admin.html' %}
+
+{% load static %}
+
+{% block title %}Cadastrar Igreja{% endblock %}
+
+
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'css/admin/cadastrar_igreja.css' %}">
+{% endblock %}
+
+
+
+{% block breadcrumb %}Nova Igreja{% endblock %}
+
+
+{% block page_title %}Excluir Igreja{% endblock %}
+
+
+
+{% block content %}
+
+
+
+
+<div class="admin-page ci-page">
+    <div class="ci-header">
+        <a href="{% url 'listar_igrejas' %}" class="ci-btn-back"><i class="fas fa-arrow-left"></i> Voltar</a>
+        <h1>Cadastrar Nova Igreja</h1>
+    </div>
+
+    <div class="ci-card">
+        <form method="POST" enctype="multipart/form-data" class="ci-form">
+            {% csrf_token %}
+            
+            <div class="ci-form__grid">
+                {% for field in form %}
+                <div class="ci-form__group {% if field.name == 'endereco' or field.name == 'descricao' %}ci-form__group--full{% endif %}">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <span class="ci-form__error">{{ field.errors|striptags }}</span>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="ci-form__actions">
+                <button type="submit" class="ci-btn-save">Salvar Igreja</button>
+                <a href="{% url 'listar_igrejas' %}" class="ci-btn-cancel">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+{% block js %}
+
+
+
+
+{% endblock %}

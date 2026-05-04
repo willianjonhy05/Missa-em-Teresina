@@ -1,0 +1,268 @@
+.li-page {
+    --success: #27AE60;
+    --danger: #C0392B;
+}
+
+.li-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.li-header h1 {
+    font-family: 'Playfair Display', serif;
+    color: #1E3A5F;
+    font-size: 1.8rem;
+}
+
+.li-header p {
+    color: #6B7280;
+    font-size: 0.9rem;
+}
+
+.li-btn-add {
+    background: #D4A72C;
+    color: #1E3A5F;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.li-btn-add:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(212, 167, 44, 0.3);
+}
+
+/* Filtros */
+.li-filters {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+.li-filters__form {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.li-filters__group input {
+    padding: 10px 15px;
+    border: 1px solid #E5E7EB;
+    border-radius: 6px;
+    outline: none;
+    width: 220px;
+}
+
+.li-btn-filter {
+    background: #1E3A5F;
+    color: #fff;
+    border: none;
+    padding: 0 20px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.li-btn-clear {
+    background: #F3F4F6;
+    color: #6B7280;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+}
+
+/* Tabela */
+.li-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+}
+
+.li-table-wrapper {
+    overflow-x: auto;
+}
+
+.li-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.li-table th {
+    background: #F9FAFB;
+    padding: 15px 20px;
+    font-size: 0.85rem;
+    color: #6B7280;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.li-table td {
+    padding: 18px 20px;
+    border-bottom: 1px solid #F3F4F6;
+    font-size: 0.95rem;
+}
+
+.li-table__empty {
+    text-align: center;
+    padding: 50px !important;
+    color: #9CA3AF;
+}
+
+.li-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.li-action-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+    color: #fff;
+}
+
+.li-action-btn--view {
+    background: #4D7FB8;
+}
+
+.li-action-btn--edit {
+    background: #D4A72C;
+}
+
+.li-action-btn--delete {
+    background: #C0392B;
+}
+
+.li-action-btn:hover {
+    opacity: 0.8;
+    transform: scale(1.1);
+}
+
+/* Paginação */
+.li-pagination {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #F3F4F6;
+}
+
+.li-pagination__info {
+    font-size: 0.85rem;
+    color: #6B7280;
+}
+
+.li-pagination__nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.li-pagination__nav a {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #E5E7EB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    color: #1E3A5F;
+}
+
+.li-pagination__current {
+    font-weight: 700;
+    color: #D4A72C;
+}
+
+/* Modal */
+.li-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 20px;
+}
+
+.li-modal.active {
+    display: flex;
+}
+
+.li-modal__content {
+    background: #fff;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 12px;
+    overflow: hidden;
+    animation: modalSlide 0.3s ease;
+}
+
+.li-modal__header {
+    padding: 20px;
+    border-bottom: 1px solid #F3F4F6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.li-modal__header h3 {
+    font-family: 'Playfair Display', serif;
+    color: #1E3A5F;
+}
+
+.li-modal__header button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #9CA3AF;
+}
+
+.li-modal__body {
+    padding: 20px;
+}
+
+.li-modal__image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.li-modal__info p {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    color: #4B5563;
+}
+
+@keyframes modalSlide {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

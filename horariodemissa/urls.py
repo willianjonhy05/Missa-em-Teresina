@@ -38,6 +38,12 @@ urlpatterns = [
     
     path('dashboard/', views.dashboard, name='dashboard'),
     path('dashboard/contatos/', views.listar_contatos, name='contatos_dashboard'),
+    path('dashboard/igrejas/', views.listar_igrejas, name='igrejas_dashboard'),
+    path('dashboard/igrejas/cadastrar/', views.cadastrar_igreja, name='cadastrar_igreja'),
+    path('dashboard/igrejas/<slug:slug>/editar/', views.editar_igreja, name='editar_igreja'),
+    path('dashboard/igrejas/<slug:slug>/excluir/', views.excluir_igreja, name='excluir_igreja'),
+    
+    
 ]
 
 

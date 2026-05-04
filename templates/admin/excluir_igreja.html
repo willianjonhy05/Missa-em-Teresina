@@ -1,0 +1,114 @@
+{% extends 'admin/base_admin.html' %}
+
+{% load static %}
+
+{% block title %}Excluir Igreja{% endblock %}
+
+
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'css/admin/excluir_igreja.css' %}">
+{% endblock %}
+
+
+
+{% block breadcrumb %}Excluir Igreja{% endblock %}
+
+
+{% block page_title %}Excluir Igreja{% endblock %}
+
+
+
+{% block content %}
+
+<div class="admin-page ex-page">
+    <div class="ex-card">
+        <div class="ex-card__icon">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <h2>Confirmar Exclusão</h2>
+        <p>Você tem certeza que deseja excluir permanentemente a igreja: <strong>{{ igreja.nome }}</strong>?</p>
+        <p class="ex-card__warning">Esta ação não pode ser desfeita e removerá todas as celebrações vinculadas.</p>
+
+        <form method="POST" class="ex-form">
+            {% csrf_token %}
+            <div class="ex-form__actions">
+                <button type="submit" class="ex-btn-confirm">Sim, Excluir</button>
+                <a href="{% url 'listar_igrejas' %}" class="ex-btn-cancel">Não, Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+{% block js %}
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const openButtons = document.querySelectorAll("[data-modal-target]");
+        const closeButtons = document.querySelectorAll("[data-modal-close]");
+        const overlays = document.querySelectorAll(".admin-modal-overlay");
+
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+
+            if (!modal) {
+                return;
+            }
+
+            modal.classList.add("active");
+            document.body.classList.add("menu-open");
+        }
+
+        function closeModal(modal) {
+            if (!modal) {
+                return;
+            }
+
+            modal.classList.remove("active");
+            document.body.classList.remove("menu-open");
+        }
+
+        openButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                const modalId = button.getAttribute("data-modal-target");
+                openModal(modalId);
+            });
+        });
+
+        closeButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                const modal = button.closest(".admin-modal-overlay");
+                closeModal(modal);
+            });
+        });
+
+        overlays.forEach(function (overlay) {
+            overlay.addEventListener("click", function (event) {
+                if (event.target === overlay) {
+                    closeModal(overlay);
+                }
+            });
+        });
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                const activeModal = document.querySelector(".admin-modal-overlay.active");
+                closeModal(activeModal);
+            }
+        });
+    });
+</script>
+
+
+{% endblock %}
