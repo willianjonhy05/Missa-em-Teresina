@@ -1,0 +1,329 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Painel Administrativo{% endblock %} | Missa em Teresina</title>
+
+
+    <link rel="icon" type="image/png" href="{% static 'img/logo/favicon32x32.png' %}">
+    <link rel="apple-touch-icon" href="{% static 'img/logo/favicon180x180.png' %}" />
+    <link rel="icon" href="{% static 'img/logo/favicon32x32' %}" sizes="32x32" />
+    <link rel="icon" href="{% static 'img/logo/favicon192x192.png' %}" sizes="192x192" />
+    <link rel="canonical" href="https://missaemteresina.com.br/" />
+
+    <meta name="robots" content="noindex, nofollow">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link 
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" 
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="{% static 'css/admin.css' %}">
+
+    {% block css %}{% endblock %}
+</head>
+
+<body class="admin-layout">
+
+    <div class="admin-overlay" id="adminOverlay"></div>
+
+    <aside class="admin-sidebar" id="adminSidebar" aria-label="Menu administrativo">
+
+        <div class="sidebar-header">
+            <a href="#" class="sidebar-brand" aria-label="Painel Missa em Teresina">
+                <span class="sidebar-brand__icon">
+                    <i class="fas fa-church"></i>
+                </span>
+
+                <span class="sidebar-brand__text">
+                    <small>Painel</small>
+                    <strong>Missa em Teresina</strong>
+                </span>
+            </a>
+
+            <button class="sidebar-close" id="sidebarClose" type="button" aria-label="Fechar menu">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="sidebar-section">
+                <span class="sidebar-section-title">Principal</span>
+
+                <ul>
+                    <li class="nav-item">
+                        <a href="{% url 'dashboard' %}" class="nav-link ">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-place-of-worship"></i>
+                            <span>Igrejas</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Celebrações</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-book-bible"></i>
+                            <span>Liturgia do Dia</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <span class="sidebar-section-title">Gestão</span>
+
+                <ul>
+                    <li class="nav-item">
+                        <a href="{% url 'contatos_dashboard' %}" class="nav-link">
+                            <i class="fas fa-envelope"></i>
+                            <span>Mensagens</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Usuários</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fas fa-gear"></i>
+                            <span>Configurações</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="{% url 'home' %}" target="_blank" rel="noopener noreferrer" class="view-site-link">
+                <i class="fas fa-arrow-up-right-from-square"></i>
+                <span>Ver site público</span>
+            </a>
+        </div>
+
+    </aside>
+
+    <section class="admin-main">
+
+        <header class="admin-header">
+
+            <div class="header-left">
+                <button class="menu-toggle" id="menuToggle" type="button" aria-label="Abrir menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <div class="page-heading">
+                    <div class="breadcrumb">
+                        <span>Painel</span>
+                        <i class="fas fa-chevron-right"></i>
+                        <span class="current">Início</span>
+                        <i class="fas fa-chevron-right"></i>
+                        <span class="current">{% block breadcrumb %}Dashboard{% endblock %}</span>
+                    </div>
+
+                    <h1>{% block page_title %}Painel Administrativo{% endblock %}</h1>
+                </div>
+            </div>
+
+            <div class="header-right">
+
+                <a href="{% url 'home' %}" target="_blank" rel="noopener noreferrer" class="header-action" title="Abrir site público">
+                    <i class="fas fa-globe"></i>
+                </a>
+
+                <div class="user-profile">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+
+                    <div class="user-info">
+                        <span class="user-name">
+                            {% if request.user.nome %}
+                                {{ request.user.nome }}
+                            {% elif request.user.email %}
+                                {{ request.user.email }}
+                            {% elif request.user.username %}
+                                {{ request.user.username }}
+                            {% else %}
+                                Administrador
+                            {% endif %}
+                        </span>
+
+                        <span class="user-role">
+                            {% if request.user.is_superuser %}
+                                Superusuário
+                            {% elif request.user.is_staff %}
+                                Equipe administrativa
+                            {% else %}
+                                Usuário
+                            {% endif %}
+                        </span>
+                    </div>
+
+                    <a href="{% url 'logout_superusuario' %}" class="logout-btn" title="Sair do sistema">
+                        <i class="fas fa-right-from-bracket"></i>
+                    </a>
+                </div>
+
+            </div>
+
+        </header>
+
+        <main class="admin-content">
+            <div class="admin-container">
+
+                {% if messages %}
+                    <div class="admin-messages">
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                <div class="alert-icon">
+                                    {% if message.tags == "success" %}
+                                        <i class="fas fa-check-circle"></i>
+                                    {% elif message.tags == "error" or message.tags == "danger" %}
+                                        <i class="fas fa-circle-exclamation"></i>
+                                    {% elif message.tags == "warning" %}
+                                        <i class="fas fa-triangle-exclamation"></i>
+                                    {% else %}
+                                        <i class="fas fa-circle-info"></i>
+                                    {% endif %}
+                                </div>
+
+                                <div class="alert-content">
+                                    {{ message }}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% block content %}
+
+                <section class="dashboard-welcome">
+                    <div>
+                        <span class="eyebrow">Visão geral</span>
+                        <h2>Bem-vindo ao painel</h2>
+                        <p>Gerencie igrejas, celebrações, horários, mensagens e usuários administrativos.</p>
+                    </div>
+
+                    <a href="{% url 'home' %}" target="_blank" rel="noopener noreferrer" class="btn-admin btn-admin-primary">
+                        Ver site público
+                        <i class="fas fa-arrow-up-right-from-square"></i>
+                    </a>
+                </section>
+
+                <section class="stat-grid">
+                    <article class="stat-card">
+                        <div>
+                            <span class="label">Igrejas cadastradas</span>
+                            <strong class="value">{{qtde_igrejas}}</strong>
+                            <small class="hint">Total disponível no sistema</small>
+                        </div>
+
+                        <div class="icon-box">
+                            <i class="fas fa-church"></i>
+                        </div>
+                    </article>
+
+                    <article class="stat-card">
+                        <div>
+                            <span class="label">Celebrações ativas</span>
+                            <strong class="value">{{qtde_tipos_celebracao}}</strong>
+                            <small class="hint">Missas e celebrações visíveis</small>
+                        </div>
+
+                        <div class="icon-box">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                    </article>
+
+                    <article class="stat-card">
+                        <div>
+                            <span class="label">Mensagens recebidas</span>
+                            <strong class="value">{{qtde_contatos}}</strong>
+                            <small class="hint">Contatos enviados pelo site</small>
+                        </div>
+
+                        <div class="icon-box">
+                            <i class="fas fa-envelope-open-text"></i>
+                        </div>
+                    </article>
+                </section>
+
+                {% endblock %}
+
+            </div>
+        </main>
+
+        <footer class="admin-footer">
+            <p>&copy; <span id="ano-atual"></span> Missa em Teresina. Painel administrativo.</p>
+        </footer>
+
+    </section>
+    <script src="{% static 'js/obterAno.js' %}"></script>
+    <script>
+        const menuToggle = document.getElementById("menuToggle");
+        const sidebarClose = document.getElementById("sidebarClose");
+        const adminSidebar = document.getElementById("adminSidebar");
+        const adminOverlay = document.getElementById("adminOverlay");
+
+        function openSidebar() {
+            adminSidebar.classList.add("active");
+            adminOverlay.classList.add("active");
+            document.body.classList.add("menu-open");
+        }
+
+        function closeSidebar() {
+            adminSidebar.classList.remove("active");
+            adminOverlay.classList.remove("active");
+            document.body.classList.remove("menu-open");
+        }
+
+        if (menuToggle) {
+            menuToggle.addEventListener("click", openSidebar);
+        }
+
+        if (sidebarClose) {
+            sidebarClose.addEventListener("click", closeSidebar);
+        }
+
+        if (adminOverlay) {
+            adminOverlay.addEventListener("click", closeSidebar);
+        }
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                closeSidebar();
+            }
+        });
+    </script>
+
+    {% block js %}
+    
+    
+    {% endblock %}
+
+</body>
+</html>

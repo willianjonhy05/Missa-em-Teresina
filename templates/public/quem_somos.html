@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+Quem Somos - Missa em Teresina
+{% endblock %}
+    
+{% block keywords %}
+mapa de igrejas, missa em Teresina, igrejas próximas, paróquias, capelas
+{% endblock %}
+
+{% block og_title %}
+Quem Somos - Missa em Teresina
+{% endblock %}
+
+{% block og_description %}
+Saiba mais sobre o projeto Missa em Teresina e nossa missão.
+{% endblock %}
+
+{% block og_image %}
+{% static 'img/logo/logo_1200x630.png' %}
+{% endblock %}
+
+{% block twitter_title %}
+Quem Somos - Missa em Teresina
+{% endblock %}
+
+{% block twitter_description %}
+Saiba mais sobre o projeto Missa em Teresina e nossa missão.
+{% endblock %}
+
+{% block twitter_image %}
+{% static 'img/logo/logo_1200x630.png' %}
+{% endblock %}
+
+{% block css %}
+
+<link rel="stylesheet" href="{% static 'css/quem_somos.css' %}">
+
+{% endblock %}
+
+
+{% block content %}
+
+<main class="qs-page">
+    <!-- SEÇÃO HERO -->
+    <section class="qs-hero">
+        <div class="qs-container">
+            <div class="qs-hero__content">
+                <span class="qs-tagline">Conectando Fé e Tecnologia</span>
+                <h1 class="qs-hero__title">Sobre o Missa em Teresina</h1>
+                <p class="qs-hero__subtitle">Nossa missão é facilitar o encontro entre o fiel e a Sagrada Eucaristia através da informação acessível.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO PROPÓSITO -->
+    <section class="qs-section qs-padding">
+        <div class="qs-container">
+            <div class="qs-grid-split">
+                <div class="qs-content-block">
+                    <span class="qs-label">Nossa Essência</span>
+                    <h2 class="qs-title">A ponte para o Sagrado</h2>
+                    <p class="qs-text">O <strong>Missa em Teresina</strong> não é apenas um guia de horários; é uma ferramenta de evangelização digital. Acreditamos que a tecnologia deve servir ao Reino de Deus, eliminando barreiras geográficas e informacionais que possam distanciar o cristão da vida sacramental.</p>
+                    <div class="qs-quote">
+                        <p class="qs-quote__text">"A Eucaristia é o cume de toda a vida cristã."</p>
+                    </div>
+                </div>
+                <div class="qs-visual-block">
+                    <div class="qs-symbol-card">
+                        <div class="qs-symbol-card__icon">✨</div>
+                        <p class="qs-symbol-card__text">Nascemos para que nenhum fiel em nossa capital perca a oportunidade de celebrar sua fé por falta de informação atualizada.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO QUEM SOMOS (INSTITUCIONAL) -->
+    <section class="qs-section qs-section--alt qs-padding">
+        <div class="qs-container">
+            <div class="qs-grid-split qs-grid-split--reverse">
+                <div class="qs-image-block">
+                    <div class="qs-placeholder-img">
+                        <span>Institucional</span>
+                    </div>
+                </div>
+                <div class="qs-content-block">
+                    <h2 class="qs-title">Uma iniciativa Independente</h2>
+                    <p class="qs-text">O projeto surgiu da percepção de uma lacuna digital: a dificuldade em encontrar dados centralizados das paróquias de Teresina. Somos uma iniciativa digital católica e voluntária, dedicada a mapear igrejas, capelas e comunidades.</p>
+                    <p class="qs-text">Trabalhamos de forma independente, buscando sempre a fidelidade aos horários fornecidos pelas secretarias paroquiais da nossa Arquidiocese.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DIFERENCIAIS -->
+    <section class="qs-section qs-padding">
+        <div class="qs-container">
+            <div class="qs-header-center">
+                <h2 class="qs-title">Por que usar o portal?</h2>
+            </div>
+            <div class="qs-features-grid">
+                <div class="qs-feature-card">
+                    <div class="qs-feature-card__icon">📍</div>
+                    <h3 class="qs-feature-card__title">Proximidade</h3>
+                    <p class="qs-feature-card__text">Utilizamos geolocalização para mostrar as igrejas que estão ao seu redor agora.</p>
+                </div>
+                <div class="qs-feature-card">
+                    <div class="qs-feature-card__icon">🕒</div>
+                    <h3 class="qs-feature-card__title">Atualização</h3>
+                    <p class="qs-feature-card__text">Busca constante pela veracidade dos horários de missas e confissões.</p>
+                </div>
+                <div class="qs-feature-card">
+                    <div class="qs-feature-card__icon">💎</div>
+                    <h3 class="qs-feature-card__title">100% Gratuito</h3>
+                    <p class="qs-feature-card__text">Acesso livre para todos os fiéis, sem anúncios intrusivos ou taxas.</p>
+                </div>
+                <div class="qs-feature-card">
+                    <div class="qs-feature-card__icon">📱</div>
+                    <h3 class="qs-feature-card__title">Fácil de usar</h3>
+                    <p class="qs-feature-card__text">Interface intuitiva pensada para todas as idades e dispositivos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO CTA -->
+    <section class="qs-cta-section">
+        <div class="qs-container">
+            <div class="qs-cta-box">
+                <h2 class="qs-cta-box__title">Pronto para celebrar sua fé?</h2>
+                <a href="/igrejas/" class="qs-btn-gold">Encontrar Missas agora</a>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

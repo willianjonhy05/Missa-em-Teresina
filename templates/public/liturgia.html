@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+Liturgia - Missa em Teresina
+{% endblock %}
+
+{% block keywords %}
+
+{% endblock %}
+
+{% block og_title %}
+Liturgia - Missa em Teresina
+{% endblock %}
+
+{% block og_description %}
+Confira a liturgia do dia e prepare-se para a missa em Teresina.
+{% endblock %}
+
+{% block og_image %}
+{% static 'img/logo/logo_1200x630.png' %}
+{% endblock %}
+
+{% block twitter_title %}
+Liturgia - Missa em Teresina
+{% endblock %}
+
+{% block twitter_description %}
+Confira a liturgia do dia e prepare-se para a missa em Teresina.
+{% endblock %}
+
+{% block twitter_image %}
+{% static 'img/logo/logo_1200x630.png' %}
+{% endblock %}
+
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/liturgia.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+
+<main class="liturgia-page">
+    {% if erro %}
+    <div class="lp-container lp-error-wrapper">
+        <div class="lp-error-card">
+            <span class="lp-error-icon">⚠️</span>
+            <h2>Ops! Algo deu errado</h2>
+            <p>{{ mensagem_erro }}</p>
+            <a href="{% url 'home' %}" class="lp-btn-back">Voltar para o Início</a>
+        </div>
+    </div>
+    {% else %}
+    
+    <!-- SECTION HERO -->
+    <section class="lp-hero">
+        <div class="lp-container">
+            <div class="lp-hero-content">
+                <span class="lp-tagline">{{ dados.data }}</span>
+                <h1 class="lp-hero-title">{{ dados.titulo }}</h1>
+                <div class="lp-cor-wrapper">
+                    <span class="lp-cor-badge lp-cor--{{ dados.cor|lower }}">
+                        Cor: {{ dados.cor }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="lp-container lp-main-grid">
+        
+        <!-- COLUNA DE TEXTOS (LEITURAS) -->
+        <article class="lp-content-column">
+            
+            <!-- ANTÍFONA DE ENTRADA -->
+            {% if dados.antifonas.entrada %}
+            <section class="lp-reading-section lp-antifona">
+                <h3 class="lp-section-label">Antífona de Entrada</h3>
+                <div class="lp-text-card">
+                    <p class="lp-reading-body">{{ dados.antifonas.entrada }}</p>
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- PRIMEIRA LEITURA -->
+            {% for leitura in dados.leituras.primeiraLeitura %}
+            <section class="lp-reading-section">
+                <h3 class="lp-section-label">1ª Leitura</h3>
+                <div class="lp-reading-meta">
+                    <span class="lp-reading-ref">{{ leitura.referencia }}</span>
+                    <h2 class="lp-reading-title">{{ leitura.titulo }}</h2>
+                </div>
+                <div class="lp-reading-text">
+                    {{ leitura.texto|linebreaks }}
+                </div>
+            </section>
+            {% endfor %}
+
+            <!-- SALMO -->
+            {% for salmo in dados.leituras.salmo %}
+            <section class="lp-reading-section lp-salmo">
+                <h3 class="lp-section-label">Salmo Responsorial</h3>
+                <div class="lp-reading-meta">
+                    <span class="lp-reading-ref">{{ salmo.referencia }}</span>
+                    <h2 class="lp-reading-refrão">R. {{ salmo.refrao }}</h2>
+                </div>
+                <div class="lp-reading-text lp-reading-text--italic">
+                    {{ salmo.texto|linebreaks }}
+                </div>
+            </section>
+            {% endfor %}
+
+            <!-- SEGUNDA LEITURA (OPCIONAL) -->
+            {% if dados.leituras.segundaLeitura %}
+                {% for leitura in dados.leituras.segundaLeitura %}
+                <section class="lp-reading-section">
+                    <h3 class="lp-section-label">2ª Leitura</h3>
+                    <div class="lp-reading-meta">
+                        <span class="lp-reading-ref">{{ leitura.referencia }}</span>
+                        <h2 class="lp-reading-title">{{ leitura.titulo }}</h2>
+                    </div>
+                    <div class="lp-reading-text">
+                        {{ leitura.texto|linebreaks }}
+                    </div>
+                </section>
+                {% endfor %}
+            {% endif %}
+
+            <!-- EVANGELHO (DESTAQUE) -->
+            {% for ev in dados.leituras.evangelho %}
+            <section class="lp-reading-section lp-evangelho">
+                <div class="lp-evangelho-header">
+                    <h3 class="lp-section-label lp-section-label--gold">Evangelho</h3>
+                    <div class="lp-reading-meta">
+                        <span class="lp-reading-ref">{{ ev.referencia }}</span>
+                        <h2 class="lp-reading-title">{{ ev.titulo }}</h2>
+                    </div>
+                </div>
+                <div class="lp-reading-text lp-reading-text--gospel">
+                    {{ ev.texto|linebreaks }}
+                </div>
+            </section>
+            {% endfor %}
+
+        </article>
+
+        <!-- BARRA LATERAL (ORAÇÕES E ANTÍFONAS) -->
+        <aside class="lp-sidebar">
+            <div class="lp-sticky-sidebar">
+                
+                <section class="lp-sidebar-box">
+                    <h3 class="lp-sidebar-title">Orações</h3>
+                    
+                    <div class="lp-prayer-item">
+                        <strong>Coleta</strong>
+                        <p>{{ dados.oracoes.coleta }}</p>
+                    </div>
+                    
+                    <div class="lp-prayer-item">
+                        <strong>Sobre as Oferendas</strong>
+                        <p>{{ dados.oracoes.oferendas }}</p>
+                    </div>
+                    
+                    <div class="lp-prayer-item">
+                        <strong>Pós-Comunhão</strong>
+                        <p>{{ dados.oracoes.comunhao }}</p>
+                    </div>
+                </section>
+
+                <section class="lp-sidebar-box">
+                    <h3 class="lp-sidebar-title">Antífonas</h3>
+                    <div class="lp-prayer-item">
+                        <strong>Comunhão</strong>
+                        <p>{{ dados.antifonas.comunhao }}</p>
+                    </div>
+                </section>
+
+            </div>
+        </aside>
+
+    </div>
+    {% endif %}
+</main>
+
+
+
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

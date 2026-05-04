@@ -1,0 +1,792 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+/* VARIÁVEIS */
+:root {
+    --primary: #0C2036;
+    --secondary: #1E3A5F;
+    --support: #4D7FB8;
+    --accent: #D4A72C;
+    --bg-light: #F4F1E8;
+    --text-main: #2D3748;
+    --text-secondary: #6B7280;
+    --white: #FFFFFF;
+    --serif: "Playfair Display", serif;
+    --sans: "Inter", sans-serif;
+    --transition: all 0.3s ease;
+    --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--sans);
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.section-padding {
+    padding: 80px 0;
+}
+
+/* HEADER E LOGO (REAJUSTADO) */
+.main-header {
+    background-color: var(--primary);
+    color: var(--white);
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-image {
+    /* Ajuste de altura para equilibrar o header */
+    height: 95px;
+    width: auto;
+    /* Mantém a proporção da imagem (543x210) */
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-menu ul {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-menu a:hover {
+    color: var(--accent);
+}
+
+/* MENU MOBILE */
+
+
+/* HERO */
+
+.hero-content {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    align-items: center;
+    gap: 50px;
+}
+
+.hero-text p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+}
+
+.hero-btns {
+    display: flex;
+    gap: 15px;
+}
+
+/* BOTÕES */
+.btn {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-gold {
+    background-color: var(--accent);
+    color: var(--primary);
+}
+
+.btn-gold:hover {
+    transform: translateY(-2px);
+    background-color: #c09627;
+}
+
+.btn-outline {
+    border: 2px solid var(--secondary);
+    color: var(--secondary);
+}
+
+.btn-large {
+    padding: 16px 40px;
+    font-size: 1.1rem;
+}
+
+.hamburger {
+    display: none;
+    background: none;
+    border: none;
+}
+
+/* GRID E CARDS */
+.grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-header h2 {
+    font-family: var(--serif);
+    font-size: 2.5rem;
+    color: var(--primary);
+}
+
+.card-step,
+.church-card {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.card-step:hover {
+    transform: translateY(-5px);
+}
+
+.icon-circle {
+    width: 50px;
+    height: 50px;
+    background: var(--secondary);
+    color: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-weight: bold;
+}
+
+.tag {
+    font-size: 0.7rem;
+    background: var(--bg-light);
+    padding: 4px 10px;
+    border-radius: 20px;
+    color: var(--support);
+    font-weight: 700;
+}
+
+.next-mass {
+    margin: 15px 0;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    font-size: 0.9rem;
+}
+
+.btn-text {
+    color: var(--secondary);
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+/* SOBRE E CONTATO */
+.about {
+    background: var(--primary);
+    color: var(--white);
+}
+
+.about h2 {
+    color: var(--white);
+    font-family: var(--serif);
+    font-size: 2.5rem;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.subtitle {
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+}
+
+
+.contact-box {
+    background: var(--white);
+    padding: 50px;
+    border-radius: 15px;
+    max-width: 700px;
+    margin: 0 auto;
+    box-shadow: var(--shadow);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    outline: none;
+}
+
+.full-width {
+    width: 100%;
+}
+
+/* FOOTER */
+.main-footer {
+    background: #08111a;
+    color: #9ca3af;
+    padding: 60px 0 20px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-bottom {
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 20px;
+    font-size: 0.8rem;
+}
+
+
+@media (max-width: 768px) {
+    .logo-image {
+        height: 65px;
+    }
+
+    .hamburger {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        position: relative;
+        z-index: 1002;
+        padding: 8px;
+    }
+
+    .hamburger span {
+        width: 28px;
+        height: 3px;
+        background: var(--white);
+        border-radius: 3px;
+        transition: var(--transition);
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 75%;
+        max-width: 320px;
+        height: 100vh;
+        background: var(--primary);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 24px;
+        transition: right 0.4s ease;
+        z-index: 1001;
+    }
+
+    .nav-menu.active {
+        right: 0;
+    }
+
+    .nav-menu ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .hamburger.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+}
+
+
+
+
+
+/* --- REAJUSTES HERO --- */
+.hero {
+    padding: 50px 0 100px;
+    background: linear-gradient(135deg, #F4F1E8 0%, #EAE7DC 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.tagline {
+    display: inline-block;
+    color: var(--support);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.hero-text h1 {
+    font-family: var(--serif);
+    font-size: 3.8rem;
+    margin-bottom: 20px;
+    line-height: 1.1;
+    color: var(--primary);
+}
+
+.hero-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeInRight 1.2s ease-out;
+}
+
+.eucharist-illustration {
+    width: 100%;
+    max-width: 450px;
+    filter: drop-shadow(0 20px 40px rgba(12, 32, 54, 0.15));
+}
+
+/* --- REAJUSTES SOBRE (FIM DO VAZIO VISUAL) --- */
+.about-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+.about-content h2 {
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.about-content h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--accent);
+    margin-top: 15px;
+}
+
+.about-quote {
+    margin-top: 40px;
+    padding-left: 20px;
+    border-left: 3px solid var(--accent);
+    font-style: italic;
+    color: var(--support);
+    opacity: 0.8;
+}
+
+/* Grid de Stats */
+.about-visual-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 35px 25px;
+    border-radius: 15px;
+    text-align: center;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-5px);
+    border-color: var(--accent);
+}
+
+.stat-card.featured {
+    background: var(--secondary);
+    border-color: var(--support);
+}
+
+.stat-icon {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.stat-number {
+    font-family: var(--serif);
+    font-size: 2.5rem;
+    color: var(--accent);
+    display: block;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--white);
+    margin-top: 10px;
+    font-weight: 300;
+}
+
+/* Animações */
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsividade */
+@media (max-width: 992px) {
+    .about-wrapper {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    .hero-text h1 {
+        font-size: 2.8rem;
+    }
+
+    .about-visual-grid {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .hero-content,
+    .grid-2 {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .hero-btns {
+        justify-content: center;
+    }
+
+    .hero-image {
+        order: -1;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-visual-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+.church-card {
+    overflow: hidden;
+}
+
+.church-card-image-link {
+    display: block;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    border-radius: 6px 6px 0 0;
+    margin-bottom: 10px;
+}
+
+.church-card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: var(--transition);
+}
+
+.church-card:hover .church-card-image {
+    transform: scale(1.05);
+}
+
+.empty-featured-churches {
+    background: var(--white);
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+
+/* --- SEÇÃO DE MISSAS (REVISÃO PROFISSIONAL) --- */
+
+.missas-section {
+    background-color: var(--bg-light);
+}
+
+.missas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 32px;
+}
+
+/* Design do Card */
+.missa-card {
+    background: var(--white);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(12, 32, 54, 0.05);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    position: relative;
+    border: 1px solid rgba(12, 32, 54, 0.05);
+    height: 100%;
+}
+
+.missa-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(12, 32, 54, 0.12);
+}
+
+/* Borda de Destaque para Missas de Hoje */
+.missa-card--today {
+    border-top: 4px solid var(--accent);
+}
+
+/* Header do Card (Imagem) */
+.missa-card__figure {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+    border-radius: 16px 16px 0 0;
+}
+
+.missa-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.missa-card:hover .missa-card__img {
+    transform: scale(1.08);
+}
+
+.missa-card__img--placeholder {
+    padding: 40px;
+    background: #f8f9fa;
+    opacity: 0.5;
+}
+
+/* Badge de Data */
+.missa-card__badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: var(--primary);
+    color: var(--white);
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 2;
+}
+
+.missa-card__badge--gold {
+    background: var(--accent);
+    color: var(--primary);
+}
+
+/* Conteúdo do Card */
+.missa-card__content {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.missa-card__time {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent);
+    font-weight: 800;
+    font-size: 1.15rem;
+    margin-bottom: 12px;
+}
+
+.missa-card__title {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    color: var(--primary);
+}
+
+.missa-card__title a:hover {
+    color: var(--support);
+}
+
+.missa-card__location {
+    margin-bottom: 24px;
+    flex-grow: 1;
+}
+
+.missa-card__neighborhood {
+    display: inline-block;
+    background: #f0f2f5;
+    color: var(--support);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.missa-card__address {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+/* Botões de Ação no Card */
+.missa-card__actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding-top: 20px;
+    border-top: 1px solid #f0f2f5;
+}
+
+.btn-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: var(--transition);
+}
+
+.btn-action--primary {
+    background: var(--primary);
+    color: var(--white);
+}
+
+.btn-action--primary:hover {
+    background: var(--secondary);
+}
+
+.btn-action--secondary {
+    background: transparent;
+    border: 1.5px solid #e2e8f0;
+    color: var(--text-main);
+}
+
+.btn-action--secondary:hover {
+    background: #f8f9fa;
+    border-color: var(--support);
+    color: var(--support);
+}
+
+/* Estado Vazio */
+.missas-empty {
+    text-align: center;
+    padding: 60px;
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+.missas-empty__icon {
+    font-size: 3rem;
+    margin-bottom: 16px;
+    opacity: 0.3;
+}
+
+/* Responsividade Fina */
+@media (max-width: 480px) {
+    .missas-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .missa-card__title {
+        font-size: 1.2rem;
+    }
+}

@@ -1,0 +1,279 @@
+{% extends 'admin/base_admin.html' %}
+
+{% load static %}
+
+{% block title %}Contatos{% endblock %}
+
+
+{% block css %}
+
+
+{% endblock %}
+
+
+
+{% block breadcrumb %}Contatos{% endblock %}
+
+
+{% block page_title %}Contatos{% endblock %}
+
+
+
+{% block content %}
+
+<div class="admin-card">
+    <div class="admin-card-header">
+        <div>
+            <h2 class="admin-card-title">Mensagens recebidas pelo site</h2>
+            <p class="admin-card-description">
+                Visualize os contatos enviados pelo formulário público.
+            </p>
+        </div>
+    </div>
+
+    <form method="GET" class="admin-search-form">
+        <div class="admin-search-box">
+            <input type="text" name="q" value="{{ busca }}" placeholder="Buscar por nome, e-mail ou mensagem...">
+
+            <button type="submit" class="btn-admin btn-admin-primary">
+                <i class="fas fa-search"></i>
+                Buscar
+            </button>
+
+            {% if busca %}
+            <a href="{% url 'contatos_dashboard' %}" class="btn-admin btn-admin-outline">
+                Limpar
+            </a>
+            {% endif %}
+        </div>
+    </form>
+
+    {% if page_obj.object_list %}
+    <div class="admin-table-wrapper">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for contato in page_obj %}
+                <tr>
+                    <td>
+                        {{ contato.data|date:"d/m/Y H:i" }}
+                    </td>
+
+                    <td>
+                        {{ contato.nome|default:"Não informado" }}
+                    </td>
+
+                    <td>
+                        {% if contato.email %}
+                        <a href="mailto:{{ contato.email }}">
+                            {{ contato.email }}
+                        </a>
+                        {% else %}
+                        Não informado
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        <div class="contacts-actions">
+                            <button type="button" class="btn-open-message"
+                                data-modal-target="modal-contato-{{ contato.uuid }}">
+                                <i class="fas fa-eye"></i>
+                                Abrir mensagem
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% for contato in page_obj %}
+    <div class="admin-modal-overlay" id="modal-contato-{{ contato.uuid }}">
+        <div class="admin-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title-{{ contato.uuid }}">
+
+            <div class="admin-modal-header">
+                <div>
+                    <h3 id="modal-title-{{ contato.uuid }}">
+                        Mensagem de {{ contato.nome|default:"Contato sem nome" }}
+                    </h3>
+                    <p>
+                        Recebida em {{ contato.data|date:"d/m/Y" }} às {{ contato.data|date:"H:i" }}
+                    </p>
+                </div>
+
+                <button type="button" class="admin-modal-close" data-modal-close>
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="admin-modal-body">
+
+                <div class="contact-detail-grid">
+                    <div class="contact-detail-item">
+                        <span>Nome</span>
+                        <strong>{{ contato.nome|default:"Não informado" }}</strong>
+                    </div>
+
+                    <div class="contact-detail-item">
+                        <span>E-mail</span>
+                        {% if contato.email %}
+                        <a href="mailto:{{ contato.email }}">
+                            {{ contato.email }}
+                        </a>
+                        {% else %}
+                        <strong>Não informado</strong>
+                        {% endif %}
+                    </div>
+
+                    <div class="contact-detail-item">
+                        <span>Telefone</span>
+                        <strong>{{ contato.telefone|default:"Não informado" }}</strong>
+                    </div>
+
+                    <div class="contact-detail-item">
+                        <span>Data</span>
+                        <strong>{{ contato.data|date:"d/m/Y H:i" }}</strong>
+                    </div>
+
+                    <div class="contact-detail-item">
+                        <span>IP</span>
+                        <strong>{{ contato.ip_contato|default:"Não registrado" }}</strong>
+                    </div>
+
+                    <div class="contact-detail-item">
+                        <span>Identificador</span>
+                        <strong>{{ contato.uuid }}</strong>
+                    </div>
+                </div>
+
+                <div class="contact-message-box">
+                    <span>Mensagem</span>
+                    <p>{{ contato.mensagem|default:"Sem mensagem." }}</p>
+                </div>
+
+            </div>
+
+            <div class="admin-modal-footer">
+                {% if contato.email %}
+                <a href="mailto:{{ contato.email }}" class="btn-admin btn-admin-primary">
+                    Responder por e-mail
+                    <i class="fas fa-paper-plane"></i>
+                </a>
+                {% endif %}
+
+                <button type="button" class="btn-admin btn-admin-outline" data-modal-close>
+                    Fechar
+                </button>
+            </div>
+
+        </div>
+    </div>
+    {% endfor %}
+
+    {% if page_obj.has_other_pages %}
+    <div class="admin-pagination">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}{% if query_params %}&{{ query_params }}{% endif %}"
+            class="btn-admin btn-admin-outline">
+            Anterior
+        </a>
+        {% endif %}
+
+        <span class="admin-pagination-info">
+            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}{% if query_params %}&{{ query_params }}{% endif %}"
+            class="btn-admin btn-admin-outline">
+            Próxima
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {% else %}
+    <div class="admin-empty">
+        <p>Nenhum contato recebido até o momento.</p>
+    </div>
+    {% endif %}
+</div>
+
+
+
+{% endblock %}
+
+
+
+
+{% block js %}
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const openButtons = document.querySelectorAll("[data-modal-target]");
+        const closeButtons = document.querySelectorAll("[data-modal-close]");
+        const overlays = document.querySelectorAll(".admin-modal-overlay");
+
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+
+            if (!modal) {
+                return;
+            }
+
+            modal.classList.add("active");
+            document.body.classList.add("menu-open");
+        }
+
+        function closeModal(modal) {
+            if (!modal) {
+                return;
+            }
+
+            modal.classList.remove("active");
+            document.body.classList.remove("menu-open");
+        }
+
+        openButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                const modalId = button.getAttribute("data-modal-target");
+                openModal(modalId);
+            });
+        });
+
+        closeButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                const modal = button.closest(".admin-modal-overlay");
+                closeModal(modal);
+            });
+        });
+
+        overlays.forEach(function (overlay) {
+            overlay.addEventListener("click", function (event) {
+                if (event.target === overlay) {
+                    closeModal(overlay);
+                }
+            });
+        });
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                const activeModal = document.querySelector(".admin-modal-overlay.active");
+                closeModal(activeModal);
+            }
+        });
+    });
+</script>
+
+
+{% endblock %}

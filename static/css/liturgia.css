@@ -1,0 +1,170 @@
+/* ESCOPO ISOLADO: LITURGIA PAGE (LP) */
+
+.liturgia-page {
+    --lp-primary: #0C2036;
+    --lp-secondary: #1E3A5F;
+    --lp-support: #4D7FB8;
+    --lp-accent: #D4A72C;
+    --lp-bg: #F4F1E8;
+    --lp-white: #FFFFFF;
+    --lp-serif: 'Playfair Display', serif;
+    --lp-sans: 'Inter', sans-serif;
+    
+    background-color: var(--lp-bg);
+    min-height: 100vh;
+    padding-bottom: 80px;
+}
+
+.lp-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* HERO SECTION */
+.lp-hero {
+    background: linear-gradient(135deg, var(--lp-primary) 0%, var(--lp-secondary) 100%);
+    padding: 80px 0 60px;
+    color: var(--lp-white);
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.lp-tagline {
+    display: block;
+    color: var(--lp-accent);
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.lp-hero-title {
+    font-family: var(--lp-serif);
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.lp-cor-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* CORES LITÚRGICAS BADGES */
+.lp-cor--verde { background: #2D5A27; color: white; }
+.lp-cor--branco { background: #FFFFFF; color: #333; }
+.lp-cor--vermelho { background: #A72C2C; color: white; }
+.lp-cor--roxo { background: #5D2C87; color: white; }
+
+/* GRID LAYOUT */
+.lp-main-grid {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 40px;
+}
+
+/* TEXT COLUMN */
+.lp-content-column {
+    background: var(--lp-white);
+    padding: 50px 60px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.lp-reading-section {
+    margin-bottom: 60px;
+}
+
+.lp-section-label {
+    display: block;
+    font-family: var(--lp-sans);
+    color: var(--lp-support);
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.lp-section-label--gold { color: var(--lp-accent); }
+
+.lp-reading-meta { margin-bottom: 25px; }
+.lp-reading-ref { color: var(--lp-accent); font-weight: 700; font-size: 1rem; display: block; margin-bottom: 5px; }
+.lp-reading-title { font-family: var(--lp-serif); color: var(--lp-primary); font-size: 1.8rem; line-height: 1.2; }
+.lp-reading-refrão { font-family: var(--lp-serif); color: var(--lp-primary); font-size: 1.4rem; }
+
+.lp-reading-text {
+    font-family: var(--lp-sans);
+    color: #333;
+    font-size: 1.15rem;
+    line-height: 1.8; /* Leitura confortável */
+}
+
+.lp-reading-text--italic { font-style: italic; color: #555; }
+.lp-reading-text--gospel { font-weight: 500; border-left: 4px solid var(--lp-accent); padding-left: 25px; }
+
+/* SIDEBAR */
+.lp-sticky-sidebar {
+    position: sticky;
+    top: 100px;
+}
+
+.lp-sidebar-box {
+    background: var(--lp-white);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    margin-bottom: 25px;
+}
+
+.lp-sidebar-title {
+    font-family: var(--lp-serif);
+    color: var(--lp-primary);
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--lp-bg);
+    padding-bottom: 10px;
+}
+
+.lp-prayer-item {
+    margin-bottom: 20px;
+}
+
+.lp-prayer-item strong {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--lp-support);
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.lp-prayer-item p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #444;
+}
+
+/* ERROS */
+.lp-error-wrapper { padding: 100px 20px; display: flex; justify-content: center; }
+.lp-error-card {
+    text-align: center; background: white; padding: 50px; border-radius: 15px; box-shadow: var(--shadow); max-width: 500px;
+}
+.lp-error-icon { font-size: 4rem; margin-bottom: 20px; display: block; }
+.lp-btn-back { display: inline-block; margin-top: 25px; background: var(--lp-primary); color: white; padding: 12px 25px; border-radius: 8px; }
+
+/* MOBILE */
+@media (max-width: 992px) {
+    .lp-main-grid { grid-template-columns: 1fr; }
+    .lp-content-column { padding: 30px 25px; }
+    .lp-hero { padding: 60px 0; }
+    .lp-sticky-sidebar { position: relative; top: 0; }
+}

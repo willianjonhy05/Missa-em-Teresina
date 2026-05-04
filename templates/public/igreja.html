@@ -1,0 +1,317 @@
+{% extends 'base.html' %}
+{% load static l10n %}
+
+{% block title %}
+    {{ igreja.nome }} - Missa em Teresina
+{% endblock %}
+
+{% block keywords %}
+    {{ igreja.nome }}, missa em Teresina, igreja em Teresina, paróquia, capela, celebrações, horários de missa
+{% endblock %}
+
+{% block og_title %}
+    {{ igreja.nome }} - Missa em Teresina
+{% endblock %}
+
+{% block og_description %}
+    Encontre informações, localização, contatos e horários de celebrações da {{ igreja.nome }}.
+{% endblock %}
+
+{% block og_image %}
+    {% if igreja.imagem %}
+        {{ igreja.imagem.url }}
+    {% else %}
+        {% static 'img/logo/logo_missa_em_teresina.png' %}
+    {% endif %}
+{% endblock %}
+
+{% block twitter_title %}
+    {{ igreja.nome }} - Missa em Teresina
+{% endblock %}
+
+{% block twitter_description %}
+    Encontre informações, localização, contatos e horários de celebrações da {{ igreja.nome }}.
+{% endblock %}
+
+{% block twitter_image %}
+    {% if igreja.imagem %}
+        {{ igreja.imagem.url }}
+    {% else %}
+        {% static 'img/logo/logo_missa_em_teresina.png' %}
+    {% endif %}
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/igreja.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+
+{% block content %}
+
+<section 
+    class="church-hero"
+    style="background-image: linear-gradient(rgba(12, 32, 54, 0.75), rgba(12, 32, 54, 0.75)), url('{% if igreja.imagem %}{{ igreja.imagem.url }}{% else %}{% static 'img/logo/logo_missa_em_teresina.png' %}{% endif %}');"
+>
+    <div class="container">
+        <div class="church-hero-content">
+
+            <span class="church-category">
+                {% if igreja.paroquia %}
+                    Paróquia
+                {% elif igreja.capela %}
+                    Capela
+                {% else %}
+                    Igreja
+                {% endif %}
+            </span>
+
+            <h1 class="church-name">{{ igreja.nome }}</h1>
+
+            <div class="church-location-brief">
+                <p>
+                    📍 {{ igreja.endereco }}
+                    {% if igreja.bairro %} - {{ igreja.bairro }}{% endif %}
+                    {% if igreja.cidade %}| {{ igreja.cidade }}{% endif %}
+                </p>
+            </div>
+
+            <div class="church-hero-actions">
+                {% if igreja.maps %}
+                    <a href="{{ igreja.maps }}" target="_blank" rel="noopener noreferrer" class="btn btn-gold">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" 
+                             stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                            <circle cx="12" cy="10" r="3"></circle>
+                        </svg>
+                        Ver no Google Maps
+                    </a>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="church-details section-padding">
+    <div class="container">
+        <div class="church-main-grid">
+
+            <div class="church-info-column">
+
+                <div class="info-card">
+                    <h3>
+                        Sobre a 
+                        {% if igreja.paroquia %}
+                            Paróquia
+                        {% elif igreja.capela %}
+                            Capela
+                        {% else %}
+                            Igreja
+                        {% endif %}
+                    </h3>
+
+                    {% if igreja.sacerdotes %}
+                        <div class="info-item">
+                            <span class="info-icon"><i class="fa-solid fa-person-praying"></i></span>
+                            <div>
+                                <strong>Sacerdote(s)</strong>
+                                <p>{{ igreja.sacerdotes }}</p>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if igreja.telefone %}
+                        <div class="info-item">
+                            <span class="info-icon">📞</span>
+                            <div>
+                                <strong>Telefone(s)</strong>
+                                <p>{{ igreja.telefone }}</p>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="info-item">
+                        <span class="info-icon"><i class="fa-solid fa-church"></i></span>
+                        <div>
+                            <strong>Endereço</strong>
+                            <p>
+                                {{ igreja.endereco }}
+                                {% if igreja.bairro %} - {{ igreja.bairro }}{% endif %}
+                                {% if igreja.cidade %}, {{ igreja.cidade }}{% endif %}
+                            </p>
+                        </div>
+                    </div>
+
+                    {% if igreja.email %}
+                        <div class="info-item">
+                            <span class="info-icon">✉️</span>
+                            <div>
+                                <strong>E-mail</strong>
+                                <p>
+                                    <a href="mailto:{{ igreja.email }}">
+                                        {{ igreja.email }}
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="info-item">
+                        <span class="info-icon">🚪</span>
+                        <div>
+                            <strong>Aberta ao público</strong>
+                            <p>
+                                {% if igreja.aberta_ao_publico %}
+                                    Sim
+                                {% else %}
+                                    Não informado
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                {% if igreja.link_instagram or igreja.facebook or igreja.link_whatsapp or igreja.youtube or igreja.site %}
+                    <div class="social-links-container">
+                        <h3>Canais Oficiais</h3>
+
+                        <div class="social-buttons-grid">
+
+                            {% if igreja.link_instagram %}
+                                <a href="{{ igreja.link_instagram }}" target="_blank" rel="noopener noreferrer" class="social-btn instagram">
+                                    <i class="fa-brands fa-instagram fa-2x"></i>
+                                </a>
+                            {% endif %}
+
+                            {% if igreja.facebook %}
+                                <a href="{{ igreja.facebook }}" target="_blank" rel="noopener noreferrer" class="social-btn facebook">
+                                    <i class="fa-brands fa-facebook fa-2x"></i>
+                                </a>
+                            {% endif %}
+
+                            {% if igreja.link_whatsapp %}
+                                <a href="{{ igreja.link_whatsapp }}" target="_blank" rel="noopener noreferrer" class="social-btn whatsapp">
+                                    <i class="fa-brands fa-whatsapp fa-2x"></i>
+                                </a>
+                            {% endif %}
+
+                            {% if igreja.youtube %}
+                                <a href="{{ igreja.youtube }}" target="_blank" rel="noopener noreferrer" class="social-btn youtube">
+                                    <i class="fa-brands fa-youtube fa-2x"></i>
+                                </a>
+                            {% endif %}
+
+                            {% if igreja.site %}
+                                <a href="{{ igreja.site }}" target="_blank" rel="noopener noreferrer" class="social-btn website">
+                                    <i class="fa-solid fa-globe fa-2x"></i>
+                                </a>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                {% endif %}
+
+            </div>
+
+            <div class="church-schedule-column">
+                <div class="schedule-container">
+
+                    <div class="schedule-header">
+                        <span class="icon">🕒</span>
+                        <h2>Horários das Celebrações</h2>
+                    </div>
+
+                    {% if grupos_celebracao %}
+
+                        {% for grupo in grupos_celebracao %}
+                            <div class="schedule-group">
+                                <div class="group-title">
+                                    <span class="gold-dot"></span>
+                                    <h3>{{ grupo.categoria }}</h3>
+                                </div>
+
+                                <div class="schedule-list">
+
+                                    {% for dia in grupo.dias %}
+                                        <div class="schedule-row {% if dia.dia_slug == 'domingo' %}highlight{% endif %}">
+                                            <span>
+                                                {% if dia.recorrencia == "mensal_dia_fixo" %}
+                                                    {% if dia.nome %}
+                                                        <small>{{ dia.nome }}</small>
+                                                        <br>
+                                                    {% endif %}
+
+                                                    <small>{{ dia.dia }}</small>
+
+                                                {% elif dia.recorrencia == "data_especifica" %}
+                                                    {% if dia.nome %}
+                                                        <small>{{ dia.nome }}</small>
+                                                        <br>
+                                                    {% endif %}
+
+                                                    <small>{{ dia.dia }}</small>
+
+                                                {% else %}
+                                                    <small>{{ dia.dia }}</small>
+                                                {% endif %}
+
+                                                {% if dia.exige_agendamento %}
+                                                    <br>
+                                                    <small>Exige agendamento</small>
+                                                {% endif %}
+                                            </span>
+
+                                            <strong>
+                                                {% for horario in dia.horarios %}
+                                                    {{ horario }}{% if not forloop.last %}, {% endif %}
+                                                {% endfor %}
+                                            </strong>
+                                        </div>
+                                    {% endfor %}
+
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    {% else %}
+                        <div class="schedule-empty">
+                            <p>Ainda não há horários de celebrações cadastrados para esta igreja.</p>
+                        </div>
+                    {% endif %}
+
+                    {% if google_maps_embed_url %}
+                        <div class="church-map-container">
+                            <h3>Localização</h3>
+
+                            <div class="church-map">
+                                <iframe
+                                    src="{{ google_maps_embed_url }}"
+                                    width="100%"
+                                    height="260"
+                                    style="border:0;"
+                                    allowfullscreen
+                                    loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade">
+                                </iframe>
+                            </div>
+
+                            <a href="{% if igreja.maps %}{{ igreja.maps }}{% else %}{{ google_maps_directions_url }}{% endif %}"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="btn btn-gold full-width">
+                                Como chegar
+                            </a>
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block js %}
+{% endblock %}

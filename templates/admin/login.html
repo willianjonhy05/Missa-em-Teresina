@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Administrativo | Missa em Teresina</title>
+
+    <!-- Font Awesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+
+<body class="admin-login-page">
+
+    <div class="login-wrapper">
+        <div class="login-card">
+            <!-- Header do Card -->
+            <div class="login-header">
+                <div class="login-logo">
+                    <i class="fas fa-church"></i>
+                    <span>Missa em <strong>Teresina</strong></span>
+                </div>
+                <h1>Acessar painel</h1>
+                <p>Insira suas credenciais para gerenciar o sistema</p>
+
+                {% if form.errors or messages %}
+                {% if messages %}
+                {% for message in messages %}
+                <div class=" login-alert {{ message.tags }}">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                {% endif %}
+
+
+            </div>
+
+            <!-- Formulário -->
+            <form method="POST" class="login-form">
+                {% csrf_token %}
+
+
+                {% if next %}
+                <input type="hidden" name="next" value="{{ next }}">
+                {% endif %}
+
+                <div class="login-form-group">
+                    <label for="email">E-mail</label>
+                    <div class="login-input-container">
+                        <i class="fas fa-user"></i>
+                        <input type="email" name="email" id="email" placeholder="Digite seu e-mail" required autofocus>
+                    </div>
+                </div>
+
+                <div class="login-form-group">
+                    <label for="password">Senha</label>
+                    <div class="login-input-container">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" name="password" id="password" placeholder="Digite sua senha" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    <span>Entrar</span>
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <!-- Rodapé do Card -->
+            <div class="login-footer">
+                <a href="{% url 'home' %}">
+                    <i class="fas fa-chevron-left"></i>
+                    Voltar ao site público
+                </a>
+            </div>
+        </div>
+
+        <p class="login-copyright">
+            &copy; <span id="ano-atual"></span> Missa em Teresina - Área Restrita
+        </p>
+    </div>
+
+    <script src="{% static 'js/obterAno.js' %}"></script>
+
+</body>
+
+</html>
+
+
+
+
+
+

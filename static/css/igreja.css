@@ -1,0 +1,312 @@
+
+.church-hero {
+    height: 60vh;
+    min-height: 400px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    color: var(--white);
+    position: relative;
+}
+
+.church-hero-content {
+    max-width: 800px;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.church-category {
+    background-color: var(--accent);
+    color: var(--primary);
+    padding: 5px 15px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.church-name {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.church-location-brief {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.church-hero-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* --- GRID LAYOUT --- */
+.church-main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* --- COLUNA DE INFORMAÇÕES --- */
+.info-card, .social-links-container, .church-gallery {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+}
+
+.info-card h3, .social-links-container h3, .church-gallery h3 {
+    font-family: var(--serif);
+    color: var(--primary);
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--bg-light);
+    padding-bottom: 10px;
+}
+
+.info-item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.info-icon {
+    font-size: 1.5rem;
+    background: var(--bg-light);
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.info-item strong {
+    display: block;
+    color: var(--primary);
+    font-size: 0.9rem;
+}
+
+.info-item p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* BOTÕES SOCIAIS */
+.social-buttons-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.social-btn {
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--white);
+    transition: var(--transition);
+}
+
+.instagram { background-color: #E1306C; }
+.facebook { background-color: #4267B2; }
+.whatsapp { background-color: #25D366; }
+.youtube { background-color: #FF0000; }
+.website { background-color: var(--secondary); }
+
+.social-btn:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* GALERIA */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.gallery-img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.gallery-img:hover {
+    filter: brightness(0.8);
+}
+
+/* --- COLUNA DE HORÁRIOS (DESTAQUE) --- */
+.schedule-container {
+    background-color: var(--secondary);
+    color: var(--white);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(12, 32, 54, 0.2);
+    position: static;
+}
+
+.schedule-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.schedule-header .icon {
+    font-size: 2rem;
+}
+
+.schedule-header h2 {
+    font-family: var(--serif);
+    color: var(--accent);
+    font-size: 2rem;
+    margin: 0;
+}
+
+.schedule-group {
+    margin-bottom: 35px;
+}
+
+.group-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.gold-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent);
+    border-radius: 50%;
+}
+
+.group-title h3 {
+    font-size: 1.2rem;
+    color: var(--white);
+    letter-spacing: 1px;
+}
+
+.schedule-list {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.schedule-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 15px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.95rem;
+}
+
+.schedule-row:last-child {
+    border-bottom: none;
+}
+
+.schedule-row.highlight {
+    background: rgba(212, 167, 44, 0.15);
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.schedule-row strong {
+    color: var(--accent);
+    text-align: right;
+    white-space: nowrap;
+}
+
+
+
+
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 992px) {
+    .church-main-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .schedule-container {
+        position: static;
+        order: -1; /* Traz os horários para cima no mobile */
+    }
+
+    .church-hero {
+        height: 50vh;
+        text-align: center;
+    }
+
+    .church-hero-actions {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .schedule-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .schedule-row strong {
+        text-align: left;
+        white-space: normal;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .schedule-container {
+        padding: 25px 20px;
+    }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+
+
+.church-map-container {
+    margin-top: 30px;
+}
+
+.church-map-container h3 {
+    font-family: var(--serif);
+    color: var(--accent);
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+.church-map {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 18px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.church-map iframe {
+    display: block;
+    width: 100%;
+    min-height: 260px;
+}

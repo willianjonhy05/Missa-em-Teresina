@@ -1,0 +1,304 @@
+/* LISTAGEM DE IGREJAS - ESTILOS ISOLADOS */
+
+.church-list-page {
+    background-color: var(--bg-light);
+    min-height: 100vh;
+}
+
+/* HEADER E BUSCA */
+.search-section {
+    background-color: var(--primary);
+    color: var(--white);
+    padding: 80px 0 60px;
+    text-align: center;
+}
+
+.search-header h1 {
+    font-family: var(--serif);
+    font-size: 3rem;
+    color: var(--accent);
+    margin-bottom: 10px;
+}
+
+.search-header p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 40px;
+}
+
+.search-form {
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 6px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.search-icon {
+    position: absolute;
+    left: 20px;
+    color: var(--text-secondary);
+}
+
+.search-input-wrapper input {
+    flex: 1;
+    border: none;
+    outline: none;
+    padding: 12px 12px 12px 50px;
+    font-family: var(--sans);
+    font-size: 1rem;
+    color: var(--text-main);
+    border-radius: 8px;
+}
+
+.search-input-wrapper .btn {
+    padding: 12px 30px;
+}
+
+/* BANNER DE LOCALIZAÇÃO */
+.sorting-status-section {
+    padding: 30px 0 0;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.status-badge.geo-active {
+    background-color: rgba(20, 184, 166, 0.1);
+    color: #0f766e;
+    border: 1px solid rgba(20, 184, 166, 0.2);
+}
+
+.status-badge.geo-inactive {
+    background-color: rgba(30, 58, 95, 0.05);
+    color: var(--secondary);
+    border: 1px solid rgba(30, 58, 95, 0.1);
+}
+
+.status-icon {
+    font-size: 1.2rem;
+}
+
+/* GRID ESTILO APP */
+.church-app-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.church-app-card {
+    background-color: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0,0,0,0.03);
+}
+
+.church-app-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(12, 32, 54, 0.1);
+}
+
+.card-image-wrapper {
+    position: relative;
+    height: 180px;
+    background-color: var(--bg-light);
+}
+
+.card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #F4F1E8 0%, #E9E5D8 100%);
+}
+
+.distance-tag {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: var(--primary);
+    color: var(--accent);
+    padding: 6px 12px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.card-body {
+    padding: 25px;
+    flex: 1;
+}
+
+.card-neighborhood {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--support);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.card-title {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    color: var(--primary);
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.card-info-item {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    align-items: flex-start;
+}
+
+.card-info-item .icon {
+    font-size: 1rem;
+}
+
+.card-info-item p {
+    line-height: 1.4;
+}
+
+.card-footer {
+    padding: 0 25px 25px;
+}
+
+.btn-outline-primary {
+    background: transparent;
+    border: 1.5px solid var(--secondary);
+    color: var(--secondary);
+}
+
+.btn-outline-primary:hover {
+    background: var(--secondary);
+    color: var(--white);
+}
+
+/* SEM RESULTADOS */
+.no-results {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: var(--white);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.no-results-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.no-results h3 {
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.no-results p {
+    color: var(--text-secondary);
+    margin-bottom: 30px;
+}
+
+/* PAGINAÇÃO */
+.pagination-section {
+    padding-bottom: 80px;
+}
+
+.pagination-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.page-btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: 1px solid #ddd;
+    background-color: var(--white);
+    color: var(--text-main);
+}
+
+.page-btn:hover:not(.disabled) {
+    border-color: var(--secondary);
+    color: var(--secondary);
+}
+
+.page-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: var(--bg-light);
+}
+
+.page-numbers {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .search-header h1 {
+        font-size: 2.2rem;
+    }
+    
+    .search-input-wrapper {
+        flex-direction: column;
+        gap: 10px;
+        background: transparent;
+        box-shadow: none;
+        padding: 0;
+    }
+    
+    .search-input-wrapper input {
+        width: 100%;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        border: 1px solid #ddd;
+    }
+    
+    .search-input-wrapper .btn {
+        width: 100%;
+    }
+    
+    .pagination-nav {
+        flex-direction: column;
+        gap: 20px;
+    }
+}

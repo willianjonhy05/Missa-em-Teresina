@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Listar Celebrações - Missa em Teresina
+{% endblock %}
+
+{% block keywords %}
+missa hoje, missa agora, próximas missas, celebrações, horários de missas
+{% endblock %}
+
+{% block og_title %}
+Listar Celebrações - Missa em Teresina
+{% endblock %}
+
+{% block og_description %}
+Saiba mais sobre as próximas Missas em Teresina.
+{% endblock %}
+
+{% block og_image %}
+{% static 'img/logo/logo_1200x630.png' %}
+{% endblock %}
+
+{% block twitter_title %}
+Listar Celebrações - Missa em Teresina
+{% endblock %}
+
+{% block twitter_description %}
+Saiba mais sobre as próximas Missas em Teresina.
+{% endblock %}
+
+{% block twitter_image %}
+{% static 'img/logo/logo_1200x630.png' %}
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/proximas_celebracoes.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<main class="missas-page">
+    <div class="missas-container">
+
+        <header class="missas-header">
+            <h1 class="missas-title">Celebrações</h1>
+
+            {% if localizacao_disponivel %}
+                <p class="missas-location-status">
+                    Exibindo celebrações considerando sua localização.
+                </p>
+            {% else %}
+                <p class="missas-location-status">
+                    Permita o acesso à localização para ver as celebrações mais próximas de você.
+                </p>
+            {% endif %}
+
+            <form method="GET" class="missas-filtros">
+
+                <input type="hidden" name="lat" value="{{ lat_user|default:'' }}">
+                <input type="hidden" name="lon" value="{{ lon_user|default:'' }}">
+
+                {% if filtro_dia %}
+                    <input type="hidden" name="dia" value="{{ filtro_dia }}">
+                {% endif %}
+
+                <div class="missas-filtros__group">
+                    <label>Filtrar por Dia:</label>
+
+                    <div class="missas-filtros__dias">
+
+                        <a href="?{% if filtro_bairro %}bairro={{ filtro_bairro|urlencode }}&{% endif %}{% if lat_user and lon_user %}lat={{ lat_user }}&lon={{ lon_user }}{% endif %}"
+                           class="{% if not filtro_dia %}active{% endif %}">
+                            Todos
+                        </a>
+
+                        {% for valor_dia, nome_dia in dias_semana %}
+                            <a href="?dia={{ valor_dia }}{% if filtro_bairro %}&bairro={{ filtro_bairro|urlencode }}{% endif %}{% if lat_user and lon_user %}&lat={{ lat_user }}&lon={{ lon_user }}{% endif %}"
+                               class="{% if filtro_dia == valor_dia %}active{% endif %}">
+                                {{ nome_dia|slice:":3" }}
+                            </a>
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+                <div class="missas-filtros__group">
+                    <label for="bairro">Região/Bairro:</label>
+
+                    <select id="bairro" name="bairro" onchange="this.form.submit()">
+                        <option value="">Todos os bairros</option>
+
+                        {% for bairro in bairros %}
+                            <option value="{{ bairro }}" {% if filtro_bairro == bairro %}selected{% endif %}>
+                                {{ bairro }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+            </form>
+        </header>
+
+        <div class="missas-grid">
+
+            {% for celebracao in page_obj %}
+                <article class="missas-card">
+
+                    <div class="missas-card__header">
+                        <a href="{{ celebracao.igreja.get_absolute_url }}" class="missas-card__image-link">
+                            {% if celebracao.igreja.imagem %}
+                                <img src="{{ celebracao.igreja.imagem.url }}" alt="{{ celebracao.igreja.nome }}">
+                            {% else %}
+                                <div class="missas-card__placeholder">⛪</div>
+                            {% endif %}
+                        </a>
+
+                        <div class="missas-card__badge-time">
+                            {{ celebracao.horario_formatado }}
+                        </div>
+                    </div>
+
+                    <div class="missas-card__body">
+
+                        <span class="missas-card__date-label">
+                            {{ celebracao.label_data }}
+                        </span>
+
+                        <span class="missas-card__category">
+                            {{ celebracao.get_categoria_display }}
+                        </span>
+
+                        <h3 class="missas-card__title">
+                            <a href="{{ celebracao.igreja.get_absolute_url }}">
+                                {{ celebracao.igreja.nome }}
+                            </a>
+                        </h3>
+
+                        <p class="missas-card__celebration-name">
+                            {{ celebracao.nome }}
+                        </p>
+
+                        {% if celebracao.descricao_recorrencia_calculada %}
+                            <p class="missas-card__recurrence">
+                                🗓️ {{ celebracao.descricao_recorrencia_calculada }}
+                            </p>
+                        {% endif %}
+
+                        <p class="missas-card__bairro">
+                            📍 
+                            {% if celebracao.igreja.bairro %}
+                                {{ celebracao.igreja.bairro }}
+                            {% else %}
+                                Bairro não informado
+                            {% endif %}
+                        </p>
+
+                        {% if celebracao.distancia_km %}
+                            <p class="missas-card__distance">
+                                🚗 {{ celebracao.distancia_km|floatformat:1 }} km de distância
+                            </p>
+                        {% endif %}
+
+                        <div class="missas-card__footer">
+                            <a href="{{ celebracao.igreja.get_absolute_url }}" class="missas-btn-secondary">
+                                Ver Igreja
+                            </a>
+
+                            {% if celebracao.igreja.maps %}
+                                <a href="{{ celebracao.igreja.maps }}"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   class="missas-btn-primary">
+                                    Como chegar
+                                </a>
+                            {% elif celebracao.igreja.latitude and celebracao.igreja.longitude %}
+                                <a href="https://www.google.com/maps/dir/?api=1&destination={{ celebracao.igreja.latitude }},{{ celebracao.igreja.longitude }}"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   class="missas-btn-primary">
+                                    Como chegar
+                                </a>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </article>
+
+            {% empty %}
+                <div class="missas-empty">
+                    <p>Nenhuma celebração encontrada com os filtros selecionados.</p>
+                </div>
+            {% endfor %}
+
+        </div>
+
+        {% if page_obj.has_other_pages %}
+            <div class="missas-pagination">
+
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}{% if query_params %}&{{ query_params }}{% endif %}">
+                        Anterior
+                    </a>
+                {% endif %}
+
+                <span>
+                    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}{% if query_params %}&{{ query_params }}{% endif %}">
+                        Próxima
+                    </a>
+                {% endif %}
+
+            </div>
+        {% endif %}
+
+    </div>
+</main>
+
+{% endblock %}
+
+{% block js %}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const urlParams = new URLSearchParams(window.location.search);
+
+        const lat = urlParams.get("lat");
+        const lon = urlParams.get("lon");
+        const localizacao = urlParams.get("localizacao");
+
+        const temLatitude = lat !== null && lat.trim() !== "";
+        const temLongitude = lon !== null && lon.trim() !== "";
+
+        if (!temLatitude && !temLongitude && !localizacao && navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    urlParams.set("lat", position.coords.latitude);
+                    urlParams.set("lon", position.coords.longitude);
+                    urlParams.set("localizacao", "ok");
+
+                    window.location.search = urlParams.toString();
+                },
+                function () {
+                    urlParams.set("localizacao", "negada");
+
+                    window.location.search = urlParams.toString();
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 60000
+                }
+            );
+        }
+    });
+</script>
+
+{% endblock %}

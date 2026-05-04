@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+Contato - Missa em Teresina
+{% endblock %}
+
+{% block keywords %}
+
+{% endblock %}
+
+{% block og_title %}
+Contato - Missa em Teresina
+{% endblock %}
+
+{% block og_description %}
+Entre em contato conosco e saiba mais sobre a missa em Teresina.
+{% endblock %}
+
+{% block og_image %}
+{% static 'img/logo/logo_1200x630.png' %}
+{% endblock %}
+
+{% block twitter_title %}
+Contato - Missa em Teresina
+{% endblock %}
+
+{% block twitter_description %}
+Entre em contato conosco e saiba mais sobre a missa em Teresina.
+{% endblock %}
+
+{% block twitter_image %}
+{% static 'img/logo/logo_1200x630.png' %}
+{% endblock %}
+
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/contato.css' %}">
+
+{% endblock %}
+
+{% block content %}
+
+<div class="contact-page">
+    <!-- SEÇÃO HERO -->
+    <section class="contact-hero">
+        <div class="container">
+            <h1>Fale Conosco</h1>
+            <p>Dúvidas, sugestões ou atualizações de horários? Estamos prontos para ouvir você.</p>
+        </div>
+    </section>
+
+    <!-- SEÇÃO FORMULÁRIO -->
+    <section class="contact-form-section section-padding">
+        <div class="container">
+            <div class="contact-wrapper">
+
+                <div class="contact-info-aside">
+                    <div class="info-card-small">
+                        <h3>Canais de Apoio</h3>
+                        <div class="c-item">
+                            <span class="c-icon">📧</span>
+                            <div>
+                                <strong>E-mail</strong>
+                                <p>contato@missaemteresina.com.br</p>
+                            </div>
+                        </div>
+                        <div class="c-item">
+                            <span class="c-icon">📱</span>
+                            <div>
+                                <strong>Redes Sociais</strong>
+                                <p>@missaemteresina</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-alert">
+                        <p><strong>Aviso:</strong> Para atualizações de horários, favor informar o nome da paróquia e o
+                            bairro.</p>
+                    </div>
+                </div>
+
+                <div class="form-container">
+                    <form action="{% url 'contato' %}" method="POST" class="main-contact-form">
+                        {% csrf_token %}
+
+                        {% if messages %}
+                        {% for message in messages %}
+                        <div class="form-message {{ message.tags }}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+
+
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nome">Nome Completo</label>
+                                <input type="text" id="nome" name="nome" placeholder="Seu nome aqui" required>
+                            </div>
+                        </div>
+                        <div class="form-row flex-row">
+                            <div class="form-group">
+                                <label for="email">E-mail</label>
+                                <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="tel">Telefone</label>
+                                <input type="tel" id="telefone" name="telefone" placeholder="(86) 99999-9999">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="msg">Mensagem</label>
+                            <textarea id="mensagem" name="mensagem" rows="6" placeholder="Como podemos ajudar?"
+                                required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-gold full-width">Enviar mensagem</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

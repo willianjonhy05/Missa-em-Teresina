@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static l10n %}
+
+
+{% block title %}
+Mapa de Igrejas - Missa em Teresina
+{% endblock %}
+
+{% block keywords %}
+mapa de igrejas, missa em Teresina, igrejas próximas, paróquias, capelas
+{% endblock %}
+
+{% block og_title %}
+Mapa de Igrejas - Missa em Teresina
+{% endblock %}
+
+{% block og_description %}
+Visualize no mapa todas as igrejas de Teresina e encontre a mais próxima de você.
+{% endblock %}
+
+{% block og_image %}
+{% static 'img/logo/logo_1200x630.png' %}
+{% endblock %}
+
+{% block twitter_title %}
+Mapa de Igrejas - Missa em Teresina
+{% endblock %}
+
+{% block twitter_description %}
+Visualize no mapa todas as igrejas de Teresina e encontre a mais próxima de você.
+{% endblock %}
+
+{% block twitter_image %}
+{% static 'img/logo/logo_1200x630.png' %}
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+    #map {
+        height: 500px;
+        width: 100%;
+        border-radius: 12px;
+        margin-top: 30px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 style="margin-top: 30px;">Mapa de Igrejas</h1>
+    <div id="map"></div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+    const igrejas = [
+        {% for igreja in igrejas %}
+        {
+            nome: "{{ igreja.nome|escapejs }}",
+            lat: {{ igreja.latitude }},
+            lon: {{ igreja.longitude }},
+            url: "{{ igreja.get_absolute_url }}",
+            {% if igreja.distancia_km %}
+            distancia: {{ igreja.distancia_km }}
+            {% endif %}
+        },
+        {% endfor %}
+    ];
+
+    // Inicializa mapa (Teresina)
+    const map = L.map('map').setView([-5.0919, -42.8034], 13);
+
+    // Camada base
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
+
+    // Adiciona pins
+    const bounds = [];
+
+    igrejas.forEach(igreja => {
+        if (igreja.lat && igreja.lon) {
+            const marker = L.marker([igreja.lat, igreja.lon]).addTo(map);
+
+            marker.bindPopup(`
+                <strong>${igreja.nome}</strong><br>
+                <a href="${igreja.url}">Ver detalhes</a>
+            `);
+
+            bounds.push([igreja.lat, igreja.lon]);
+        }
+    });
+
+    // Ajusta zoom automaticamente
+    if (bounds.length > 0) {
+        map.fitBounds(bounds);
+    }
+</script>
+{% endblock %}

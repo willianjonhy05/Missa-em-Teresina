@@ -1,0 +1,49 @@
+class Igreja(models.Model):
+    nome = models.CharField("Nome da Igreja", max_length=150)
+    endereco = models.CharField("Endereço", max_length=255)
+    bairro = models.CharField("Bairro", max_length=100, blank=True, null=True)
+    cidade = models.CharField("Cidade", max_length=100) 
+    paroquia = models.BooleanField("Paróquia", default=False)   
+    capela = models.BooleanField("Capela", default=False)
+    aberta_ao_publico = models.BooleanField("Aberta ao Público", default=True)
+
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    
+    sacerdotes = models.CharField("Sacerdotes", max_length=255, blank=True, null=True)
+    telefone = models.CharField("Telefones", max_length=255, blank=True, null=True)
+    imagem = models.ImageField("Imagem", upload_to="igrejas/", blank=True, null=True)
+    email = models.EmailField("Email", blank=True, null=True)
+    site = models.URLField("Site", blank=True, null=True)
+    facebook = models.URLField("Facebook", max_length=100, blank=True, null=True)
+    instagram = models.CharField("Instagram", max_length=100, blank=True, null=True)
+    youtube = models.URLField("YouTube", blank=True, null=True)
+    maps = models.URLField("Google Maps", blank=True, null=True)
+    
+    slug = models.SlugField("Slug", max_length=150, unique=True, blank=True, null=True)
+    
+    contato_whatsapp = models.CharField("Contato WhatsApp", max_length=20, blank=True, null=True)
+    
+    def __str__(self):
+        if self.paroquia:
+            return self.nome
+        elif self.capela:
+            return self.nome
+        else:
+            return f"Igreja {self.nome}"   
+        
+    @property
+    def link_instagram(self):
+        if self.instagram:
+            return f"https://www.instagram.com/{self.instagram}/"
+        return None 
+    
+    @property
+    def link_whatsapp(self):
+        if self.contato_whatsapp:
+            return f"https://wa.me/{self.contato_whatsapp}"
+        return None
+    
+    def get_absolute_url(self):
+        return reverse("detalhar_igreja", kwargs={"slug": self.slug})    
+    

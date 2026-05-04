@@ -1,0 +1,370 @@
+/* Escopo Isolado para evitar conflitos globais */
+.missas-page {
+    --missas-primary: #0C2036;
+    --missas-secondary: #1E3A5F;
+    --missas-accent: #D4A72C;
+    --missas-text: #2D3748;
+    --missas-bg: #F4F1E8;
+    --missas-white: #FFFFFF;
+
+    background-color: var(--missas-bg);
+    min-height: 100vh;
+    padding-bottom: 50px;
+    font-family: 'Inter', sans-serif;
+}
+
+.missas-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.missas-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.missas-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: var(--missas-primary);
+    margin-bottom: 10px;
+}
+
+.missas-subtitle {
+    color: #6B7280;
+    font-size: 1.1rem;
+}
+
+/* Grid System */
+.missas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+/* Card Design */
+.missas-card {
+    background: var(--missas-white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.missas-card:hover {
+    transform: translateY(-5px);
+}
+
+.missas-card__image-container {
+    position: relative;
+    height: 200px;
+    background-color: #e5e7eb;
+}
+
+.missas-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.missas-card__img-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 3rem;
+}
+
+.missas-card__time-badge {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: var(--missas-accent);
+    color: var(--missas-primary);
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-weight: 800;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.missas-card__content {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.missas-card__category {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--missas-accent);
+    margin-bottom: 8px;
+    display: block;
+}
+
+.missas-card__church-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--missas-primary);
+    margin-bottom: 15px;
+    line-height: 1.2;
+}
+
+.missas-card__info {
+    margin-bottom: 25px;
+}
+
+.missas-card__detail {
+    font-size: 0.9rem;
+    color: #4B5563;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.missas-card__actions {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+}
+
+/* Botões Customizados */
+.missas-btn-primary, .missas-btn-secondary {
+    flex: 1;
+    text-align: center;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.missas-btn-primary {
+    background-color: var(--missas-primary);
+    color: var(--missas-white);
+}
+
+.missas-btn-primary:hover {
+    background-color: var(--missas-secondary);
+}
+
+.missas-btn-secondary {
+    border: 1px solid #E5E7EB;
+    color: var(--missas-primary);
+}
+
+.missas-btn-secondary:hover {
+    background-color: #f9fafb;
+}
+
+/* Paginação Estilizada */
+.missas-pagination {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.missas-page-link {
+    background: var(--missas-white);
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--missas-primary);
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.missas-current {
+    font-size: 0.9rem;
+    color: #6B7280;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 600px) {
+    .missas-title { font-size: 2.2rem; }
+    .missas-card__actions { flex-direction: column; }
+}
+
+
+
+/* Estilos para quando o GPS falha */
+.missas-fallback {
+    margin-bottom: 40px;
+    animation: fadeIn 0.5s ease;
+}
+
+.missas-fallback__card {
+    background: #FFF;
+    border: 1px solid rgba(212, 167, 44, 0.3);
+    padding: 25px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 4px 15px rgba(12, 32, 54, 0.05);
+}
+
+.missas-fallback__info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.missas-fallback__icon {
+    font-size: 2rem;
+    background: #F4F1E8;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.missas-fallback__info h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--missas-primary);
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.missas-fallback__info p {
+    font-size: 0.9rem;
+    color: #6B7280;
+    margin: 5px 0 0;
+}
+
+.missas-fallback__select {
+    padding: 12px 20px;
+    border-radius: 8px;
+    border: 1px solid #E5E7EB;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    color: var(--missas-primary);
+    min-width: 250px;
+    outline: none;
+    cursor: pointer;
+    background-color: #fff;
+    transition: border-color 0.3s;
+}
+
+.missas-fallback__select:focus {
+    border-color: var(--missas-accent);
+}
+
+/* Responsividade do Fallback */
+@media (max-width: 768px) {
+    .missas-fallback__card {
+        flex-direction: column;
+        text-align: center;
+    }
+    .missas-fallback__info {
+        flex-direction: column;
+    }
+    .missas-fallback__select {
+        width: 100%;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
+.missas-page {
+    --primary: #0C2036;
+    --secondary: #1E3A5F;
+    --support: #4D7FB8;
+    --accent: #D4A72C;
+    --bg: #F4F1E8;
+    --white: #FFFFFF;
+    background-color: var(--bg);
+    min-height: 100vh;
+}
+
+.missas-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* FILTROS */
+.missas-header { margin-bottom: 40px; }
+.missas-title { font-family: 'Playfair Display', serif; color: var(--primary); font-size: 2.5rem; margin-bottom: 25px; }
+
+.missas-filtros {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.missas-filtros__group label {
+    display: block; font-weight: 700; font-size: 0.8rem; margin-bottom: 10px; color: var(--secondary); text-transform: uppercase;
+}
+
+.missas-filtros__dias { display: flex; gap: 8px; flex-wrap: wrap; }
+.missas-filtros__dias a {
+    padding: 8px 12px; border-radius: 6px; background: var(--bg); color: var(--primary); font-size: 0.85rem; font-weight: 600; transition: 0.3s;
+}
+.missas-filtros__dias a.active { background: var(--accent); color: var(--primary); }
+
+.missas-filtros__group select {
+    padding: 10px; border-radius: 6px; border: 1px solid #ddd; width: 200px; outline: none;
+}
+
+/* GRID E CARDS */
+.missas-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 25px;
+}
+
+.missas-card {
+    background: var(--white); border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s;
+}
+.missas-card:hover { transform: translateY(-5px); }
+
+.missas-card__header { position: relative; height: 180px; }
+.missas-card__header img { width: 100%; height: 100%; object-fit: cover; }
+.missas-card__placeholder { background: var(--secondary); height: 100%; display: flex; align-items: center; justify-content: center; font-size: 3rem; }
+
+.missas-card__badge-time {
+    position: absolute; bottom: 15px; right: 15px; background: var(--accent); color: var(--primary); padding: 5px 15px; border-radius: 50px; font-weight: 800;
+}
+
+.missas-card__body { padding: 20px; }
+.missas-card__date-label { color: var(--support); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; }
+.missas-card__title { font-family: 'Playfair Display', serif; color: var(--primary); margin: 10px 0; font-size: 1.3rem; }
+.missas-card__bairro, .missas-card__distance { font-size: 0.85rem; color: #666; margin-bottom: 5px; }
+
+.missas-card__footer { display: flex; gap: 10px; margin-top: 20px; }
+
+.missas-btn-primary, .missas-btn-secondary {
+    flex: 1; padding: 10px; border-radius: 6px; font-size: 0.8rem; font-weight: 700; text-align: center; transition: 0.3s;
+}
+.missas-btn-primary { background: var(--primary); color: var(--white); }
+.missas-btn-secondary { border: 1px solid var(--primary); color: var(--primary); }
+
+/* PAGINAÇÃO */
+.missas-pagination {
+    margin-top: 50px; display: flex; justify-content: center; align-items: center; gap: 20px; font-weight: 600; color: var(--primary);
+}
+.missas-pagination a { background: var(--white); padding: 8px 20px; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+
+@media (max-width: 768px) {
+    .missas-filtros { flex-direction: column; }
+    .missas-filtros__group select { width: 100%; }
+}

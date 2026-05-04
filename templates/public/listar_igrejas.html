@@ -1,0 +1,293 @@
+{% extends 'base.html' %}
+{% load static l10n %}
+
+{% block title %}
+    Lista de Igrejas - Missa em Teresina
+{% endblock %}
+
+{% block keywords %}
+    Lista de Igrejas, missa em Teresina, igreja em Teresina, paróquia, capela, celebrações, horários de missa
+{% endblock %}
+
+{% block og_title %}
+    Lista de Igrejas - Missa em Teresina
+{% endblock %}
+
+{% block og_description %}
+    Encontre informações, localização, contatos e horários de celebrações de igrejas de Teresina.
+{% endblock %}
+
+{% block og_image %}
+    {% static 'img/logo/logo_1200x630.png' %}
+{% endblock %}
+
+{% block twitter_title %}
+    Lista de Igrejas - Missa em Teresina
+{% endblock %}
+
+{% block twitter_description %}
+    Encontre informações, localização, contatos e horários de celebrações de igrejas de Teresina.
+{% endblock %}
+
+{% block twitter_image %}
+    {% static 'img/logo/logo_1200x630.png' %}
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/igrejas.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+{% endblock %}
+
+{% block content %}
+
+<div class="church-list-page">
+
+    <!-- SEÇÃO 1: HEADER E BUSCA -->
+    <section class="search-section">
+        <div class="container">
+            <div class="search-header">
+                <h1>Igrejas em Teresina</h1>
+                <p>Encontre a paróquia ou comunidade mais próxima para celebrar sua fé.</p>
+            </div>
+
+            <form method="GET" action="{% url 'listar_igrejas' %}" class="search-form">
+                {% if localizacao_disponivel %}
+                    <input type="hidden" name="lat" value="{{ latitude_usuario|unlocalize }}">
+                    <input type="hidden" name="lon" value="{{ longitude_usuario|unlocalize }}">
+                {% endif %}
+
+                <div class="search-input-wrapper">
+                    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+
+                    <input 
+                        type="text" 
+                        name="q" 
+                        value="{{ busca }}" 
+                        placeholder="Buscar igreja por nome..." 
+                        aria-label="Buscar igreja"
+                    >
+
+                    <button type="submit" class="btn btn-gold">
+                        Buscar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 2: INFORMAÇÃO DE LOCALIZAÇÃO -->
+    <section class="sorting-status-section">
+        <div class="container">
+            <div class="status-badge {% if localizacao_disponivel %}geo-active{% else %}geo-inactive{% endif %}">
+                <span class="status-icon">
+                    {% if localizacao_disponivel %}
+                        📍
+                    {% else %}
+                        🔤
+                    {% endif %}
+                </span>
+
+                <span class="status-text" id="location-status">
+                    {% if localizacao_disponivel %}
+                        Ordenado por proximidade da sua localização
+                    {% else %}
+                        Ordenado por ordem alfabética. Permita sua localização para ver as igrejas mais próximas.
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 3: LISTA DE IGREJAS -->
+    <section class="church-grid-section section-padding">
+        <div class="container">
+
+            {% if page_obj.object_list %}
+                <div class="church-app-grid">
+                    {% for igreja in page_obj.object_list %}
+                        <div class="church-app-card">
+
+                            <div class="card-image-wrapper">
+                                <a href="{{ igreja.get_absolute_url }}" aria-label="Ver detalhes de {{ igreja.nome }}">
+                                    {% if igreja.imagem %}
+                                        <img src="{{ igreja.imagem.url }}" alt="{{ igreja.nome }}" class="card-image">
+                                    {% else %}
+                                        <div class="card-image-placeholder">
+                                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#4D7FB8" stroke-width="1.5">
+                                                <path d="M12 2L12 22M7 7L17 7" stroke-linecap="round"/>
+                                                <path d="M12 2L15 5M12 2L9 5" stroke-linecap="round"/>
+                                                <path d="M4 22H20" stroke-linecap="round"/>
+                                            </svg>
+                                        </div>
+                                    {% endif %}
+                                </a>
+
+                                {% if localizacao_disponivel %}
+                                    {% if igreja.distancia_km is not None %}
+                                        <div class="distance-tag">
+                                            ⚡ {{ igreja.distancia_km|floatformat:1 }} km de você
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+
+                            <div class="card-body">
+                                <span class="card-neighborhood">
+                                    {% if igreja.bairro %}
+                                        {{ igreja.bairro }}
+                                    {% else %}
+                                        Bairro não informado
+                                    {% endif %}
+                                    
+                                </span>
+
+                                <h3 class="card-title">
+                                    <a href="{{ igreja.get_absolute_url }}">
+                                        {{ igreja.nome }}
+                                    </a>
+                                </h3>
+
+                                <div class="card-info-item">
+                                    <span class="icon">📍</span>
+                                    <p>{{ igreja.endereco }}</p>
+                                </div>
+
+                                {% if igreja.telefone %}
+                                    <div class="card-info-item">
+                                        <span class="icon">📞</span>
+                                        <p>{{ igreja.telefone }}</p>
+                                    </div>
+                                {% endif %}
+
+                                {% if igreja.sacerdotes %}
+                                    <div class="card-info-item">
+                                        <span class="icon">👤</span>
+                                        <p>{{ igreja.sacerdotes }}</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="card-footer">
+                                <a href="{{ igreja.get_absolute_url }}" class="btn btn-outline-primary full-width">
+                                    Ver detalhes
+                                </a>
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-results">
+                    <div class="no-results-icon">⛪</div>
+                    <h3>Nenhuma igreja encontrada</h3>
+
+                    {% if busca %}
+                        <p>Não encontramos igrejas com o termo "{{ busca }}". Tente buscar por outro nome.</p>
+                    {% else %}
+                        <p>Ainda não há igrejas cadastradas.</p>
+                    {% endif %}
+
+                    <a href="{% url 'listar_igrejas' %}" class="btn btn-gold">
+                        Limpar busca
+                    </a>
+                </div>
+            {% endif %}
+
+        </div>
+    </section>
+
+    <!-- SEÇÃO 4: PAGINAÇÃO -->
+    {% if page_obj.has_other_pages %}
+        <section class="pagination-section">
+            <div class="container">
+                <nav class="pagination-nav" aria-label="Navegação da paginação">
+
+                    {% if page_obj.has_previous %}
+                        <a 
+                            href="?page={{ page_obj.previous_page_number }}{% if busca %}&q={{ busca|urlencode }}{% endif %}{% if localizacao_disponivel %}&lat={{ latitude_usuario|unlocalize }}&lon={{ longitude_usuario|unlocalize }}{% endif %}" 
+                            class="page-btn arrow-btn" 
+                            aria-label="Página anterior"
+                        >
+                            ← Anterior
+                        </a>
+                    {% else %}
+                        <span class="page-btn arrow-btn disabled">
+                            ← Anterior
+                        </span>
+                    {% endif %}
+
+                    <div class="page-numbers">
+                        <span class="page-current">
+                            Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                        </span>
+                    </div>
+
+                    {% if page_obj.has_next %}
+                        <a 
+                            href="?page={{ page_obj.next_page_number }}{% if busca %}&q={{ busca|urlencode }}{% endif %}{% if localizacao_disponivel %}&lat={{ latitude_usuario|unlocalize }}&lon={{ longitude_usuario|unlocalize }}{% endif %}" 
+                            class="page-btn arrow-btn" 
+                            aria-label="Próxima página"
+                        >
+                            Próxima →
+                        </a>
+                    {% else %}
+                        <span class="page-btn arrow-btn disabled">
+                            Próxima →
+                        </span>
+                    {% endif %}
+
+                </nav>
+            </div>
+        </section>
+    {% endif %}
+
+</div>
+
+{% endblock %}
+
+{% block js %}
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const params = new URLSearchParams(window.location.search);
+        const status = document.getElementById("location-status");
+
+        const jaTemLatitude = params.has("lat");
+        const jaTemLongitude = params.has("lon");
+
+        if (jaTemLatitude && jaTemLongitude) {
+            return;
+        }
+
+        if (!navigator.geolocation) {
+            if (status) {
+                status.textContent = "Seu navegador não permite capturar localização. As igrejas serão exibidas em ordem alfabética.";
+            }
+
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            function (position) {
+                params.set("lat", position.coords.latitude);
+                params.set("lon", position.coords.longitude);
+                params.delete("page");
+
+                window.location.search = params.toString();
+            },
+            function () {
+                if (status) {
+                    status.textContent = "Não foi possível acessar sua localização. As igrejas serão exibidas em ordem alfabética.";
+                }
+            },
+            {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 60000
+            }
+        );
+    });
+</script>
+{% endblock %}
