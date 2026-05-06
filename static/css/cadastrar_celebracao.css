@@ -1,0 +1,243 @@
+
+.admin-page.cc-page {
+    --cc-primary: #0C2036;
+    --cc-secondary: #1E3A5F;
+    --cc-accent: #D4A72C;
+    --cc-bg: #F4F1E8;
+    --cc-white: #FFFFFF;
+    --cc-border: #E2E8F0;
+    --cc-text: #2D3748;
+    --cc-error: #E53E3E;
+    --cc-success: #38A169;
+}
+
+.cc-page {
+    padding-bottom: 60px;
+}
+
+/* HEADER */
+.cc-header {
+    margin-bottom: 35px;
+}
+
+.cc-btn-back {
+    color: var(--cc-primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s ease;
+}
+
+.cc-btn-back:hover {
+    color: var(--cc-accent);
+}
+
+.cc-header__title {
+    font-family: 'Playfair Display', serif;
+    color: var(--cc-primary);
+    font-size: 2.4rem;
+    line-height: 1.2;
+}
+
+/* CARD PRINCIPAL */
+.cc-card {
+    background: var(--cc-white);
+    border-radius: 16px;
+    padding: 45px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+}
+
+/* SEÇÕES (FIELDSETS) */
+.cc-section {
+    border: none;
+    margin-bottom: 45px;
+    padding: 0;
+}
+
+.cc-section:last-of-type {
+    margin-bottom: 20px;
+}
+
+.cc-section__title {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--cc-primary);
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    border-bottom: 2px solid var(--cc-bg);
+    padding-bottom: 12px;
+}
+
+.cc-section__title i {
+    color: var(--cc-accent);
+    font-size: 1rem;
+}
+
+/* GRID SYSTEM */
+.cc-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.cc-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cc-field--full {
+    grid-column: span 2;
+}
+
+.cc-field label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--cc-primary);
+}
+
+/* INPUTS E SELECTS */
+.cc-field input, 
+.cc-field select, 
+.cc-field textarea {
+    padding: 13px 16px;
+    border: 1.5px solid var(--cc-border);
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    color: var(--cc-text);
+}
+
+.cc-field input:focus, 
+.cc-field select:focus, 
+.cc-field textarea:focus {
+    border-color: var(--cc-accent);
+    box-shadow: 0 0 0 4px rgba(212, 167, 44, 0.1);
+}
+
+.cc-field__error {
+    color: var(--cc-error);
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+/* CHECKBOXES */
+.cc-checkbox-group {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    background: var(--cc-bg);
+    padding: 25px;
+    border-radius: 12px;
+}
+
+.cc-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.cc-checkbox input[type="checkbox"] {
+    width: 19px;
+    height: 19px;
+    accent-color: var(--cc-accent);
+    cursor: pointer;
+}
+
+.cc-checkbox__label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--cc-primary);
+}
+
+/* AÇÕES (BOTÕES) */
+.cc-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    border-top: 2px solid var(--cc-bg);
+    padding-top: 35px;
+}
+
+.cc-btn-save {
+    background-color: var(--cc-success);
+    color: white;
+    border: none;
+    padding: 16px 35px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cc-btn-save:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(56, 161, 105, 0.2);
+}
+
+.cc-btn-cancel {
+    background-color: #E2E8F0;
+    color: #4A5568;
+    text-decoration: none;
+    padding: 16px 35px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.cc-btn-cancel:hover {
+    background-color: #CBD5E0;
+}
+
+/* ALERTAS */
+.cc-alert {
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+.cc-alert--error {
+    background-color: #FFF5F5;
+    color: var(--cc-error);
+    border: 1px solid #FED7D7;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .cc-grid {
+        grid-template-columns: 1fr;
+    }
+    .cc-field--full {
+        grid-column: span 1;
+    }
+    .cc-card {
+        padding: 25px;
+    }
+    .cc-checkbox-group {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .cc-actions {
+        flex-direction: column;
+    }
+}

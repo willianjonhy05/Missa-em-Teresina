@@ -1,0 +1,55 @@
+.admin-page.lc-page {
+    --primary: #1E3A5F;
+    --accent: #D4A72C;
+    --bg: #F4F1E8;
+    background-color: var(--bg);
+}
+
+.lc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.lc-header h1 { font-family: 'Playfair Display', serif; color: var(--primary); font-size: 2rem; }
+
+.btn-add {
+    background-color: var(--accent);
+    color: var(--primary);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.lc-filters {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+}
+
+.filter-form { display: flex; gap: 15px; }
+.filter-form select { padding: 10px; border: 1px solid #ddd; border-radius: 6px; }
+
+.lc-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.admin-table { width: 100%; border-collapse: collapse; }
+.admin-table th { background: #f8f9fa; padding: 15px; text-align: left; font-size: 0.85rem; color: #666; text-transform: uppercase; }
+.admin-table td { padding: 15px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+
+.badge { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; }
+.badge-success { background: #d1fae5; color: #065f46; }
+.badge-danger { background: #fee2e2; color: #991b1b; }
+
+.btn-icon { color: #666; margin-left: 10px; font-size: 1.1rem; }
+.btn-icon:hover { color: var(--accent); }
+.btn-delete:hover { color: #C0392B; }

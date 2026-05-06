@@ -44,6 +44,12 @@ urlpatterns = [
     path('dashboard/igrejas/<slug:slug>/excluir/', views.excluir_igreja, name='excluir_igreja'),
     
     
+    path('dashboard/celebracoes/', views.listar_celebracoes, name='celebracoes_dashboard'),
+    path('dashboard/celebracoes/cadastrar/', views.cadastrar_celebracao, name='cadastrar_celebracao'),
+    path('dashboard/celebracoes/<int:pk>/editar/', views.editar_celebracao, name='editar_celebracao'),
+    path('dashboard/celebracoes/<int:pk>/excluir/', views.excluir_celebracao, name='excluir_celebracao'),
+    
+    
 ]
 
 

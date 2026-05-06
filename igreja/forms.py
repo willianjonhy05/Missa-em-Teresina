@@ -1,5 +1,5 @@
 from django import forms
-from .models import Usuario, Igreja
+from .models import Usuario, Igreja, TipoCelebracao
 
 
 class UsuarioCreateForm(forms.ModelForm):
@@ -89,3 +89,136 @@ class IgrejaCreateForm(forms.ModelForm):
             "maps",
             "contato_whatsapp",
         ]
+
+
+class CelebracaoForm(forms.ModelForm):
+    class Meta:
+        model = TipoCelebracao
+        fields = [
+            "igreja",
+            "nome",
+            "categoria",
+            "recorrencia",
+            "horario_inicio",
+            "descricao",
+            "dia",
+            "dia_mes",
+            "data_especifica",
+            "exige_agendamento",
+            "exibir_no_site",
+            "ativo",
+        ]
+
+        widgets = {
+            "igreja": forms.Select(attrs={
+                "class": "form-select",
+            }),
+            "nome": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "Ex: Missa Dominical",
+            }),
+            "categoria": forms.Select(attrs={
+                "class": "form-select",
+            }),
+            "recorrencia": forms.Select(attrs={
+                "class": "form-select",
+            }),
+            "horario_inicio": forms.TimeInput(attrs={
+                "class": "form-control",
+                "type": "time",
+            }),
+            "descricao": forms.Textarea(attrs={
+                "class": "form-control",
+                "rows": 3,
+                "placeholder": "Informe uma breve descrição da celebração",
+            }),
+            "dia": forms.Select(attrs={
+                "class": "form-select",
+            }),
+            "dia_mes": forms.NumberInput(attrs={
+                "class": "form-control",
+                "min": 1,
+                "max": 31,
+                "placeholder": "Ex: 13",
+            }),
+            "data_especifica": forms.DateInput(attrs={
+                "class": "form-control",
+                "type": "date",
+            }),
+            "exige_agendamento": forms.CheckboxInput(attrs={
+                "class": "form-check-input",
+            }),
+            "exibir_no_site": forms.CheckboxInput(attrs={
+                "class": "form-check-input",
+            }),
+            "ativo": forms.CheckboxInput(attrs={
+                "class": "form-check-input",
+            }),
+        }
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        recorrencia = cleaned_data.get("recorrencia")
+        dia = cleaned_data.get("dia")
+        dia_mes = cleaned_data.get("dia_mes")
+        data_especifica = cleaned_data.get("data_especifica")
+
+        if recorrencia == "semanal":
+            if not dia:
+                self.add_error(
+                    "dia",
+                    "Informe o dia da semana para celebrações semanais."
+                )
+
+            if dia_mes:
+                self.add_error(
+                    "dia_mes",
+                    "Para celebrações semanais, deixe o dia do mês vazio."
+                )
+
+            if data_especifica:
+                self.add_error(
+                    "data_especifica",
+                    "Para celebrações semanais, deixe a data específica vazia."
+                )
+
+        elif recorrencia == "mensal_dia_fixo":
+            if not dia_mes:
+                self.add_error(
+                    "dia_mes",
+                    "Informe o dia do mês para celebrações mensais."
+                )
+
+            if dia:
+                self.add_error(
+                    "dia",
+                    "Para celebrações mensais em dia fixo, deixe o dia da semana vazio."
+                )
+
+            if data_especifica:
+                self.add_error(
+                    "data_especifica",
+                    "Para celebrações mensais em dia fixo, deixe a data específica vazia."
+                )
+
+        elif recorrencia == "data_especifica":
+            if not data_especifica:
+                self.add_error(
+                    "data_especifica",
+                    "Informe a data específica da celebração."
+                )
+
+            if dia:
+                self.add_error(
+                    "dia",
+                    "Para celebrações com data específica, deixe o dia da semana vazio."
+                )
+
+            if dia_mes:
+                self.add_error(
+                    "dia_mes",
+                    "Para celebrações com data específica, deixe o dia do mês vazio."
+                )
+
+        return cleaned_data

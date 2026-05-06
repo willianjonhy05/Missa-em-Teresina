@@ -1,0 +1,34 @@
+.admin-page.delete-page { 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    min-height: 70vh; 
+}
+
+.delete-card {
+    background: #fff;
+    padding: 50px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    max-width: 450px;
+}
+
+.warn-icon { font-size: 4rem; color: #C0392B; margin-bottom: 20px; }
+.delete-card h2 { color: #1E3A5F; margin-bottom: 15px; }
+.delete-card p { font-size: 1.1rem; color: #666; line-height: 1.5; }
+
+.details { 
+    background: #f9f9f9; 
+    padding: 15px; 
+    border-radius: 10px; 
+    margin: 20px 0; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 5px;
+    font-size: 0.9rem;
+}
+
+.actions { display: flex; gap: 15px; justify-content: center; }
+.btn-confirm { background: #C0392B; color: #fff; border: none; padding: 12px 30px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+.btn-back { background: #eee; color: #666; padding: 12px 30px; border-radius: 8px; text-decoration: none; font-weight: 600; }

@@ -1,0 +1,255 @@
+/* 
+    ESTILOS PADRONIZADOS PARA EDIÇÃO DE CELEBRAÇÃO 
+    Escopo: .admin-page.ec-page
+*/
+
+.admin-page.ec-page {
+    --ec-primary: #0C2036;
+    --ec-secondary: #1E3A5F;
+    --ec-accent: #D4A72C;
+    --ec-bg: #F4F1E8;
+    --ec-white: #FFFFFF;
+    --ec-border: #E2E8F0;
+    --ec-text: #2D3748;
+    --ec-error: #E53E3E;
+    --ec-success: #38A169;
+}
+
+.ec-page {
+    padding-bottom: 60px;
+}
+
+/* HEADER */
+.ec-header {
+    margin-bottom: 35px;
+}
+
+.ec-btn-back {
+    color: var(--ec-primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s ease;
+}
+
+.ec-btn-back:hover {
+    color: var(--ec-accent);
+}
+
+.ec-header__title {
+    font-family: 'Playfair Display', serif;
+    color: var(--ec-primary);
+    font-size: 2.4rem;
+    line-height: 1.2;
+}
+
+.ec-header__subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    color: var(--ec-accent);
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+/* CARD PRINCIPAL */
+.ec-card {
+    background: var(--ec-white);
+    border-radius: 16px;
+    padding: 45px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+}
+
+/* SEÇÕES (FIELDSETS) */
+.ec-section {
+    border: none;
+    margin-bottom: 45px;
+    padding: 0;
+}
+
+.ec-section:last-of-type {
+    margin-bottom: 20px;
+}
+
+.ec-section__title {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ec-primary);
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    border-bottom: 2px solid var(--ec-bg);
+    padding-bottom: 12px;
+}
+
+.ec-section__title i {
+    color: var(--ec-accent);
+    font-size: 1rem;
+}
+
+/* GRID SYSTEM */
+.ec-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.ec-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ec-field--full {
+    grid-column: span 2;
+}
+
+.ec-field label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ec-primary);
+}
+
+/* INPUTS E SELECTS */
+.ec-field input, 
+.ec-field select, 
+.ec-field textarea {
+    padding: 13px 16px;
+    border: 1.5px solid var(--ec-border);
+    border-radius: 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    color: var(--ec-text);
+}
+
+.ec-field input:focus, 
+.ec-field select:focus, 
+.ec-field textarea:focus {
+    border-color: var(--ec-accent);
+    box-shadow: 0 0 0 4px rgba(212, 167, 44, 0.1);
+}
+
+.ec-field__error {
+    color: var(--ec-error);
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+/* CHECKBOXES */
+.ec-checkbox-group {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    background: var(--ec-bg);
+    padding: 25px;
+    border-radius: 12px;
+}
+
+.ec-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.ec-checkbox input[type="checkbox"] {
+    width: 19px;
+    height: 19px;
+    accent-color: var(--ec-accent);
+    cursor: pointer;
+}
+
+.ec-checkbox__label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ec-primary);
+}
+
+/* AÇÕES (BOTÕES) */
+.ec-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    border-top: 2px solid var(--ec-bg);
+    padding-top: 35px;
+}
+
+.ec-btn-save {
+    background-color: var(--ec-success);
+    color: white;
+    border: none;
+    padding: 16px 35px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ec-btn-save:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(56, 161, 105, 0.2);
+}
+
+.ec-btn-cancel {
+    background-color: #E2E8F0;
+    color: #4A5568;
+    text-decoration: none;
+    padding: 16px 35px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: 0.3s;
+    text-align: center;
+}
+
+.ec-btn-cancel:hover {
+    background-color: #CBD5E0;
+}
+
+/* ALERTAS */
+.ec-alert {
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    font-weight: 500;
+}
+
+.ec-alert--error {
+    background-color: #FFF5F5;
+    color: var(--ec-error);
+    border: 1px solid #FED7D7;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .ec-grid {
+        grid-template-columns: 1fr;
+    }
+    .ec-field--full {
+        grid-column: span 1;
+    }
+    .ec-card {
+        padding: 25px;
+    }
+    .ec-checkbox-group {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .ec-actions {
+        flex-direction: column;
+    }
+}

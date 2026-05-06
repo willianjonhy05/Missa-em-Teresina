@@ -1,0 +1,38 @@
+{% extends 'admin/base_admin.html' %}
+{% load static %}
+
+{% block title %}Excluir Celebração{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/excluir_celebracao.css' %}">{% endblock %}
+
+
+
+{% block breadcrumb %}Excluir Celebração{% endblock %}
+
+
+{% block page_title %}Excluir Celebração{% endblock %}
+
+{% block content %}
+<div class="admin-page delete-page">
+    <div class="delete-card">
+        <i class="fas fa-exclamation-triangle warn-icon"></i>
+        <h2>Confirmar Exclusão</h2>
+        <p>Tem certeza que deseja excluir a celebração: <br> <strong>{{ celebracao.nome }}</strong>?</p>
+        <div class="details">
+            <span><strong>Igreja:</strong> {{ celebracao.igreja.nome }}</span>
+            <span><strong>Tipo:</strong> {{ celebracao.get_categoria_display }}</span>
+        </div>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="actions">
+                <button type="submit" class="btn-confirm">Sim, Excluir</button>
+                <a href="{% url 'celebracoes_dashboard' %}" class="btn-back">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+
+{% endblock %}

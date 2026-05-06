@@ -9,7 +9,7 @@ from django.utils.http import url_has_allowed_host_and_scheme
 from django.views.decorators.cache import never_cache
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
-from .forms import IgrejaCreateForm
+from .forms import IgrejaCreateForm, CelebracaoForm
 from .models import Contato, Igreja, TipoCelebracao
 from .utils import (
     calcular_distancia,
@@ -202,6 +202,85 @@ def editar_igreja(request, slug):
         form = IgrejaCreateForm(instance=igreja)
 
     return render(request, "admin/editar_igreja.html", {"form": form, "igreja": igreja})
+
+
+
+@login_required
+@user_passes_test(somente_superusuario)
+def listar_celebracoes(request):
+    igreja_id = request.GET.get('igreja')
+    categoria = request.GET.get('categoria')
+    ativo = request.GET.get('ativo')
+
+    celebracoes = TipoCelebracao.objects.all().select_related('igreja')
+
+    if igreja_id:
+        celebracoes = celebracoes.filter(igreja_id=igreja_id)
+    if categoria:
+        celebracoes = celebracoes.filter(categoria=categoria)
+    if ativo:
+        celebracoes = celebracoes.filter(ativo=(ativo == '1'))
+
+    celebracoes = celebracoes.order_by('igreja__nome', 'horario_inicio')
+    
+    paginator = Paginator(celebracoes, 10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'page_obj': page_obj,
+        'igrejas': Igreja.objects.all().order_by('nome'),
+        'categorias': TipoCelebracao.CATEGORIAS,
+        'filtros': {
+            'igreja': igreja_id,
+            'categoria': categoria,
+            'ativo': ativo
+        }
+    }
+    return render(request, 'admin/listar_celebracoes.html', context)
+
+@login_required
+@user_passes_test(somente_superusuario)
+def cadastrar_celebracao(request):
+    if request.method == 'POST':
+        form = CelebracaoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Celebração cadastrada com sucesso!")
+            return redirect('listar_celebracoes')
+        else:
+            messages.error(request, "Erro ao cadastrar. Verifique os campos.")
+    else:
+        form = CelebracaoForm()
+    
+    return render(request, 'admin/cadastrar_celebracao.html', {'form': form})
+
+@login_required
+@user_passes_test(somente_superusuario)
+def editar_celebracao(request, pk):
+    celebracao = get_object_or_404(TipoCelebracao, pk=pk)
+    if request.method == 'POST':
+        form = CelebracaoForm(request.POST, instance=celebracao)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Celebração atualizada com sucesso!")
+            return redirect('listar_celebracoes')
+    else:
+        form = CelebracaoForm(instance=celebracao)
+    
+    return render(request, 'admin/editar_celebracao.html', {'form': form, 'celebracao': celebracao})
+
+@login_required
+@user_passes_test(somente_superusuario)
+def excluir_celebracao(request, pk):
+    celebracao = get_object_or_404(TipoCelebracao, pk=pk)
+    if request.method == 'POST':
+        celebracao.delete()
+        messages.success(request, "Celebração excluída com sucesso.")
+        return redirect('listar_celebracoes')
+    
+    return render(request, 'admin/excluir_celebracao.html', {'celebracao': celebracao})
+
 
 
 ## VIEWS PÚBLICAS

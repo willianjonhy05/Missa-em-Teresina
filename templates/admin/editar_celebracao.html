@@ -1,0 +1,185 @@
+{% extends 'admin/base_admin.html' %}
+{% load static %}
+
+{% block title %}Editar Celebração | {{ celebracao.nome }}{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/editar_celebracao.css' %}">
+{% endblock %}
+
+{% block breadcrumb %}Editar Celebração{% endblock %}
+
+
+{% block page_title %}Editar Celebração{% endblock %}
+
+
+
+{% block content %}
+<div class="admin-page ec-page">
+    <!-- CABEÇALHO -->
+    <div class="ec-header">
+        <div class="ec-header__info">
+            <a href="{% url 'celebracoes_dashboard' %}" class="ec-btn-back">
+                <i class="fas fa-chevron-left"></i> Voltar para lista
+            </a>
+            <h1 class="ec-header__title">Editar Celebração</h1>
+            <p class="ec-header__subtitle">{{ celebracao.igreja.nome }} — {{ celebracao.nome }}</p>
+        </div>
+    </div>
+
+    <!-- CARD PRINCIPAL -->
+    <div class="ec-card">
+        <form method="POST" class="ec-form" id="editCelebracaoForm">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+            <div class="ec-alert ec-alert--error">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <!-- SEÇÃO 1: INFORMAÇÕES BÁSICAS -->
+            <fieldset class="ec-section">
+                <legend class="ec-section__title"><i class="fas fa-info-circle"></i> Informações Básicas</legend>
+                <div class="ec-grid">
+                    <div class="ec-field ec-field--full">
+                        <label for="{{ form.igreja.id_for_label }}">{{ form.igreja.label }}</label>
+                        {{ form.igreja }}
+                        {% if form.igreja.errors %}<span class="ec-field__error">{{ form.igreja.errors|striptags }}</span>{% endif %}
+                    </div>
+                    <div class="ec-field">
+                        <label for="{{ form.nome.id_for_label }}">{{ form.nome.label }}</label>
+                        {{ form.nome }}
+                        {% if form.nome.errors %}<span class="ec-field__error">{{ form.nome.errors|striptags }}</span>{% endif %}
+                    </div>
+                    <div class="ec-field">
+                        <label for="{{ form.categoria.id_for_label }}">{{ form.categoria.label }}</label>
+                        {{ form.categoria }}
+                        {% if form.categoria.errors %}<span class="ec-field__error">{{ form.categoria.errors|striptags }}</span>{% endif %}
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- SEÇÃO 2: RECORRÊNCIA -->
+            <fieldset class="ec-section">
+                <legend class="ec-section__title"><i class="fas fa-redo"></i> Recorrência</legend>
+                <div class="ec-grid">
+                    <div class="ec-field ec-field--full">
+                        <label for="{{ form.recorrencia.id_for_label }}">{{ form.recorrencia.label }}</label>
+                        {{ form.recorrencia }}
+                        {% if form.recorrencia.errors %}<span class="ec-field__error">{{ form.recorrencia.errors|striptags }}</span>{% endif %}
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- SEÇÃO 3: CONFIGURAÇÃO DINÂMICA (DIA/DATA) -->
+            <fieldset class="ec-section" id="section-date-logic">
+                <legend class="ec-section__title"><i class="fas fa-calendar-day"></i> Configuração da Data</legend>
+                <div class="ec-grid">
+                    <div class="ec-field ec-field--full" id="wrapper-dia">
+                        <label for="{{ form.dia.id_for_label }}">{{ form.dia.label }}</label>
+                        {{ form.dia }}
+                        {% if form.dia.errors %}<span class="ec-field__error">{{ form.dia.errors|striptags }}</span>{% endif %}
+                    </div>
+                    <div class="ec-field ec-field--full" id="wrapper-dia-mes">
+                        <label for="{{ form.dia_mes.id_for_label }}">{{ form.dia_mes.label }}</label>
+                        {{ form.dia_mes }}
+                        {% if form.dia_mes.errors %}<span class="ec-field__error">{{ form.dia_mes.errors|striptags }}</span>{% endif %}
+                    </div>
+                    <div class="ec-field ec-field--full" id="wrapper-data-especifica">
+                        <label for="{{ form.data_especifica.id_for_label }}">{{ form.data_especifica.label }}</label>
+                        {{ form.data_especifica }}
+                        {% if form.data_especifica.errors %}<span class="ec-field__error">{{ form.data_especifica.errors|striptags }}</span>{% endif %}
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- SEÇÃO 4: HORÁRIO -->
+            <fieldset class="ec-section">
+                <legend class="ec-section__title"><i class="fas fa-clock"></i> Horário</legend>
+                <div class="ec-grid">
+                    <div class="ec-field">
+                        <label for="{{ form.horario_inicio.id_for_label }}">{{ form.horario_inicio.label }}</label>
+                        {{ form.horario_inicio }}
+                        {% if form.horario_inicio.errors %}<span class="ec-field__error">{{ form.horario_inicio.errors|striptags }}</span>{% endif %}
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- SEÇÃO 5: CONFIGURAÇÕES -->
+            <fieldset class="ec-section">
+                <legend class="ec-section__title"><i class="fas fa-toggle-on"></i> Atributos e Visibilidade</legend>
+                <div class="ec-checkbox-group">
+                    <label class="ec-checkbox">
+                        {{ form.exige_agendamento }}
+                        <span class="ec-checkbox__label">{{ form.exige_agendamento.label }}</span>
+                    </label>
+                    <label class="ec-checkbox">
+                        {{ form.exibir_no_site }}
+                        <span class="ec-checkbox__label">{{ form.exibir_no_site.label }}</span>
+                    </label>
+                    <label class="ec-checkbox">
+                        {{ form.ativo }}
+                        <span class="ec-checkbox__label">{{ form.ativo.label }}</span>
+                    </label>
+                </div>
+            </fieldset>
+
+            <!-- SEÇÃO 6: DESCRIÇÃO -->
+            <fieldset class="ec-section">
+                <legend class="ec-section__title"><i class="fas fa-align-left"></i> Descrição Opcional</legend>
+                <div class="ec-grid">
+                    <div class="ec-field ec-field--full">
+                        <label for="{{ form.descricao.id_for_label }}">{{ form.descricao.label }}</label>
+                        {{ form.descricao }}
+                        {% if form.descricao.errors %}<span class="ec-field__error">{{ form.descricao.errors|striptags }}</span>{% endif %}
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- AÇÕES -->
+            <div class="ec-actions">
+                <button type="submit" class="ec-btn-save"><i class="fas fa-sync-alt"></i> Atualizar Celebração</button>
+                <a href="{% url 'celebracoes_dashboard' %}" class="ec-btn-cancel">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectRecorrencia = document.querySelector('select[name="recorrencia"]');
+        const wrapDia = document.getElementById('wrapper-dia');
+        const wrapDiaMes = document.getElementById('wrapper-dia-mes');
+        const wrapDataEspecífica = document.getElementById('wrapper-data-especifica');
+
+        function toggleDateFields() {
+            const valor = selectRecorrencia.value;
+            
+            // Esconde todos
+            [wrapDia, wrapDiaMes, wrapDataEspecífica].forEach(el => {
+                el.style.display = 'none';
+            });
+
+            // Mostra o selecionado
+            if (valor === 'semanal') {
+                wrapDia.style.display = 'block';
+            } else if (valor === 'mensal_dia_fixo') {
+                wrapDiaMes.style.display = 'block';
+            } else if (valor === 'data_especifica') {
+                wrapDataEspecífica.style.display = 'block';
+            }
+        }
+
+        if (selectRecorrencia) {
+            selectRecorrencia.addEventListener('change', toggleDateFields);
+            // IMPORTANTE: Executa ao carregar para mostrar os campos dos dados já salvos
+            toggleDateFields();
+        }
+    });
+</script>
+{% endblock %}

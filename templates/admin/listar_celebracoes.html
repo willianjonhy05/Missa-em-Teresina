@@ -1,0 +1,87 @@
+{% extends 'admin/base_admin.html' %}
+{% load static %}
+
+{% block title %}Celebrações{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/listar_celebracoes.css' %}">{% endblock %}
+
+
+{% block breadcrumb %}Celebrações{% endblock %}
+{% block page_title %}Celebrações Cadastradas{% endblock %}
+
+{% block content %}
+<div class="admin-page lc-page">
+    <div class="admin-container">
+        <header class="lc-header">
+            <div>
+                <h1>Celebrações</h1>
+                <p>Gerenciamento de missas e ritos religiosos.</p>
+            </div>
+            <a href="{% url 'cadastrar_celebracao' %}" class="btn-add">
+                <i class="fas fa-plus"></i> Nova Celebração
+            </a>
+        </header>
+
+        <section class="lc-filters">
+            <form method="GET" class="filter-form">
+                <select name="igreja">
+                    <option value="">Todas as Igrejas</option>
+                    {% for i in igrejas %}<option value="{{ i.id }}" {% if filtros.igreja == i.id|stringformat:"s" %}selected{% endif %}>{{ i.nome }}</option>{% endfor %}
+                </select>
+                <select name="categoria">
+                    <option value="">Todas as Categorias</option>
+                    {% for cat_val, cat_label in categorias %}<option value="{{ cat_val }}" {% if filtros.categoria == cat_val %}selected{% endif %}>{{ cat_label }}</option>{% endfor %}
+                </select>
+                <button type="submit" class="btn-filter">Filtrar</button>
+            </form>
+        </section>
+
+        <div class="lc-card">
+            <table class="admin-table">
+                <thead>
+                    <tr>
+                        <th>Igreja</th>
+                        <th>Nome/Categoria</th>
+                        <th>Recorrência</th>
+                        <th>Horário</th>
+                        <th>Status</th>
+                        <th class="text-right">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in page_obj %}
+                    <tr>
+                        <td><strong>{{ c.igreja.nome }}</strong></td>
+                        <td>{{ c.nome }} <br><small>{{ c.get_categoria_display }}</small></td>
+                        <td>{{ c.get_recorrencia_display }}</td>
+                        <td>{{ c.horario_inicio|time:"H:i" }}</td>
+                        <td>
+                            {% if c.ativo %}<span class="badge badge-success">Ativo</span>
+                            {% else %}<span class="badge badge-danger">Inativo</span>{% endif %}
+                        </td>
+                        <td class="text-right">
+                            <a href="{% url 'editar_celebracao' c.id %}" class="btn-icon" title="Editar"><i class="fas fa-edit"></i></a>
+                            <a href="{% url 'excluir_celebracao' c.id %}" class="btn-icon btn-delete" title="Excluir"><i class="fas fa-trash"></i></a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="6" class="empty-state">Nenhuma celebração cadastrada.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if page_obj.has_other_pages %}
+        <nav class="pagination">
+            {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}">Anterior</a>{% endif %}
+            <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+            {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}">Próxima</a>{% endif %}
+        </nav>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+
+{% endblock %}
