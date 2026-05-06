@@ -1,0 +1,247 @@
+/* ESCOPO ISOLADO: CADASTRO DE IGREJA */
+.ci-page {
+    --ci-primary: #1E3A5F;
+    --ci-accent: #D4A72C;
+    --ci-bg: #F4F1E8;
+    --ci-white: #FFFFFF;
+    --ci-border: #E2E8F0;
+    --ci-error: #E53E3E;
+    --ci-success: #38A169;
+}
+
+.ci-page {
+    padding-bottom: 50px;
+}
+
+.ci-header {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ci-btn-back {
+    color: var(--ci-primary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+
+.ci-btn-back:hover {
+    color: var(--ci-accent);
+}
+
+.ci-header__title {
+    font-family: 'Playfair Display', serif;
+    color: var(--ci-primary);
+    font-size: 2.2rem;
+}
+
+/* CARD */
+.ci-card {
+    background: var(--ci-white);
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* SEÇÕES */
+.ci-section {
+    border: none;
+    margin-bottom: 40px;
+    padding: 0;
+}
+
+.ci-section__title {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--ci-primary);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    border-bottom: 2px solid var(--ci-bg);
+    padding-bottom: 10px;
+}
+
+/* GRID */
+.ci-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.ci-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ci-field--full {
+    grid-column: span 2;
+}
+
+.ci-field label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ci-primary);
+}
+
+/* INPUTS */
+.ci-field input, 
+.ci-field select, 
+.ci-field textarea {
+    padding: 12px 15px;
+    border: 1.5px solid var(--ci-border);
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.ci-field input:focus {
+    border-color: var(--ci-accent);
+    box-shadow: 0 0 0 3px rgba(212, 167, 44, 0.15);
+}
+
+.ci-field__help {
+    font-size: 0.75rem;
+    color: #718096;
+}
+
+.ci-form__error {
+    color: var(--ci-error);
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* CHECKBOXES */
+.ci-checkbox-group {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.ci-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.ci-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--ci-accent);
+    cursor: pointer;
+}
+
+.ci-checkbox__label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ci-primary);
+}
+
+/* UPLOAD */
+.ci-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    background: var(--ci-bg);
+    padding: 30px;
+    border-radius: 10px;
+    border: 2px dashed #cbd5e0;
+}
+
+.ci-upload__preview {
+    width: 100%;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #a0aec0;
+}
+
+.ci-btn-upload {
+    background: var(--ci-primary);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.ci-btn-upload:hover {
+    background: var(--ci-accent);
+}
+
+.ci-upload input[type="file"] {
+    display: none;
+}
+
+/* ACTIONS */
+.ci-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+    border-top: 1px solid var(--ci-border);
+    padding-top: 30px;
+}
+
+.ci-btn-save {
+    background: var(--ci-success);
+    color: white;
+    border: none;
+    padding: 14px 30px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.ci-btn-save:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+}
+
+.ci-btn-cancel {
+    background: #E2E8F0;
+    color: #4A5568;
+    text-decoration: none;
+    padding: 14px 30px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.ci-btn-cancel:hover {
+    background: #CBD5E0;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .ci-grid {
+        grid-template-columns: 1fr;
+    }
+    .ci-field--full {
+        grid-column: span 1;
+    }
+    .ci-card {
+        padding: 20px;
+    }
+    .ci-checkbox-group {
+        flex-direction: column;
+        gap: 15px;
+    }
+}

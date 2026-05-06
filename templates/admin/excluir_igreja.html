@@ -7,7 +7,7 @@
 
 {% block css %}
 
-<link rel="stylesheet" href="{% static 'css/admin/excluir_igreja.css' %}">
+<link rel="stylesheet" href="{% static 'css/excluir_igreja.css' %}">
 {% endblock %}
 
 
@@ -34,7 +34,7 @@
             {% csrf_token %}
             <div class="ex-form__actions">
                 <button type="submit" class="ex-btn-confirm">Sim, Excluir</button>
-                <a href="{% url 'listar_igrejas' %}" class="ex-btn-cancel">Não, Cancelar</a>
+                <a href="{% url 'igrejas_dashboard' %}" class="ex-btn-cancel">Não, Cancelar</a>
             </div>
         </form>
     </div>

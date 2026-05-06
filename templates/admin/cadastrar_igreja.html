@@ -1,66 +1,204 @@
 {% extends 'admin/base_admin.html' %}
-
 {% load static %}
 
-{% block title %}Cadastrar Igreja{% endblock %}
-
+{% block title %}Cadastrar Igreja | Painel Administrativo{% endblock %}
 
 {% block css %}
-
-<link rel="stylesheet" href="{% static 'css/admin/cadastrar_igreja.css' %}">
+<link rel="stylesheet" href="{% static 'css/nova_igreja.css' %}">
 {% endblock %}
-
-
 
 {% block breadcrumb %}Nova Igreja{% endblock %}
 
-
-{% block page_title %}Excluir Igreja{% endblock %}
-
-
-
 {% block content %}
-
-
-
-
 <div class="admin-page ci-page">
+    <!-- CABEÇALHO -->
     <div class="ci-header">
-        <a href="{% url 'listar_igrejas' %}" class="ci-btn-back"><i class="fas fa-arrow-left"></i> Voltar</a>
-        <h1>Cadastrar Nova Igreja</h1>
+        <div class="ci-header__info">
+            <a href="{% url 'igrejas_dashboard' %}" class="ci-btn-back">
+                <i class="fas fa-chevron-left"></i> Voltar para lista
+            </a>
+            <h1 class="ci-header__title">Cadastrar Nova Igreja</h1>
+        </div>
     </div>
 
+    <!-- CARD PRINCIPAL -->
     <div class="ci-card">
-        <form method="POST" enctype="multipart/form-data" class="ci-form">
+        <form method="POST" enctype="multipart/form-data" class="ci-form" id="churchForm">
             {% csrf_token %}
-            
-            <div class="ci-form__grid">
-                {% for field in form %}
-                <div class="ci-form__group {% if field.name == 'endereco' or field.name == 'descricao' %}ci-form__group--full{% endif %}">
-                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                    {{ field }}
-                    {% if field.errors %}
-                        <span class="ci-form__error">{{ field.errors|striptags }}</span>
-                    {% endif %}
-                </div>
-                {% endfor %}
-            </div>
 
-            <div class="ci-form__actions">
-                <button type="submit" class="ci-btn-save">Salvar Igreja</button>
-                <a href="{% url 'listar_igrejas' %}" class="ci-btn-cancel">Cancelar</a>
+            {% if form.non_field_errors %}
+            <div class="ci-alert ci-alert--error">
+                {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+
+            <!-- SEÇÃO 1: INFORMAÇÕES BÁSICAS -->
+            <fieldset class="ci-section">
+                <legend class="ci-section__title"><i class="fas fa-info-circle"></i> Informações Básicas</legend>
+                <div class="ci-grid">
+                    <div class="ci-field ci-field--full">
+                        <label>{{ form.nome.label }}</label>
+                        {{ form.nome }}
+                        <span class="ci-field__help">Ex: Paróquia Nossa Senhora de Fátima</span>
+                    </div>
+                    <div class="ci-field ci-field--full">
+                        <label>{{ form.endereco.label }}</label>
+                        {{ form.endereco }}
+                    </div>
+                    <div class="ci-field">
+                        <label>{{ form.bairro.label }}</label>
+                        {{ form.bairro }}
+                    </div>
+                    <div class="ci-field">
+                        <label>{{ form.cidade.label }}</label>
+                        {{ form.cidade }}
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- SEÇÃO 2: CLASSIFICAÇÃO -->
+            <fieldset class="ci-section">
+                <legend class="ci-section__title"><i class="fas fa-tags"></i> Classificação</legend>
+                <div class="ci-checkbox-group">
+                    <label class="ci-checkbox">
+                        {{ form.paroquia }}
+                        <span class="ci-checkbox__label">Paróquia</span>
+                    </label>
+                    <label class="ci-checkbox">
+                        {{ form.capela }}
+                        <span class="ci-checkbox__label">Capela</span>
+                    </label>
+                    <label class="ci-checkbox">
+                        {{ form.aberta_ao_publico }}
+                        <span class="ci-checkbox__label">Aberta ao Público</span>
+                    </label>
+                </div>
+            </fieldset>
+
+            <!-- SEÇÃO 3: LOCALIZAÇÃO -->
+            <fieldset class="ci-section">
+                <legend class="ci-section__title"><i class="fas fa-map-marker-alt"></i> Localização Geográfica</legend>
+                <div class="ci-grid">
+                    <div class="ci-field">
+                        <label>{{ form.latitude.label }}</label>
+                        {{ form.latitude }}
+                    </div>
+                    <div class="ci-field">
+                        <label>{{ form.longitude.label }}</label>
+                        {{ form.longitude }}
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- SEÇÃO 4: CONTATO -->
+            <fieldset class="ci-section">
+                <legend class="ci-section__title"><i class="fas fa-phone-alt"></i> Contato</legend>
+                <div class="ci-grid">
+                    <div class="ci-field">
+                        <label>{{ form.telefone.label }}</label>
+                        {{ form.telefone }}
+                    </div>
+                    <div class="ci-field">
+                        <label>{{ form.contato_whatsapp.label }}</label>
+                        {{ form.contato_whatsapp }}
+                    </div>
+                    <div class="ci-field ci-field--full">
+                        <label>{{ form.email.label }}</label>
+                        {{ form.email }}
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- SEÇÃO 5: REDES E LINKS -->
+            <fieldset class="ci-section">
+                <legend class="ci-section__title"><i class="fas fa-share-alt"></i> Redes e Links</legend>
+                <div class="ci-grid">
+                    <div class="ci-field">
+                        <label>{{ form.instagram.label }}</label>
+                        {{ form.instagram }}
+                    </div>
+                    <div class="ci-field">
+                        <label>{{ form.facebook.label }}</label>
+                        {{ form.facebook }}
+                    </div>
+                    <div class="ci-field">
+                        <label>{{ form.youtube.label }}</label>
+                        {{ form.youtube }}
+                    </div>
+                    <div class="ci-field">
+                        <label>{{ form.site.label }}</label>
+                        {{ form.site }}
+                    </div>
+                    <div class="ci-field ci-field--full">
+                        <label>{{ form.maps.label }}</label>
+                        {{ form.maps }}
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- SEÇÃO 6: INFORMAÇÕES RELIGIOSAS -->
+            <fieldset class="ci-section">
+                <legend class="ci-section__title"><i class="fas fa-user-tie"></i> Informações Religiosas</legend>
+                <div class="ci-grid">
+                    <div class="ci-field ci-field--full">
+                        <label>{{ form.sacerdotes.label }}</label>
+                        {{ form.sacerdotes }}
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- SEÇÃO 7: IMAGEM -->
+            <fieldset class="ci-section">
+                <legend class="ci-section__title"><i class="fas fa-camera"></i> Identidade Visual</legend>
+                <div class="ci-upload">
+                    <div class="ci-upload__preview" id="imagePreview">
+                        <i class="fas fa-image"></i>
+                        <span>Nenhuma imagem selecionada</span>
+                    </div>
+                    <div class="ci-upload__controls">
+                        <label for="{{ form.imagem.id_for_label }}" class="ci-btn-upload">
+                            <i class="fas fa-cloud-upload-alt"></i> Selecionar Imagem
+                        </label>
+                        {{ form.imagem }}
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- AÇÕES -->
+            <div class="ci-actions">
+                <button type="submit" class="ci-btn-save"><i class="fas fa-check"></i> Salvar Igreja</button>
+                <a href="{% url 'igrejas_dashboard' %}" class="ci-btn-cancel">Cancelar</a>
             </div>
         </form>
     </div>
 </div>
 {% endblock %}
 
-
-
-
 {% block js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const imageInput = document.querySelector('input[type="file"]');
+        const previewContainer = document.getElementById('imagePreview');
 
-
-
-
+        if (imageInput) {
+            imageInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    previewContainer.innerHTML = '';
+                    
+                    reader.onload = function(e) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.style.maxWidth = '100%';
+                        img.style.maxHeight = '200px';
+                        img.style.borderRadius = '8px';
+                        previewContainer.appendChild(img);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    });
+</script>
 {% endblock %}

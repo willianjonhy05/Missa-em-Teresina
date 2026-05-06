@@ -1,20 +1,15 @@
-{% extends "admin_custom/base_admin.html" %}
+{# admin/listar_igrejas.html #}
+{% extends "admin/base_admin.html" %}
 {% load static %}
 
 {% block title %}Igrejas Cadastradas{% endblock %}
 
-
-
 {% block css %}
-<link rel="stylesheet" href="{% static 'css/admin/listar_igrejas.css' %}">
-
+<link rel="stylesheet" href="{% static 'css/listar_igrejas.css' %}">
 {% endblock %}
 
 {% block breadcrumb %}Igrejas{% endblock %}
 {% block page_title %}Igrejas Cadastradas{% endblock %}
-
-
-
 
 {% block content %}
 
@@ -24,6 +19,7 @@
             <h1>Igrejas Cadastradas</h1>
             <p>Gerencie as paróquias e comunidades do sistema.</p>
         </div>
+
         <a href="{% url 'cadastrar_igreja' %}" class="li-btn-add">
             <i class="fas fa-plus"></i> Cadastrar Igreja
         </a>
@@ -33,14 +29,38 @@
     <section class="li-filters">
         <form method="GET" class="li-filters__form">
             <div class="li-filters__group">
-                <input type="text" name="q" value="{{ busca|default:'' }}" placeholder="Buscar por nome...">
+                <input 
+                    type="text" 
+                    name="q" 
+                    value="{{ busca|default:'' }}" 
+                    placeholder="Buscar por nome..."
+                >
             </div>
+
             <div class="li-filters__group">
-                <input type="text" name="bairro" value="{{ filtro_bairro|default:'' }}" placeholder="Bairro">
+                <input 
+                    type="text" 
+                    name="bairro" 
+                    value="{{ filtro_bairro|default:'' }}" 
+                    placeholder="Bairro"
+                >
             </div>
+
             <div class="li-filters__group">
-                <button type="submit" class="li-btn-filter"><i class="fas fa-search"></i> Filtrar</button>
-                <a href="{% url 'listar_igrejas' %}" class="li-btn-clear" title="Limpar filtros">
+                <input 
+                    type="text" 
+                    name="cidade" 
+                    value="{{ filtro_cidade|default:'' }}" 
+                    placeholder="Cidade"
+                >
+            </div>
+
+            <div class="li-filters__group">
+                <button type="submit" class="li-btn-filter">
+                    <i class="fas fa-search"></i> Filtrar
+                </button>
+
+                <a href="{% url 'igrejas_dashboard' %}" class="li-btn-clear" title="Limpar filtros">
                     <i class="fas fa-eraser"></i>
                 </a>
             </div>
@@ -59,6 +79,7 @@
                         <th class="text-center">Ações</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     {% for igreja in page_obj %}
                     <tr>
@@ -67,19 +88,43 @@
                                 <strong>{{ igreja.nome }}</strong>
                             </div>
                         </td>
+
                         <td>{{ igreja.bairro }}</td>
                         <td>{{ igreja.cidade }}</td>
+
                         <td>
                             <div class="li-actions">
-                                <button class="li-action-btn li-action-btn--view" 
-                                        onclick="openIgrejaModal('{{ igreja.nome }}', '{{ igreja.endereco }}', '{{ igreja.bairro }}', '{{ igreja.cidade }}', '{{ igreja.telefone|default:'Não informado' }}', '{{ igreja.imagem.url|default:'' }}')" 
-                                        title="Ver detalhes">
+                                <button 
+                                    type="button"
+                                    class="li-action-btn li-action-btn--view js-open-igreja-modal"
+                                    data-nome="{{ igreja.nome|default:'' }}"
+                                    data-endereco="{{ igreja.endereco|default:'' }}"
+                                    data-bairro="{{ igreja.bairro|default:'' }}"
+                                    data-cidade="{{ igreja.cidade|default:'' }}"
+                                    data-telefone="{{ igreja.telefone|default:'Não informado' }}"
+                                    {% if igreja.imagem %}
+                                        data-imagem="{{ igreja.imagem.url }}"
+                                    {% else %}
+                                        data-imagem=""
+                                    {% endif %}
+                                    title="Ver detalhes"
+                                >
                                     <i class="fas fa-eye"></i>
                                 </button>
-                                <a href="{% url 'editar_igreja' igreja.slug %}" class="li-action-btn li-action-btn--edit" title="Editar">
+
+                                <a 
+                                    href="{% url 'editar_igreja' igreja.slug %}" 
+                                    class="li-action-btn li-action-btn--edit" 
+                                    title="Editar"
+                                >
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <a href="{% url 'excluir_igreja' igreja.slug %}" class="li-action-btn li-action-btn--delete" title="Excluir">
+
+                                <a 
+                                    href="{% url 'excluir_igreja' igreja.slug %}" 
+                                    class="li-action-btn li-action-btn--delete" 
+                                    title="Excluir"
+                                >
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </div>
@@ -87,7 +132,9 @@
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="4" class="li-table__empty">Nenhuma igreja encontrada.</td>
+                        <td colspan="4" class="li-table__empty">
+                            Nenhuma igreja encontrada.
+                        </td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -100,15 +147,20 @@
             <div class="li-pagination__info">
                 Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
             </div>
+
             <div class="li-pagination__nav">
                 {% if page_obj.has_previous %}
-                    <a href="?page={{ page_obj.previous_page_number }}&q={{ busca|default:'' }}"><i class="fas fa-chevron-left"></i></a>
+                    <a href="?page={{ page_obj.previous_page_number }}&q={{ busca|urlencode }}&bairro={{ filtro_bairro|urlencode }}&cidade={{ filtro_cidade|urlencode }}">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
                 {% endif %}
-                
+
                 <span class="li-pagination__current">{{ page_obj.number }}</span>
 
                 {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}&q={{ busca|default:'' }}"><i class="fas fa-chevron-right"></i></a>
+                    <a href="?page={{ page_obj.next_page_number }}&q={{ busca|urlencode }}&bairro={{ filtro_bairro|urlencode }}&cidade={{ filtro_cidade|urlencode }}">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
                 {% endif %}
             </div>
         </div>
@@ -121,10 +173,15 @@
     <div class="li-modal__content">
         <div class="li-modal__header">
             <h3 id="modalNome">Detalhes da Igreja</h3>
-            <button onclick="closeIgrejaModal()">&times;</button>
+
+            <button type="button" onclick="closeIgrejaModal()">
+                &times;
+            </button>
         </div>
+
         <div class="li-modal__body">
             <div id="modalImagemContainer" class="li-modal__image"></div>
+
             <div class="li-modal__info">
                 <p><strong>Endereço:</strong> <span id="modalEndereco"></span></p>
                 <p><strong>Bairro:</strong> <span id="modalBairro"></span></p>
@@ -135,24 +192,34 @@
     </div>
 </div>
 
-
-
 {% endblock %}
-
-
 
 {% block js %}
 <script>
     function openIgrejaModal(nome, endereco, bairro, cidade, telefone, imagem) {
-        document.getElementById('modalNome').innerText = nome;
-        document.getElementById('modalEndereco').innerText = endereco;
-        document.getElementById('modalBairro').innerText = bairro;
-        document.getElementById('modalCidade').innerText = cidade;
-        document.getElementById('modalTelefone').innerText = telefone;
-        
+        document.getElementById('modalNome').innerText = nome || 'Detalhes da Igreja';
+        document.getElementById('modalEndereco').innerText = endereco || 'Não informado';
+        document.getElementById('modalBairro').innerText = bairro || 'Não informado';
+        document.getElementById('modalCidade').innerText = cidade || 'Não informado';
+        document.getElementById('modalTelefone').innerText = telefone || 'Não informado';
+
         const imgContainer = document.getElementById('modalImagemContainer');
-        imgContainer.innerHTML = imagem ? `<img src="${imagem}" alt="${nome}">` : '';
-        
+        imgContainer.innerHTML = '';
+
+        if (imagem) {
+            const img = document.createElement('img');
+            img.src = imagem;
+            img.alt = nome || 'Imagem da igreja';
+            imgContainer.appendChild(img);
+        } else {
+            imgContainer.innerHTML = `
+                <div class="li-modal__no-image">
+                    <i class="fas fa-church"></i>
+                    <span>Imagem não cadastrada</span>
+                </div>
+            `;
+        }
+
         document.getElementById('igrejaModal').classList.add('active');
     }
 
@@ -160,10 +227,29 @@
         document.getElementById('igrejaModal').classList.remove('active');
     }
 
+    document.addEventListener('DOMContentLoaded', function () {
+        const modalButtons = document.querySelectorAll('.js-open-igreja-modal');
+
+        modalButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                openIgrejaModal(
+                    this.dataset.nome,
+                    this.dataset.endereco,
+                    this.dataset.bairro,
+                    this.dataset.cidade,
+                    this.dataset.telefone,
+                    this.dataset.imagem
+                );
+            });
+        });
+    });
+
     window.onclick = function(event) {
-        let modal = document.getElementById('igrejaModal');
-        if (event.target == modal) closeIgrejaModal();
+        const modal = document.getElementById('igrejaModal');
+
+        if (event.target === modal) {
+            closeIgrejaModal();
+        }
     }
 </script>
-
 {% endblock %}

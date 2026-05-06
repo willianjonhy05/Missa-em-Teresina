@@ -173,7 +173,7 @@ def excluir_igreja(request, slug):
     if request.method == "POST":
         # Confirmação de exclusão
         igreja.delete()
-        messages.success(request, f"Igreja {igreja.nome} excluída com sucesso.")
+        messages.success(request, f"{igreja.nome} excluída com sucesso.")
         return redirect("igrejas_dashboard")
 
     context = {
