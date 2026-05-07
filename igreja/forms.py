@@ -102,6 +102,7 @@ class CelebracaoForm(forms.ModelForm):
             "horario_inicio",
             "descricao",
             "dia",
+            "semana_do_mes",  # Novo campo para a semana do mês
             "dia_mes",
             "data_especifica",
             "exige_agendamento",
@@ -135,6 +136,9 @@ class CelebracaoForm(forms.ModelForm):
             "dia": forms.Select(attrs={
                 "class": "form-select",
             }),
+            "semana_do_mes": forms.Select(attrs={
+                "class": "form-select",
+            }),
             "dia_mes": forms.NumberInput(attrs={
                 "class": "form-control",
                 "min": 1,
@@ -161,6 +165,7 @@ class CelebracaoForm(forms.ModelForm):
 
         recorrencia = cleaned_data.get("recorrencia")
         dia = cleaned_data.get("dia")
+        semana_do_mes = cleaned_data.get("semana_do_mes")  # Novo campo
         dia_mes = cleaned_data.get("dia_mes")
         data_especifica = cleaned_data.get("data_especifica")
 
@@ -202,6 +207,25 @@ class CelebracaoForm(forms.ModelForm):
                     "Para celebrações mensais em dia fixo, deixe a data específica vazia."
                 )
 
+        elif recorrencia == "mensal_dia_semana":
+            if not dia or not semana_do_mes:
+                self.add_error(
+                    "semana_do_mes",
+                    "Informe a semana do mês (primeiro, segundo, etc.) e o dia da semana."
+                )
+
+            if dia_mes:
+                self.add_error(
+                    "dia_mes",
+                    "Para celebrações mensais por dia da semana, deixe o dia do mês vazio."
+                )
+
+            if data_especifica:
+                self.add_error(
+                    "data_especifica",
+                    "Para celebrações mensais por dia da semana, deixe a data específica vazia."
+                )
+
         elif recorrencia == "data_especifica":
             if not data_especifica:
                 self.add_error(
@@ -219,6 +243,12 @@ class CelebracaoForm(forms.ModelForm):
                 self.add_error(
                     "dia_mes",
                     "Para celebrações com data específica, deixe o dia do mês vazio."
+                )
+
+            if semana_do_mes:
+                self.add_error(
+                    "semana_do_mes",
+                    "Para celebrações com data específica, deixe a semana do mês vazia."
                 )
 
         return cleaned_data

@@ -9,10 +9,7 @@
 
 {% block breadcrumb %}Editar Celebração{% endblock %}
 
-
 {% block page_title %}Editar Celebração{% endblock %}
-
-
 
 {% block content %}
 <div class="admin-page ec-page">
@@ -155,30 +152,31 @@
         const selectRecorrencia = document.querySelector('select[name="recorrencia"]');
         const wrapDia = document.getElementById('wrapper-dia');
         const wrapDiaMes = document.getElementById('wrapper-dia-mes');
-        const wrapDataEspecífica = document.getElementById('wrapper-data-especifica');
+        const wrapDataEspecifica = document.getElementById('wrapper-data-especifica');
 
         function toggleDateFields() {
             const valor = selectRecorrencia.value;
             
-            // Esconde todos
-            [wrapDia, wrapDiaMes, wrapDataEspecífica].forEach(el => {
+            // Esconde todos inicialmente
+            [wrapDia, wrapDiaMes, wrapDataEspecifica].forEach(el => {
                 el.style.display = 'none';
             });
 
-            // Mostra o selecionado
+            // Exibe o campo correto dependendo da recorrência
             if (valor === 'semanal') {
                 wrapDia.style.display = 'block';
             } else if (valor === 'mensal_dia_fixo') {
                 wrapDiaMes.style.display = 'block';
             } else if (valor === 'data_especifica') {
-                wrapDataEspecífica.style.display = 'block';
+                wrapDataEspecifica.style.display = 'block';
+            } else if (valor === 'mensal_dia_semana') {  // Lógica para a nova recorrência
+                wrapDia.style.display = 'block'; // Ajustar conforme necessidade para o novo tipo
             }
         }
 
         if (selectRecorrencia) {
             selectRecorrencia.addEventListener('change', toggleDateFields);
-            // IMPORTANTE: Executa ao carregar para mostrar os campos dos dados já salvos
-            toggleDateFields();
+            toggleDateFields(); // Chama ao carregar a página para pegar o valor salvo
         }
     });
 </script>

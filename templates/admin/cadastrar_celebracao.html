@@ -9,9 +9,7 @@
 
 {% block breadcrumb %}Nova Celebração{% endblock %}
 
-
 {% block page_title %}Nova Celebração{% endblock %}
-
 
 {% block content %}
 <div class="admin-page cc-page">
@@ -153,13 +151,13 @@
         const selectRecorrencia = document.querySelector('select[name="recorrencia"]');
         const wrapDia = document.getElementById('wrapper-dia');
         const wrapDiaMes = document.getElementById('wrapper-dia-mes');
-        const wrapDataEspecífica = document.getElementById('wrapper-data-especifica');
+        const wrapDataEspecifica = document.getElementById('wrapper-data-especifica');
 
         function toggleDateFields() {
             const valor = selectRecorrencia.value;
             
             // Esconde todos inicialmente com transição suave (via classe ou display)
-            [wrapDia, wrapDiaMes, wrapDataEspecífica].forEach(el => {
+            [wrapDia, wrapDiaMes, wrapDataEspecifica].forEach(el => {
                 el.style.display = 'none';
             });
 
@@ -168,7 +166,9 @@
             } else if (valor === 'mensal_dia_fixo') {
                 wrapDiaMes.style.display = 'block';
             } else if (valor === 'data_especifica') {
-                wrapDataEspecífica.style.display = 'block';
+                wrapDataEspecifica.style.display = 'block';
+            } else if (valor === 'mensal_dia_semana') {  // Adicionando a verificação para a nova recorrência
+                wrapDia.style.display = 'block';  // Pode ser outro comportamento específico se necessário
             }
         }
 

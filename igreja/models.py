@@ -197,10 +197,20 @@ class TipoCelebracao(models.Model):
         ("sabado", "Sábado"),
         ("domingo", "Domingo"),
     ]
+    
+    ORDEM_SEMANA = [
+        (1, "Primeiro"),
+        (2, "Segundo"),
+        (3, "Terceiro"),
+        (4, "Quarto"),
+        (5, "Quinto"),
+        (-1, "Último"),
+]
 
     RECORRENCIAS = [
         ("semanal", "Semanal"),
         ("mensal_dia_fixo", "Mensal em dia fixo"),
+        ("mensal_dia_semana", "Mensal por dia da semana"),
         ("data_especifica", "Data específica"),
     ]
 
@@ -240,6 +250,13 @@ class TipoCelebracao(models.Model):
         null=True,
         help_text="Use para celebrações extraordinárias, como casamento ou missa de corpo presente.",
     )
+    semana_do_mes = models.IntegerField(
+        "Semana do Mês",
+        choices=ORDEM_SEMANA,
+        blank=True,
+        null=True,
+        help_text="Use para celebrações mensais por dia da semana. Exemplo: primeira segunda-feira do mês.",
+    )
     exige_agendamento = models.BooleanField("Exige Agendamento", default=False)
     exibir_no_site = models.BooleanField("Exibir no Site", default=True)
     ativo = models.BooleanField("Ativo", default=True)
@@ -254,6 +271,11 @@ class TipoCelebracao(models.Model):
             if self.dia_mes:
                 raise ValidationError({
                     "dia_mes": "Para celebrações semanais, deixe o dia do mês vazio."
+                })
+
+            if self.semana_do_mes:
+                raise ValidationError({
+                    "semana_do_mes": "Para celebrações semanais, deixe a semana do mês vazia."
                 })
 
             if self.data_especifica:
@@ -272,9 +294,35 @@ class TipoCelebracao(models.Model):
                     "dia": "Para celebrações mensais em dia fixo, deixe o dia da semana vazio."
                 })
 
+            if self.semana_do_mes:
+                raise ValidationError({
+                    "semana_do_mes": "Para celebrações mensais em dia fixo, deixe a semana do mês vazia."
+                })
+
             if self.data_especifica:
                 raise ValidationError({
                     "data_especifica": "Para celebrações mensais em dia fixo, deixe a data específica vazia."
+                })
+
+        if self.recorrencia == "mensal_dia_semana":
+            if not self.dia:
+                raise ValidationError({
+                    "dia": "Informe o dia da semana. Exemplo: domingo."
+                })
+
+            if not self.semana_do_mes:
+                raise ValidationError({
+                    "semana_do_mes": "Informe a semana do mês. Exemplo: primeiro domingo."
+                })
+
+            if self.dia_mes:
+                raise ValidationError({
+                    "dia_mes": "Para celebrações mensais por dia da semana, deixe o dia do mês vazio."
+                })
+
+            if self.data_especifica:
+                raise ValidationError({
+                    "data_especifica": "Para celebrações mensais por dia da semana, deixe a data específica vazia."
                 })
 
         if self.recorrencia == "data_especifica":
@@ -293,6 +341,11 @@ class TipoCelebracao(models.Model):
                     "dia_mes": "Para celebrações com data específica, deixe o dia do mês vazio."
                 })
 
+            if self.semana_do_mes:
+                raise ValidationError({
+                    "semana_do_mes": "Para celebrações com data específica, deixe a semana do mês vazia."
+                })
+                
     @property
     def descricao_recorrencia(self):
         if self.recorrencia == "semanal":
@@ -303,6 +356,12 @@ class TipoCelebracao(models.Model):
                 return f"Todo dia {self.dia_mes} de cada mês"
 
             return "Dia do mês não informado"
+
+        if self.recorrencia == "mensal_dia_semana":
+            if self.dia and self.semana_do_mes:
+                return f"{self.get_semana_do_mes_display()} {self.get_dia_display()} de cada mês"
+
+            return "Dia da semana mensal não informado"
 
         if self.recorrencia == "data_especifica":
             if self.data_especifica:

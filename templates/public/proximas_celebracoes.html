@@ -60,6 +60,10 @@ Saiba mais sobre as próximas Missas em Teresina.
                 <input type="hidden" name="lat" value="{{ lat_user|default:'' }}">
                 <input type="hidden" name="lon" value="{{ lon_user|default:'' }}">
 
+                {% if request.GET.localizacao %}
+                    <input type="hidden" name="localizacao" value="{{ request.GET.localizacao }}">
+                {% endif %}
+
                 {% if filtro_dia %}
                     <input type="hidden" name="dia" value="{{ filtro_dia }}">
                 {% endif %}
@@ -69,13 +73,13 @@ Saiba mais sobre as próximas Missas em Teresina.
 
                     <div class="missas-filtros__dias">
 
-                        <a href="?{% if filtro_bairro %}bairro={{ filtro_bairro|urlencode }}&{% endif %}{% if lat_user and lon_user %}lat={{ lat_user }}&lon={{ lon_user }}{% endif %}"
+                        <a href="?{% if filtro_bairro %}bairro={{ filtro_bairro|urlencode }}&{% endif %}{% if lat_user and lon_user %}lat={{ lat_user }}&lon={{ lon_user }}&localizacao=ok{% endif %}"
                            class="{% if not filtro_dia %}active{% endif %}">
                             Todos
                         </a>
 
                         {% for valor_dia, nome_dia in dias_semana %}
-                            <a href="?dia={{ valor_dia }}{% if filtro_bairro %}&bairro={{ filtro_bairro|urlencode }}{% endif %}{% if lat_user and lon_user %}&lat={{ lat_user }}&lon={{ lon_user }}{% endif %}"
+                            <a href="?dia={{ valor_dia }}{% if filtro_bairro %}&bairro={{ filtro_bairro|urlencode }}{% endif %}{% if lat_user and lon_user %}&lat={{ lat_user }}&lon={{ lon_user }}&localizacao=ok{% endif %}"
                                class="{% if filtro_dia == valor_dia %}active{% endif %}">
                                 {{ nome_dia|slice:":3" }}
                             </a>

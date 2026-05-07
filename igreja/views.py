@@ -1,4 +1,5 @@
 from itertools import groupby
+from django.db.models import Q
 import requests
 from django.contrib import messages
 from django.core.paginator import Paginator
@@ -386,8 +387,9 @@ def igreja(request, slug):
             ordem_recorrencia=Case(
                 When(recorrencia="semanal", then=Value(1)),
                 When(recorrencia="mensal_dia_fixo", then=Value(2)),
-                When(recorrencia="data_especifica", then=Value(3)),
-                default=Value(4),
+                When(recorrencia="mensal_dia_semana", then=Value(3)),  # Adicionando a nova recorrência
+                When(recorrencia="data_especifica", then=Value(4)),
+                default=Value(5),
                 output_field=IntegerField(),
             ),
             ordem_dia=Case(
@@ -480,7 +482,6 @@ def igreja(request, slug):
     }
 
     return render(request, "public/igreja.html", context)
-
 
 def igrejas(request):
     busca = request.GET.get("q", "").strip()
@@ -630,8 +631,8 @@ def missas(request):
 
     if filtro_dia:
         celebracoes_qs = celebracoes_qs.filter(
-            recorrencia="semanal",
-            dia=filtro_dia
+            Q(recorrencia="semanal", dia=filtro_dia) | 
+            Q(recorrencia="mensal_dia_semana", dia=filtro_dia)
         )
 
     agora = timezone.localtime(timezone.now())
@@ -724,7 +725,6 @@ def missas(request):
     }
 
     return render(request, "public/proximas_celebracoes.html", context)
-
 
 
 def liturgia(request):
