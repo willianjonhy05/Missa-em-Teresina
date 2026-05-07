@@ -287,6 +287,11 @@ def excluir_celebracao(request, pk):
 
 def home(request):
     agora = timezone.localtime(timezone.now())
+    total_igrejas = Igreja.objects.count()
+    total_celebracoes = TipoCelebracao.objects.count()
+
+    tem_igrejas = total_igrejas > 0
+    tem_celebracoes = total_celebracoes > 0
 
     celebracoes_qs = (
         TipoCelebracao.objects
@@ -339,6 +344,10 @@ def home(request):
 
     context = {
         "proximas_missas": proximas_missas,
+        "total_igrejas": total_igrejas,
+        "total_celebracoes": total_celebracoes,
+        "tem_igrejas": tem_igrejas,
+        "tem_celebracoes": tem_celebracoes,
     }
     
     if request.method == "POST":
