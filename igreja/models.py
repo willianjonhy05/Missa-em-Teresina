@@ -78,16 +78,16 @@ class Igreja(models.Model):
     sacerdotes = models.CharField("Sacerdotes", max_length=255, blank=True, null=True)
     telefone = models.CharField("Telefones", max_length=255, blank=True, null=True)
     imagem = models.ImageField("Imagem", upload_to="igrejas/", blank=True, null=True)
-    email = models.EmailField("Email", blank=True, null=True)
-    site = models.URLField("Site", blank=True, null=True)
-    facebook = models.URLField("Facebook", max_length=100, blank=True, null=True)
-    instagram = models.CharField("Instagram", max_length=100, blank=True, null=True)
-    youtube = models.URLField("YouTube", blank=True, null=True)
-    maps = models.URLField("Google Maps", blank=True, null=True)
+    email = models.EmailField("Email", blank=True, null=True, max_length=100)
+    site = models.URLField("Site", blank=True, null=True, max_length=100, help_text="Informe apenas o Link do Site.")
+    facebook = models.URLField("Facebook", max_length=100, blank=True, null=True, help_text="Informe apenas Link do Perfil.")
+    instagram = models.CharField("Instagram", max_length=100, blank=True, null=True, help_text="Informe apenas o nome de usuário, sem @ ou URL. Exemplo: paroquia_fatima")
+    youtube = models.URLField("YouTube", blank=True, null=True, help_text="Informe apenas o Link do Canal.")
+    maps = models.URLField("Google Maps", blank=True, null=True, help_text="Cole aqui o link do Google Maps para a localização da igreja. Exemplo: https://www.google.com/maps/place/Igreja+Exemplo/@-5.123456,-42.123456,17z")
 
     slug = models.SlugField("Slug", max_length=150, unique=True, blank=True, null=True, editable=False)
 
-    contato_whatsapp = models.CharField("Contato WhatsApp", max_length=20, blank=True, null=True)
+    contato_whatsapp = models.CharField("Contato WhatsApp", max_length=20, blank=True, null=True, help_text="Escreva o DDD e o telefone tudo junto, sem espaços ou caracteres. Exemplo: 86912345678")
 
     def __str__(self):
         if self.paroquia or self.capela:

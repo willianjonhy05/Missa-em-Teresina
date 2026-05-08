@@ -1,35 +1,75 @@
 import os
 import django
+import pandas as pd
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "horariodemissa.settings")
 django.setup()
 
 from igreja.models import Igreja
 
-igrejas = [
-    ("Catedral Nossa Senhora das Dores", "Rua Olavo Bilac, 1330", "Centro", "Teresina", True, False, True, -5.095412, -42.8132418, "Klebert Viana de Carvalho e Carlos Wagner Pessoa Vieira", "(86) 3222-2584 / (86) 98897-1910", "catedralnsadasdores@gmail.com", None, "catedraldeteresina", "https://www.google.com/maps/place/Catedral+Metropolitana+Nossa+Senhora+Das+Dores/@-5.095412,-42.8132418,17z/data=!3m1!4b1!4m6!3m5!1s0x78e37657262c2cd:0xc1db33a7a9304fb5!8m2!3d-5.095412!4d-42.8132418!16s%2Fg%2F1yfjlhk_q?entry=ttu&g_ep=EgoyMDI2MDQyOS4wIKXMDSoASAFQAw%3D%3D" ,"86988971910")
-    
-]
 
-for nome, endereco, bairro, cidade, paroquia, capela, aberta_ao_publico, latitude, longitude, sacerdotes, telefone, email, site, instagram, maps, whatsapp in igrejas:
-    Igreja.objects.get_or_create(
+def limpar_valor(valor):
+    if pd.isna(valor):
+        return None
+
+    valor = str(valor).strip()
+
+    if valor.lower() in ["nan", "none", ""]:
+        return None
+
+    return valor
+
+
+def sim_nao_para_booleano(valor):
+    valor = limpar_valor(valor)
+
+    if not valor:
+        return False
+
+    return valor.upper() == "SIM"
+
+
+def limpar_whatsapp(valor):
+    if pd.isna(valor):
+        return None
+
+    try:
+        return str(int(float(valor)))
+    except (TypeError, ValueError):
+        return str(valor).strip()
+
+
+file_path = "./igrejas.xlsx"
+
+igrejas_data = pd.read_excel(file_path)
+
+for _, row in igrejas_data.iterrows():
+    nome = limpar_valor(row.get("NOME"))
+
+    if not nome:
+        continue
+
+    Igreja.objects.update_or_create(
         nome=nome,
-        endereco=endereco,
-        bairro=bairro,
-        cidade=cidade,
-        paroquia=paroquia,
-        capela=capela,
-        aberta_ao_publico=aberta_ao_publico,
-        latitude=latitude,
-        longitude=longitude,
-        sacerdotes=sacerdotes,
-        telefone=telefone,
-        email=email,
-        site=site,
-        instagram=instagram,
-        maps=maps,
-        whatsapp=whatsapp
+        defaults={
+            "endereco": limpar_valor(row.get("ENDEREÇO")) or "",
+            "bairro": limpar_valor(row.get("BAIRRO")),
+            "cidade": limpar_valor(row.get("CIDADE")),
+            "paroquia": sim_nao_para_booleano(row.get("PARÓQUIA")),
+            "capela": sim_nao_para_booleano(row.get("CAPELA")),
+            "aberta_ao_publico": sim_nao_para_booleano(row.get("ABERTA AO PÚBLICO")),
+            "sacerdotes": limpar_valor(row.get("SACERDOTES")),
+            "telefone": limpar_valor(row.get("TELEFONES")),
+            "email": limpar_valor(row.get("EMAIL")),
+            "site": limpar_valor(row.get("SITE")),
+            "instagram": limpar_valor(row.get("INSTAGRAM")),
+            "facebook": limpar_valor(row.get("FACEBOOK")),
+            "youtube": limpar_valor(row.get("YOUTUBE")),
+            "latitude": row.get("LATITUDE") if not pd.isna(row.get("LATITUDE")) else None,
+            "longitude": row.get("LONGITUDE") if not pd.isna(row.get("LONGITUDE")) else None,
+            "maps": limpar_valor(row.get("MAPS")),
+            "contato_whatsapp": limpar_whatsapp(row.get("WHATSAPP")),
+        }
     )
 
-print("Igrejas Cadastradas com sucesso!")
-
+print("Igrejas cadastradas com sucesso!")

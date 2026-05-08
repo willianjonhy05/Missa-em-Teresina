@@ -89,6 +89,74 @@ class IgrejaCreateForm(forms.ModelForm):
             "maps",
             "contato_whatsapp",
         ]
+        
+        widgets = {
+            "nome": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "Ex: Paróquia Nossa Senhora de Fátima",
+            }),
+            "endereco": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "Ex: Avenida Principal, 123",
+            }),
+            "bairro": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "Ex: Centro",
+            }),
+            "cidade": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "Ex: Teresina",
+            }),
+            "latitude": forms.NumberInput(attrs={
+                "class": "form-control",
+                "step": 0.000001,
+                "placeholder": "-5.0892",
+            }),
+            "longitude": forms.NumberInput(attrs={
+                "class": "form-control",
+                "step": 0.000001,
+                "placeholder": "-42.8019",
+            }),
+            "sacerdotes": forms.Textarea(attrs={
+                "class": "form-control",
+                "rows": 3,
+                "placeholder": "Informe os nomes dos sacerdotes responsáveis pela igreja.",
+            }),
+            "telefone": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "(86) 1234-5678 / (86) 99999-9999",
+            }),
+            "contato_whatsapp": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "869123456789",
+            }),
+            "instagram": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "Ex: paroquia_fatima",
+            }),
+            "facebook": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "Ex: https://www.facebook.com/paroquia.fatima",
+            }),
+            "site": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "Ex: https://paroquiadefatima.com.br",
+            }),
+            "youtube": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "Ex: https://www.youtube.com/paroquia.fatima",
+            }),
+            "maps": forms.TextInput(attrs={
+                "class": "form-control",
+                "placeholder": "Ex: https://maps.google.com/?q=Igreja+Paróquia+Nossa+Senhora+de+Fátima",
+            }),
+            "email": forms.EmailInput(attrs={
+                "class": "form-control",
+                "placeholder": "Ex: contato@paroquiadefatima.com.br",
+            }),
+            # O campo de imagem pode ser um FileField, então não precisa de widget específico
+            # Os outros campos de contato seguem o mesmo padrão
+        }
 
 
 class CelebracaoForm(forms.ModelForm):
