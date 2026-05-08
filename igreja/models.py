@@ -71,6 +71,7 @@ class Igreja(models.Model):
     paroquia = models.BooleanField("Paróquia", default=False)
     capela = models.BooleanField("Capela", default=False)
     aberta_ao_publico = models.BooleanField("Aberta ao Público", default=True)
+    # exibir_no_site = models.BooleanField("Exibir no Site", default=True)
 
     latitude = models.FloatField("Latitude", blank=True, null=True)
     longitude = models.FloatField("Longitude", blank=True, null=True)
