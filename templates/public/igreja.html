@@ -17,13 +17,6 @@
     Encontre informações, localização, contatos e horários de celebrações da {{ igreja.nome }}.
 {% endblock %}
 
-{% block og_image %}
-    {% if igreja.imagem %}
-        {{ igreja.imagem.url }}
-    {% else %}
-        {% static 'img/logo/logo_missa_em_teresina.png' %}
-    {% endif %}
-{% endblock %}
 
 {% block twitter_title %}
     {{ igreja.nome }} - Missa em Teresina

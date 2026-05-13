@@ -812,9 +812,6 @@ def logout_superusuario(request):
 
 
 
-
-
-
 def mapa_igrejas(request):
     latitude_usuario = request.GET.get("lat")
     longitude_usuario = request.GET.get("lon")
@@ -887,4 +884,4 @@ def mapa_igrejas(request):
         "longitude_usuario": lon_usuario_float,
     }
 
-    return render(request, "public/mapa_igrejas.html", context)
+    return render(request, "public/mapa.html", context)    

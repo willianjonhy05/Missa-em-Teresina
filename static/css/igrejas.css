@@ -302,3 +302,48 @@
         gap: 20px;
     }
 }
+
+
+/* Correção do ícone da busca */
+.search-icon {
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Ajuste específico para telas menores */
+@media (max-width: 768px) {
+    .search-input-wrapper {
+        position: relative;
+    }
+
+    .search-icon {
+        top: 15px;
+        left: 16px;
+        transform: none;
+        color: var(--text-secondary);
+    }
+
+    .search-input-wrapper input {
+        height: 52px;
+        padding: 12px 14px 12px 48px;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-icon {
+        top: 16px;
+        left: 15px;
+        width: 18px;
+        height: 18px;
+    }
+
+    .search-input-wrapper input {
+        height: 50px;
+        padding-left: 44px;
+        font-size: 0.95rem;
+    }
+}
+
+

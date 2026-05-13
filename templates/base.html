@@ -10,6 +10,7 @@
     <meta name="author" content="Missa em Teresina Team">
     <meta name="keywords"
         content="missa, teresina, horario de missa, igreja, igreja católica, celebração, mapa de igrejas, missas próximas, missa em teresina {% block keywords %} {% endblock %}">
+    <meta name="google-site-verification" content="G7ojn3x3KGM5CgX3PX8uubYLal8LRVcM2g2kYcOanKE" />
 
 
     <!-- Favicons -->
@@ -24,7 +25,9 @@
     <meta property="og:title" content="{% block og_title %}Missa em Teresina - Encontre sua celebração{% endblock %}">
     <meta property="og:description"
         content="{% block og_description %}Encontre horários de missas e igrejas próximas a você em Teresina.{% endblock %}">
-    <meta property="og:image" content="{% block og_image %}{% static 'img/logo/logo_1200x630.png' %}{% endblock %}">
+
+<meta property="og:image" content="{% if igreja.imagem %}{{ request.scheme }}://{{ request.get_host }}{{ igreja.imagem.url }}{% else %}https://missaemteresina.com.br/static/img/logo/logo_1200x630.png{% endif %}">
+
     <meta property="og:url" content="https://missaemteresina.com.br/">
 
 
@@ -37,7 +40,7 @@
     <meta name="twitter:description"
         content="{% block twitter_description %}Encontre horários de missas e igrejas próximas a você em Teresina.{% endblock %}">
     <meta name="twitter:image"
-        content="{% block twitter_image %}{% static 'img/logo/logo_1200x630.png' %}{% endblock %}">
+        content="{% block twitter_image %}https://missaemteresina.com.br/static/img/logo/logo_1200x630.png{% endblock %}">
 
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -259,12 +262,10 @@
                         <div class="missa-card__figure">
                             <a href="{{ item.igreja.get_absolute_url }}">
                                 {% if item.igreja.imagem %}
-                                <img src="{{ item.igreja.imagem.url }}" alt="{{ item.igreja.nome }}"
-                                    class="missa-card__img">
-                                {% else %}
-                                <img src="{% static 'img/logo/logo_missa_em_teresina.png' %}"
-                                    alt="{{ item.igreja.nome }}" class="missa-card__img missa-card__img--placeholder">
-                                {% endif %}
+                                <img src="{{ item.igreja.imagem.url }}" alt="{{ item.igreja.nome }}" class="missa-card__img">
+                            {% else %}
+                                <img src="{% static 'img/logo/logo_missa_em_teresina.png' %}" alt="{{ item.igreja.nome }}" class="missa-card__img missa-card__img--placeholder">
+                            {% endif %}
                             </a>
 
                             <div
@@ -289,8 +290,8 @@
 
                             <div class="missa-card__location">
                                 <span class="missa-card__neighborhood">
-                                    {{ item.igreja.bairro|default:"Teresina" }}
-                                </span>
+                                {{ item.igreja.bairro|default:"Teresina" }}
+                            </span>
                                 <p class="missa-card__address">
                                     {{ item.igreja.endereco|truncatechars:60 }}
                                 </p>
@@ -535,18 +536,15 @@
                                 <label for="hc-message">Mensagem</label>
 
                                 {% if not tem_igrejas %}
-                                <textarea id="hc-message" name="mensagem" rows="5"
-                                    placeholder="Informe o nome da igreja, bairro, endereço e horários que você conhece."
-                                    required></textarea>
+                                <textarea id="hc-message" name="mensagem" rows="5" placeholder="Informe o nome da igreja, bairro, endereço e horários que você conhece." required></textarea>
                                 {% else %}
-                                <textarea id="hc-message" name="mensagem" rows="5" placeholder="Como podemos ajudar?"
-                                    required></textarea>
+                                <textarea id="hc-message" name="mensagem" rows="5" placeholder="Como podemos ajudar?" required></textarea>
                                 {% endif %}
                             </div>
 
                             <button type="submit" class="hc-btn-submit">
-                                Enviar Mensagem
-                            </button>
+                        Enviar Mensagem
+                    </button>
                         </form>
                     </div>
 
@@ -578,7 +576,7 @@
 
                 <div class="footer-social-buttons">
                     <a href="https://www.instagram.com/missaemteresina/" target="_blank" rel="noopener noreferrer"
-                        class="footer-social-btn instagram" aria-label="Instagram">
+                        class="footer-social-btn instagran" aria-label="Instagram">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>

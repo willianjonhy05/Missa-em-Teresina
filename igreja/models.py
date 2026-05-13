@@ -92,9 +92,9 @@ class Igreja(models.Model):
 
     def __str__(self):
         if self.paroquia or self.capela:
-            return self.nome
+            return f"{self.nome} - {self.bairro}" 
 
-        return f"Igreja {self.nome}"
+        return f"Igreja {self.nome} - {self.bairro}"
 
     def obter_coordenadas(self):
         if not self.maps:
@@ -167,7 +167,7 @@ class Igreja(models.Model):
             self.slug = slugify(self.nome)
 
         self.redimensionar_imagem()
-        self.obter_coordenadas()
+        
 
         super().save(*args, **kwargs)
 

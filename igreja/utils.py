@@ -92,7 +92,6 @@ def obter_descricao_recorrencia(celebracao, proximo_dt=None):
 
     return "Consultar"
 
-
 def obter_ip_usuario(request):
     x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
 
