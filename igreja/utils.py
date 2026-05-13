@@ -83,6 +83,12 @@ def obter_descricao_recorrencia(celebracao, proximo_dt=None):
             return f"Dia {data_base.strftime('%d/%m/%Y')}"
 
         return "Data não informada"
+    
+    if celebracao.recorrencia == "mensal_dia_semana":
+        if celebracao.dia and celebracao.semana_do_mes:
+            return f"{celebracao.get_semana_do_mes_display()} {celebracao.get_dia_display()} de cada mês"
+
+        return "Dia da semana mensal não informado"
 
     return "Consultar"
 

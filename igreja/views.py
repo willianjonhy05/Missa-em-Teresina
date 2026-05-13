@@ -809,3 +809,82 @@ def logout_superusuario(request):
     logout(request)
     messages.success(request, "Você saiu do sistema com sucesso.")
     return redirect("login_superusuario")
+
+
+
+
+
+
+def mapa_igrejas(request):
+    latitude_usuario = request.GET.get("lat")
+    longitude_usuario = request.GET.get("lon")
+
+    localizacao_disponivel = False
+    lat_usuario_float = None
+    lon_usuario_float = None
+
+    if latitude_usuario and longitude_usuario:
+        try:
+            lat_usuario_float = float(latitude_usuario)
+            lon_usuario_float = float(longitude_usuario)
+            localizacao_disponivel = True
+        except ValueError:
+            localizacao_disponivel = False
+
+    igrejas_queryset = (
+        Igreja.objects
+        .filter(
+            latitude__isnull=False,
+            longitude__isnull=False,
+        )
+        .order_by("nome")
+    )
+
+    igrejas_mapa = []
+
+    for igreja in igrejas_queryset:
+        distancia_km = None
+
+        if localizacao_disponivel:
+            distancia_km = calcular_distancia(
+                lat_usuario_float,
+                lon_usuario_float,
+                igreja.latitude,
+                igreja.longitude,
+            )
+
+        if igreja.paroquia:
+            tipo = "Paróquia"
+        elif igreja.capela:
+            tipo = "Capela"
+        else:
+            tipo = "Igreja"
+
+        igrejas_mapa.append({
+            "id": igreja.id,
+            "nome": igreja.nome,
+            "tipo": tipo,
+            "endereco": igreja.endereco,
+            "bairro": igreja.bairro or "",
+            "cidade": igreja.cidade,
+            "telefone": igreja.telefone or "",
+            "latitude": igreja.latitude,
+            "longitude": igreja.longitude,
+            "distancia_km": round(distancia_km, 2) if distancia_km is not None else None,
+            "url": igreja.get_absolute_url(),
+            "maps": igreja.maps or "",
+        })
+
+    if localizacao_disponivel:
+        igrejas_mapa.sort(key=lambda igreja: igreja["distancia_km"])
+    else:
+        igrejas_mapa.sort(key=lambda igreja: igreja["nome"])
+
+    context = {
+        "igrejas_mapa": igrejas_mapa,
+        "localizacao_disponivel": localizacao_disponivel,
+        "latitude_usuario": lat_usuario_float,
+        "longitude_usuario": lon_usuario_float,
+    }
+
+    return render(request, "public/mapa_igrejas.html", context)

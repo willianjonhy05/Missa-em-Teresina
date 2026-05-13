@@ -92,228 +92,232 @@
 
         {% block content %}
 
-<!-- HERO SECTION -->
-<section class="hero">
-    <div class="container hero-content">
-        <div class="hero-text">
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="container hero-content">
+                <div class="hero-text">
 
-            {% if not tem_igrejas %}
-                <span class="tagline">Plataforma em preparação</span>
-                <h1>Em breve, você encontrará missas e igrejas em Teresina por aqui</h1>
-                <p>
-                    Estamos organizando as informações das igrejas, comunidades e horários de celebrações
-                    para oferecer uma busca simples, confiável e acessível aos fiéis.
-                </p>
+                    {% if not tem_igrejas %}
+                    <span class="tagline">Plataforma em preparação</span>
+                    <h1>Em breve, você encontrará missas e igrejas em Teresina por aqui</h1>
+                    <p>
+                        Estamos organizando as informações das igrejas, comunidades e horários de celebrações
+                        para oferecer uma busca simples, confiável e acessível aos fiéis.
+                    </p>
 
-                <div class="hero-btns">
-                    <a href="{% url 'contato' %}" class="btn btn-gold btn-large">
-                        Enviar informação de uma igreja
-                    </a>
-                    <a href="{% url 'sobre' %}" class="btn btn-outline">
-                        Conhecer o projeto
-                    </a>
-                </div>
-
-            {% elif not tem_celebracoes %}
-                <span class="tagline">Igrejas em cadastramento</span>
-                <h1>As igrejas já começaram a ser mapeadas</h1>
-                <p>
-                    Os horários das missas e celebrações ainda estão sendo organizados.
-                    Em breve, você poderá consultar dias, horários e locais diretamente pela plataforma.
-                </p>
-
-                <div class="hero-btns">
-                    <a href="{% url 'listar_igrejas' %}" class="btn btn-gold btn-large">
-                        Ver Igrejas
-                    </a>
-                    <a href="{% url 'contato' %}" class="btn btn-outline">
-                        Sugerir horário
-                    </a>
-                </div>
-
-            {% else %}
-                <span class="tagline">Sua jornada de fé começa aqui</span>
-                <h1>Encontre a missa mais próxima de você</h1>
-                <p>
-                    Conecte-se com sua fé. Localize igrejas, horários de celebrações e comunidades
-                    em toda a capital piauiense com clareza e agilidade.
-                </p>
-
-                <div class="hero-btns">
-                    <a href="{% url 'listar_missas' %}" class="btn btn-gold btn-large">
-                        Buscar Missas
-                    </a>
-                    <a href="{% url 'liturgia' %}" class="btn btn-outline">
-                        Liturgia do Dia
-                    </a>
-                </div>
-            {% endif %}
-
-        </div>
-
-        <div class="hero-image">
-            <div class="eucharist-illustration">
-                <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g class="rays" stroke="#D4A72C" stroke-width="2" stroke-linecap="round" opacity="0.3">
-                        <line x1="200" y1="120" x2="200" y2="80" />
-                        <line x1="240" y1="140" x2="270" y2="110" />
-                        <line x1="160" y1="140" x2="130" y2="110" />
-                        <line x1="260" y1="180" x2="300" y2="180" />
-                        <line x1="140" y1="180" x2="100" y2="180" />
-                    </g>
-
-                    <circle cx="200" cy="180" r="45" fill="#FFFFFF" />
-                    <circle cx="200" cy="180" r="45" stroke="#D4A72C" stroke-width="0.5" stroke-dasharray="4 4" />
-
-                    <path d="M140 220C140 220 140 300 200 300C260 300 260 220 260 220H140Z" fill="#D4A72C" />
-                    <path d="M200 300V360" stroke="#D4A72C" stroke-width="12" stroke-linecap="round" />
-                    <path d="M160 360H240" stroke="#D4A72C" stroke-width="8" stroke-linecap="round" />
-
-                    <circle cx="200" cy="180" r="60" stroke="#D4A72C" stroke-width="1" opacity="0.2">
-                        <animate attributeName="r" values="55;65;55" dur="4s" repeatCount="indefinite" />
-                    </circle>
-                </svg>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- COMO FUNCIONA -->
-<section class="how-it-works section-padding">
-    <div class="container">
-        <div class="section-header">
-
-            {% if not tem_igrejas %}
-                <h2>Como a plataforma vai funcionar</h2>
-                <p>Estamos preparando uma experiência simples para aproximar os fiéis das celebrações.</p>
-            {% else %}
-                <h2>Como funciona</h2>
-                <p>Três passos simples para encontrar sua próxima celebração.</p>
-            {% endif %}
-
-        </div>
-
-        <div class="grid-3">
-            <div class="card-step">
-                <div class="icon-circle">1</div>
-
-                {% if not tem_igrejas %}
-                    <h3>Cadastro das Igrejas</h3>
-                    <p>As paróquias, capelas e comunidades serão organizadas com endereço, bairro e contatos.</p>
-                {% else %}
-                    <h3>Permita Localização</h3>
-                    <p>Ative o GPS para que possamos identificar as paróquias ao seu redor.</p>
-                {% endif %}
-            </div>
-
-            <div class="card-step">
-                <div class="icon-circle">2</div>
-
-                {% if not tem_igrejas %}
-                    <h3>Organização dos Horários</h3>
-                    <p>Os horários de missas, celebrações e momentos de oração serão cadastrados com cuidado.</p>
-                {% else %}
-                    <h3>Veja as Igrejas</h3>
-                    <p>Explore o mapa e a lista de comunidades próximas ao seu bairro.</p>
-                {% endif %}
-            </div>
-
-            <div class="card-step">
-                <div class="icon-circle">3</div>
-
-                {% if not tem_igrejas %}
-                    <h3>Consulta Pública</h3>
-                    <p>Depois da atualização, qualquer pessoa poderá encontrar uma celebração com facilidade.</p>
-                {% else %}
-                    <h3>Encontre Horários</h3>
-                    <p>Confira os horários atualizados de missas, confissões e adorações.</p>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- PRÓXIMAS MISSAS -->
-<section id="proximas-missas" class="missas-section section-padding">
-    <div class="container">
-        <div class="section-header">
-            <span class="subtitle">Celebrações de hoje e amanhã</span>
-
-            {% if not tem_igrejas %}
-                <h2>Missas em breve</h2>
-                <p>As informações ainda estão sendo cadastradas pela equipe responsável.</p>
-            {% elif not tem_celebracoes %}
-                <h2>Horários em atualização</h2>
-                <p>As igrejas já estão cadastradas, mas os horários das celebrações ainda serão adicionados.</p>
-            {% else %}
-                <h2>Próximas Missas</h2>
-                <p>Não perca o momento da comunhão. Encontre as celebrações mais próximas.</p>
-            {% endif %}
-        </div>
-
-        {% if proximas_missas %}
-            <div class="missas-grid">
-                {% for item in proximas_missas %}
-                <article class="missa-card {% if item.label_data == 'Hoje' %}missa-card--today{% endif %}">
-                    <div class="missa-card__figure">
-                        <a href="{{ item.igreja.get_absolute_url }}">
-                            {% if item.igreja.imagem %}
-                                <img src="{{ item.igreja.imagem.url }}" alt="{{ item.igreja.nome }}" class="missa-card__img">
-                            {% else %}
-                                <img src="{% static 'img/logo/logo_missa_em_teresina.png' %}" alt="{{ item.igreja.nome }}" class="missa-card__img missa-card__img--placeholder">
-                            {% endif %}
+                    <div class="hero-btns">
+                        <a href="{% url 'contato' %}" class="btn btn-gold btn-large">
+                            Enviar informação de uma igreja
                         </a>
-
-                        <div class="missa-card__badge {% if item.label_data == 'Hoje' %}missa-card__badge--gold{% endif %}">
-                            {{ item.label_data }}
-                        </div>
+                        <a href="{% url 'sobre' %}" class="btn btn-outline">
+                            Conhecer o projeto
+                        </a>
                     </div>
 
-                    <div class="missa-card__content">
-                        <div class="missa-card__time">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <polyline points="12 6 12 12 16 14"></polyline>
-                            </svg>
-                            <span>{{ item.horario|time:"H:i" }}</span>
-                        </div>
+                    {% elif not tem_celebracoes %}
+                    <span class="tagline">Igrejas em cadastramento</span>
+                    <h1>As igrejas já começaram a ser mapeadas</h1>
+                    <p>
+                        Os horários das missas e celebrações ainda estão sendo organizados.
+                        Em breve, você poderá consultar dias, horários e locais diretamente pela plataforma.
+                    </p>
 
-                        <h3 class="missa-card__title">
-                            <a href="{{ item.igreja.get_absolute_url }}">{{ item.igreja.nome }}</a>
-                        </h3>
+                    <div class="hero-btns">
+                        <a href="{% url 'listar_igrejas' %}" class="btn btn-gold btn-large">
+                            Ver Igrejas
+                        </a>
+                        <a href="{% url 'contato' %}" class="btn btn-outline">
+                            Sugerir horário
+                        </a>
+                    </div>
 
-                        <div class="missa-card__location">
-                            <span class="missa-card__neighborhood">
-                                {{ item.igreja.bairro|default:"Teresina" }}
-                            </span>
-                            <p class="missa-card__address">
-                                {{ item.igreja.endereco|truncatechars:60 }}
-                            </p>
-                        </div>
+                    {% else %}
+                    <span class="tagline">Sua jornada de fé começa aqui</span>
+                    <h1>Encontre a missa mais próxima de você</h1>
+                    <p>
+                        Conecte-se com sua fé. Localize igrejas, horários de celebrações e comunidades
+                        em toda a capital piauiense com clareza e agilidade.
+                    </p>
 
-                        <div class="missa-card__actions">
-                            <a href="{{ item.igreja.get_absolute_url }}" class="btn-action btn-action--secondary">
-                                Horários
+                    <div class="hero-btns">
+                        <a href="{% url 'listar_missas' %}" class="btn btn-gold btn-large">
+                            Buscar Missas
+                        </a>
+                        <a href="{% url 'liturgia' %}" class="btn btn-outline">
+                            Liturgia do Dia
+                        </a>
+                    </div>
+                    {% endif %}
+
+                </div>
+
+                <div class="hero-image">
+                    <div class="eucharist-illustration">
+                        <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g class="rays" stroke="#D4A72C" stroke-width="2" stroke-linecap="round" opacity="0.3">
+                                <line x1="200" y1="120" x2="200" y2="80" />
+                                <line x1="240" y1="140" x2="270" y2="110" />
+                                <line x1="160" y1="140" x2="130" y2="110" />
+                                <line x1="260" y1="180" x2="300" y2="180" />
+                                <line x1="140" y1="180" x2="100" y2="180" />
+                            </g>
+
+                            <circle cx="200" cy="180" r="45" fill="#FFFFFF" />
+                            <circle cx="200" cy="180" r="45" stroke="#D4A72C" stroke-width="0.5"
+                                stroke-dasharray="4 4" />
+
+                            <path d="M140 220C140 220 140 300 200 300C260 300 260 220 260 220H140Z" fill="#D4A72C" />
+                            <path d="M200 300V360" stroke="#D4A72C" stroke-width="12" stroke-linecap="round" />
+                            <path d="M160 360H240" stroke="#D4A72C" stroke-width="8" stroke-linecap="round" />
+
+                            <circle cx="200" cy="180" r="60" stroke="#D4A72C" stroke-width="1" opacity="0.2">
+                                <animate attributeName="r" values="55;65;55" dur="4s" repeatCount="indefinite" />
+                            </circle>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COMO FUNCIONA -->
+        <section class="how-it-works section-padding">
+            <div class="container">
+                <div class="section-header">
+
+                    {% if not tem_igrejas %}
+                    <h2>Como a plataforma vai funcionar</h2>
+                    <p>Estamos preparando uma experiência simples para aproximar os fiéis das celebrações.</p>
+                    {% else %}
+                    <h2>Como funciona</h2>
+                    <p>Três passos simples para encontrar sua próxima celebração.</p>
+                    {% endif %}
+
+                </div>
+
+                <div class="grid-3">
+                    <div class="card-step">
+                        <div class="icon-circle">1</div>
+
+                        {% if not tem_igrejas %}
+                        <h3>Cadastro das Igrejas</h3>
+                        <p>As paróquias, capelas e comunidades serão organizadas com endereço, bairro e contatos.</p>
+                        {% else %}
+                        <h3>Permita Localização</h3>
+                        <p>Ative o GPS para que possamos identificar as paróquias ao seu redor.</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="card-step">
+                        <div class="icon-circle">2</div>
+
+                        {% if not tem_igrejas %}
+                        <h3>Organização dos Horários</h3>
+                        <p>Os horários de missas, celebrações e momentos de oração serão cadastrados com cuidado.</p>
+                        {% else %}
+                        <h3>Veja as Igrejas</h3>
+                        <p>Explore o mapa e a lista de comunidades próximas ao seu bairro.</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="card-step">
+                        <div class="icon-circle">3</div>
+
+                        {% if not tem_igrejas %}
+                        <h3>Consulta Pública</h3>
+                        <p>Depois da atualização, qualquer pessoa poderá encontrar uma celebração com facilidade.</p>
+                        {% else %}
+                        <h3>Encontre Horários</h3>
+                        <p>Confira os horários atualizados de missas, confissões e adorações.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRÓXIMAS MISSAS -->
+        <section id="proximas-missas" class="missas-section section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <span class="subtitle">Celebrações de hoje e amanhã</span>
+
+                    {% if not tem_igrejas %}
+                    <h2>Missas em breve</h2>
+                    <p>As informações ainda estão sendo cadastradas pela equipe responsável.</p>
+                    {% elif not tem_celebracoes %}
+                    <h2>Horários em atualização</h2>
+                    <p>As igrejas já estão cadastradas, mas os horários das celebrações ainda serão adicionados.</p>
+                    {% else %}
+                    <h2>Próximas Missas</h2>
+                    <p>Não perca o momento da comunhão. Encontre as celebrações mais próximas.</p>
+                    {% endif %}
+                </div>
+
+                {% if proximas_missas %}
+                <div class="missas-grid">
+                    {% for item in proximas_missas %}
+                    <article class="missa-card {% if item.label_data == 'Hoje' %}missa-card--today{% endif %}">
+                        <div class="missa-card__figure">
+                            <a href="{{ item.igreja.get_absolute_url }}">
+                                {% if item.igreja.imagem %}
+                                <img src="{{ item.igreja.imagem.url }}" alt="{{ item.igreja.nome }}"
+                                    class="missa-card__img">
+                                {% else %}
+                                <img src="{% static 'img/logo/logo_missa_em_teresina.png' %}"
+                                    alt="{{ item.igreja.nome }}" class="missa-card__img missa-card__img--placeholder">
+                                {% endif %}
                             </a>
 
-                            {% if item.igreja.latitude and item.igreja.longitude %}
+                            <div
+                                class="missa-card__badge {% if item.label_data == 'Hoje' %}missa-card__badge--gold{% endif %}">
+                                {{ item.label_data }}
+                            </div>
+                        </div>
+
+                        <div class="missa-card__content">
+                            <div class="missa-card__time">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                <span>{{ item.horario|time:"H:i" }}</span>
+                            </div>
+
+                            <h3 class="missa-card__title">
+                                <a href="{{ item.igreja.get_absolute_url }}">{{ item.igreja.nome }}</a>
+                            </h3>
+
+                            <div class="missa-card__location">
+                                <span class="missa-card__neighborhood">
+                                    {{ item.igreja.bairro|default:"Teresina" }}
+                                </span>
+                                <p class="missa-card__address">
+                                    {{ item.igreja.endereco|truncatechars:60 }}
+                                </p>
+                            </div>
+
+                            <div class="missa-card__actions">
+                                <a href="{{ item.igreja.get_absolute_url }}" class="btn-action btn-action--secondary">
+                                    Horários
+                                </a>
+
+                                {% if item.igreja.latitude and item.igreja.longitude %}
                                 <a href="https://www.google.com/maps/dir/?api=1&destination={{ item.igreja.latitude }},{{ item.igreja.longitude }}"
-                                   target="_blank"
-                                   class="btn-action btn-action--primary">
+                                    target="_blank" class="btn-action btn-action--primary">
                                     Mapa
                                 </a>
-                            {% endif %}
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
-                </article>
-                {% endfor %}
-            </div>
+                    </article>
+                    {% endfor %}
+                </div>
 
-        {% else %}
-            <div class="missas-empty missas-empty--featured">
-                <div class="missas-empty__icon">⛪</div>
+                {% else %}
+                <div class="missas-empty missas-empty--featured">
+                    <div class="missas-empty__icon">⛪</div>
 
-                {% if not tem_igrejas %}
+                    {% if not tem_igrejas %}
                     <h3>Nenhuma igreja cadastrada ainda</h3>
                     <p>
                         A plataforma está pronta para receber os dados das igrejas, capelas e comunidades.
@@ -330,10 +334,11 @@
                         </a>
                     </div>
 
-                {% elif not tem_celebracoes %}
+                    {% elif not tem_celebracoes %}
                     <h3>Nenhuma missa cadastrada ainda</h3>
                     <p>
-                        As igrejas já começaram a ser organizadas, mas os horários das missas ainda não foram publicados.
+                        As igrejas já começaram a ser organizadas, mas os horários das missas ainda não foram
+                        publicados.
                         Você pode acompanhar a lista de igrejas ou enviar uma sugestão de atualização.
                     </p>
 
@@ -346,7 +351,7 @@
                         </a>
                     </div>
 
-                {% else %}
+                    {% else %}
                     <h3>Nenhuma missa para hoje ou amanhã</h3>
                     <p>
                         Não encontramos celebrações futuras neste período.
@@ -361,192 +366,195 @@
                             Ver Igrejas
                         </a>
                     </div>
+                    {% endif %}
+                </div>
                 {% endif %}
             </div>
-        {% endif %}
-    </div>
-</section>
+        </section>
 
-<!-- SOBRE SECTION -->
-<section id="sobre" class="about section-padding">
-    <div class="container about-wrapper">
-        <div class="about-content">
-            <span class="subtitle">Propósito & Devoção</span>
-
-            {% if not tem_igrejas %}
-                <h2>Um projeto em construção a serviço da fé</h2>
-                <p>
-                    O <strong>Missa em Teresina</strong> nasceu para facilitar o acesso dos fiéis
-                    às informações das igrejas, missas e celebrações da cidade.
-                </p>
-                <p>
-                    Neste momento, a plataforma está sendo preparada para receber dados confiáveis
-                    e organizados. A proposta é reunir, em um só lugar, informações que hoje muitas
-                    vezes ficam espalhadas em redes sociais, murais ou grupos de mensagens.
-                </p>
-            {% else %}
-                <h2>Nossa Missão</h2>
-                <p>
-                    O <strong>Missa em Teresina</strong> nasceu do desejo de facilitar o encontro
-                    entre o fiel e a Eucaristia. Em um mundo cada vez mais digital, usamos a tecnologia
-                    como ponte para o sagrado.
-                </p>
-                <p>
-                    Nossa plataforma centraliza informações de igrejas e celebrações, ajudando você
-                    a encontrar horários, endereços e comunidades com mais praticidade.
-                </p>
-            {% endif %}
-
-            <div class="about-quote">
-                <p>"Onde dois ou três estiverem reunidos em meu nome, eu estou ali, no meio deles."</p>
-            </div>
-        </div>
-
-        <div class="about-visual-grid">
-            <div class="stat-card">
-                <div class="stat-icon">⛪</div>
-
-                {% if tem_igrejas %}
-                    <span class="stat-number">{{ total_igrejas }}</span>
-                    <span class="stat-label">Igrejas Cadastradas</span>
-                {% else %}
-                    <span class="stat-number">Em breve</span>
-                    <span class="stat-label">Igrejas Cadastradas</span>
-                {% endif %}
-            </div>
-
-            <div class="stat-card featured">
-                <div class="stat-icon">✨</div>
-                <span class="stat-number">100%</span>
-                <span class="stat-label">Gratuito e Voluntário</span>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-icon">🕒</div>
-
-                {% if tem_celebracoes %}
-                    <span class="stat-number">{{ total_celebracoes }}</span>
-                    <span class="stat-label">Celebrações Cadastradas</span>
-                {% else %}
-                    <span class="stat-number">Em revisão</span>
-                    <span class="stat-label">Horários de Celebrações</span>
-                {% endif %}
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-icon">📍</div>
-                <span class="stat-label">Informações organizadas por localização</span>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section id="contato" class="hc-section section-padding">
-    <div class="container">
-        <div class="hc-wrapper">
-
-            <div class="hc-info-column">
-                <div class="hc-header">
-                    <span class="hc-subtitle">Canais de Apoio</span>
+        <!-- SOBRE SECTION -->
+        <section id="sobre" class="about section-padding">
+            <div class="container about-wrapper">
+                <div class="about-content">
+                    <span class="subtitle">Propósito & Devoção</span>
 
                     {% if not tem_igrejas %}
-                        <h2 class="hc-title">Ajude a construir essa base</h2>
-                        <p class="hc-description">
-                            Conhece uma igreja, capela ou comunidade que deve aparecer aqui?
-                            Envie as informações para nossa equipe.
-                        </p>
+                    <h2>Um projeto em construção a serviço da fé</h2>
+                    <p>
+                        O <strong>Missa em Teresina</strong> nasceu para facilitar o acesso dos fiéis
+                        às informações das igrejas, missas e celebrações da cidade.
+                    </p>
+                    <p>
+                        Neste momento, a plataforma está sendo preparada para receber dados confiáveis
+                        e organizados. A proposta é reunir, em um só lugar, informações que hoje muitas
+                        vezes ficam espalhadas em redes sociais, murais ou grupos de mensagens.
+                    </p>
                     {% else %}
-                        <h2 class="hc-title">Fale Conosco</h2>
-                        <p class="hc-description">
-                            Dúvidas, sugestões ou atualizações de horários?
-                            Estamos prontos para ouvir você.
-                        </p>
+                    <h2>Nossa Missão</h2>
+                    <p>
+                        O <strong>Missa em Teresina</strong> nasceu do desejo de facilitar o encontro
+                        entre o fiel e a Eucaristia. Em um mundo cada vez mais digital, usamos a tecnologia
+                        como ponte para o sagrado.
+                    </p>
+                    <p>
+                        Nossa plataforma centraliza informações de igrejas e celebrações, ajudando você
+                        a encontrar horários, endereços e comunidades com mais praticidade.
+                    </p>
                     {% endif %}
-                </div>
 
-                <div class="hc-info-list">
-                    <div class="hc-info-item">
-                        <span class="hc-icon">📧</span>
-                        <div class="hc-info-text">
-                            <strong>E-mail</strong>
-                            <p>contato@missaemteresina.com.br</p>
-                        </div>
-                    </div>
-
-                    <div class="hc-info-item">
-                        <span class="hc-icon">📱</span>
-                        <div class="hc-info-text">
-                            <strong>Redes Sociais</strong>
-                            <p>@missaemteresina</p>
-                        </div>
+                    <div class="about-quote">
+                        <p>"Onde dois ou três estiverem reunidos em meu nome, eu estou ali, no meio deles."</p>
                     </div>
                 </div>
 
-                <div class="hc-alert-box">
-                    {% if not tem_igrejas %}
-                        <p>
-                            <strong>Sugestão:</strong> informe nome da igreja, bairro, endereço,
-                            telefone e horários conhecidos.
-                        </p>
-                    {% else %}
-                        <p>
-                            <strong>Aviso:</strong> para atualizações de horários, favor informar
-                            o nome da paróquia e o bairro.
-                        </p>
-                    {% endif %}
-                </div>
-            </div>
+                <div class="about-visual-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">⛪</div>
 
-            <div class="hc-form-card">
-                <form action="{% url 'home' %}" method="POST" class="hc-form">
-                    {% csrf_token %}
-
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div class="form-message {{ message.tags }}">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-
-                    <div class="hc-form-group">
-                        <label for="hc-name">Nome Completo</label>
-                        <input type="text" id="hc-name" name="nome" placeholder="Ex: João Silva" required>
-                    </div>
-
-                    <div class="hc-form-row">
-                        <div class="hc-form-group">
-                            <label for="hc-email">E-mail</label>
-                            <input type="email" id="hc-email" name="email" placeholder="seu@email.com" required>
-                        </div>
-
-                        <div class="hc-form-group">
-                            <label for="hc-tel">Telefone</label>
-                            <input type="tel" id="hc-tel" name="telefone" placeholder="(86) 99999-9999">
-                        </div>
-                    </div>
-
-                    <div class="hc-form-group">
-                        <label for="hc-message">Mensagem</label>
-
-                        {% if not tem_igrejas %}
-                            <textarea id="hc-message" name="mensagem" rows="5" placeholder="Informe o nome da igreja, bairro, endereço e horários que você conhece." required></textarea>
+                        {% if tem_igrejas %}
+                        <span class="stat-number">{{ total_igrejas }}</span>
+                        <span class="stat-label">Igrejas Cadastradas</span>
                         {% else %}
-                            <textarea id="hc-message" name="mensagem" rows="5" placeholder="Como podemos ajudar?" required></textarea>
+                        <span class="stat-number">Em breve</span>
+                        <span class="stat-label">Igrejas Cadastradas</span>
                         {% endif %}
                     </div>
 
-                    <button type="submit" class="hc-btn-submit">
-                        Enviar Mensagem
-                    </button>
-                </form>
+                    <div class="stat-card featured">
+                        <div class="stat-icon">✨</div>
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Gratuito e Voluntário</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">🕒</div>
+
+                        {% if tem_celebracoes %}
+                        <span class="stat-number">{{ total_celebracoes }}</span>
+                        <span class="stat-label">Celebrações Cadastradas</span>
+                        {% else %}
+                        <span class="stat-number">Em revisão</span>
+                        <span class="stat-label">Horários de Celebrações</span>
+                        {% endif %}
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">📍</div>
+                        <span class="stat-label">Informações organizadas por localização</span>
+                    </div>
+                </div>
             </div>
+        </section>
 
-        </div>
-    </div>
-</section>
+        <section id="contato" class="hc-section section-padding">
+            <div class="container">
+                <div class="hc-wrapper">
 
-{% endblock %}
+                    <div class="hc-info-column">
+                        <div class="hc-header">
+                            <span class="hc-subtitle">Canais de Apoio</span>
+
+                            {% if not tem_igrejas %}
+                            <h2 class="hc-title">Ajude a construir essa base</h2>
+                            <p class="hc-description">
+                                Conhece uma igreja, capela ou comunidade que deve aparecer aqui?
+                                Envie as informações para nossa equipe.
+                            </p>
+                            {% else %}
+                            <h2 class="hc-title">Fale Conosco</h2>
+                            <p class="hc-description">
+                                Dúvidas, sugestões ou atualizações de horários?
+                                Estamos prontos para ouvir você.
+                            </p>
+                            {% endif %}
+                        </div>
+
+                        <div class="hc-info-list">
+                            <div class="hc-info-item">
+                                <span class="hc-icon">📧</span>
+                                <div class="hc-info-text">
+                                    <strong>E-mail</strong>
+                                    <p>contato@missaemteresina.com.br</p>
+                                </div>
+                            </div>
+
+                            <div class="hc-info-item">
+                                <span class="hc-icon">📱</span>
+                                <div class="hc-info-text">
+                                    <strong>Redes Sociais</strong>
+                                    <p>@missaemteresina</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="hc-alert-box">
+                            {% if not tem_igrejas %}
+                            <p>
+                                <strong>Sugestão:</strong> informe nome da igreja, bairro, endereço,
+                                telefone e horários conhecidos.
+                            </p>
+                            {% else %}
+                            <p>
+                                <strong>Aviso:</strong> para atualizações de horários, favor informar
+                                o nome da paróquia e o bairro.
+                            </p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="hc-form-card">
+                        <form action="{% url 'home' %}" method="POST" class="hc-form">
+                            {% csrf_token %}
+
+                            {% if messages %}
+                            {% for message in messages %}
+                            <div class="form-message {{ message.tags }}">
+                                {{ message }}
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+
+                            <div class="hc-form-group">
+                                <label for="hc-name">Nome Completo</label>
+                                <input type="text" id="hc-name" name="nome" placeholder="Ex: João Silva" required>
+                            </div>
+
+                            <div class="hc-form-row">
+                                <div class="hc-form-group">
+                                    <label for="hc-email">E-mail</label>
+                                    <input type="email" id="hc-email" name="email" placeholder="seu@email.com" required>
+                                </div>
+
+                                <div class="hc-form-group">
+                                    <label for="hc-tel">Telefone</label>
+                                    <input type="tel" id="hc-tel" name="telefone" placeholder="(86) 99999-9999">
+                                </div>
+                            </div>
+
+                            <div class="hc-form-group">
+                                <label for="hc-message">Mensagem</label>
+
+                                {% if not tem_igrejas %}
+                                <textarea id="hc-message" name="mensagem" rows="5"
+                                    placeholder="Informe o nome da igreja, bairro, endereço e horários que você conhece."
+                                    required></textarea>
+                                {% else %}
+                                <textarea id="hc-message" name="mensagem" rows="5" placeholder="Como podemos ajudar?"
+                                    required></textarea>
+                                {% endif %}
+                            </div>
+
+                            <button type="submit" class="hc-btn-submit">
+                                Enviar Mensagem
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        {% endblock %}
     </main>
 
     <footer class="main-footer">
@@ -567,7 +575,28 @@
             <div class="footer-social">
                 <h4 style="color: white;">Acompanhe</h4>
                 <p>Siga-nos para atualizações.</p>
+
+                <div class="footer-social-buttons">
+                    <a href="https://www.instagram.com/missaemteresina/" target="_blank" rel="noopener noreferrer"
+                        class="footer-social-btn instagram" aria-label="Instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+
+                    <a href="https://twitter.com/missaemteresina" target="_blank" rel="noopener noreferrer"
+                        class="footer-social-btn twitter" aria-label="Twitter">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
+                            <path
+                                d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z" />
+                        </svg>
+                    </a>
+                </div>
             </div>
+        </div>
         </div>
         <div class="footer-bottom">
             <p>&copy; <span id="ano-atual"></span> Missa em Teresina. Todos os direitos reservados.</p>

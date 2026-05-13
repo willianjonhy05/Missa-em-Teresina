@@ -836,3 +836,53 @@ a {
     gap: 14px;
     flex-wrap: wrap;
 }
+
+
+
+.footer-social-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.footer-social-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: var(--transition);
+}
+
+.footer-social-btn svg {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+.footer-social-btn:hover {
+    transform: translateY(-2px);
+}
+
+.footer-social-btn.instagran:hover {
+    background: #e1306c;
+    border-color: #e1306c;
+    color: var(--white);
+}
+
+.footer-social-btn.twitter:hover {
+    background: #000000;
+    border-color: #000000;
+    color: var(--white);
+}
+
+@media (max-width: 768px) {
+    .footer-social-buttons {
+        justify-content: center;
+    }
+}

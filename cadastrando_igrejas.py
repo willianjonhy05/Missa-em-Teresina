@@ -39,7 +39,7 @@ def limpar_whatsapp(valor):
         return str(valor).strip()
 
 
-file_path = "./igrejas.xlsx"
+file_path = "./igrejas_zona_norte.xlsx"
 
 igrejas_data = pd.read_excel(file_path)
 
